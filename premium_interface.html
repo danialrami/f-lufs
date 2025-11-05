@@ -14,7 +14,7 @@
        margin: 0;
        background: linear-gradient(135deg, #0f1419 0%, #1a0f2e 100%);
        color: #fff;
-       height: 100vh;
+       min-height: 100vh;
        display: flex;
        flex-direction: column;
      }
@@ -22,12 +22,11 @@
      .container {
        display: flex;
        flex-direction: column;
-       height: 100%;
+       flex: 1;
        width: 100%;
        max-width: 1600px;
        margin: 0 auto;
        padding: 0;
-       flex: 1;
      }
     
      .header {
@@ -786,6 +785,8 @@
         flex-shrink: 0;
         z-index: 101;
         backdrop-filter: blur(10px);
+        width: 100%;
+        box-sizing: border-box;
       }
       
       .player-footer-info {
@@ -984,33 +985,33 @@
                  <div class="featured-meta-value" id="featuredChannels">—</div>
         </div>
       </div>
-      
-      <!-- Player Footer (Spotify/Splice style) -->
-      <div class="player-footer" id="playerFooter">
-        <div class="player-footer-info">
-          <div class="player-footer-artwork" id="footerArtwork">🎵</div>
-          <div class="player-footer-details">
-            <div class="player-footer-title" id="footerTitle">— No sound selected —</div>
-            <div class="player-footer-artist" id="footerArtist">Select a sound to play</div>
-          </div>
-        </div>
-        
-        <div class="player-footer-progress">
-          <div class="player-footer-bar" id="footerProgressBar">
-            <div class="player-footer-fill" id="footerProgressFill"></div>
-          </div>
-          <div class="player-footer-times">
-            <span id="footerCurrentTime">0:00</span>
-            <span id="footerTotalTime">0:00</span>
-          </div>
-        </div>
-        
-        <div class="player-footer-controls">
-          <button onclick="playCurrent()" id="footerPlayBtn">▶️</button>
-          <button onclick="pauseCurrent()" id="footerPauseBtn" style="display:none;">⏸️</button>
-          <button onclick="stopCurrent()">⏹️</button>
-        </div>
-      </div>
+   </div>
+   
+   <!-- Player Footer (Spotify/Splice style) - OUTSIDE CONTAINER -->
+   <div class="player-footer" id="playerFooter">
+     <div class="player-footer-info">
+       <div class="player-footer-artwork" id="footerArtwork">🎵</div>
+       <div class="player-footer-details">
+         <div class="player-footer-title" id="footerTitle">— No sound selected —</div>
+         <div class="player-footer-artist" id="footerArtist">Select a sound to play</div>
+       </div>
+     </div>
+     
+     <div class="player-footer-progress">
+       <div class="player-footer-bar" id="footerProgressBar">
+         <div class="player-footer-fill" id="footerProgressFill"></div>
+       </div>
+       <div class="player-footer-times">
+         <span id="footerCurrentTime">0:00</span>
+         <span id="footerTotalTime">0:00</span>
+       </div>
+     </div>
+     
+     <div class="player-footer-controls">
+       <button onclick="playCurrent()" id="footerPlayBtn">▶️</button>
+       <button onclick="pauseCurrent()" id="footerPauseBtn" style="display:none;">⏸️</button>
+       <button onclick="stopCurrent()">⏹️</button>
+     </div>
    </div>
              <div>
                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
@@ -1579,18 +1580,21 @@
        state.animationId = requestAnimationFrame(animate);
      }
 
-    // Progress bar click handler
-    document.getElementById('progressBar').addEventListener('click', function(e) {
-      if (!state.isPlaying || !state.currentSound) return;
-      
-      var rect = this.getBoundingClientRect();
-      var percent = (e.clientX - rect.left) / rect.width;
-      var newTime = percent * state.currentSound.duration;
-      
-      stopCurrent();
-      state.playbackStartTime = state.audioContext.currentTime - newTime;
-      playCurrent();
-    });
+    // Progress bar click handler (if element exists)
+    var progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+      progressBar.addEventListener('click', function(e) {
+        if (!state.isPlaying || !state.currentSound) return;
+        
+        var rect = this.getBoundingClientRect();
+        var percent = (e.clientX - rect.left) / rect.width;
+        var newTime = percent * state.currentSound.duration;
+        
+        stopCurrent();
+        state.playbackStartTime = state.audioContext.currentTime - newTime;
+        playCurrent();
+      });
+    }
     
     // Footer progress bar click handler
     document.getElementById('footerProgressBar').addEventListener('click', function(e) {
