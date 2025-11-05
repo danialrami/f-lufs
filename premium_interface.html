@@ -295,11 +295,12 @@
        object-fit: cover;
      }
      
-     .featured-content {
-       display: flex;
-       flex-direction: column;
-       justify-content: space-between;
-     }
+      .featured-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 15px;
+      }
      
      .featured-title {
        font-size: 20px;
@@ -343,11 +344,20 @@
        margin-bottom: 15px;
      }
      
-     .featured-tags {
-       display: flex;
-       flex-wrap: wrap;
-       gap: 6px;
-     }
+      .featured-description-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+        justify-content: space-between;
+      }
+
+      .featured-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+      }
      
      .tag {
        background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(244, 114, 182, 0.1));
@@ -1046,20 +1056,23 @@
           transform: scale(1.1);
         }
 
-        .search-controls-panel button {
-         padding: 8px 16px;
-         font-size: 13px;
-         background: linear-gradient(135deg, #a78bfa, #f472b6);
-         border: none;
-         border-radius: 4px;
-         color: #fff;
-         font-weight: 600;
-         cursor: pointer;
-         transition: all 0.2s ease;
-         box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
-         align-self: flex-end;
-         height: 32px;
-       }
+         .search-controls-panel button {
+          padding: 8px 16px;
+          font-size: 13px;
+          background: linear-gradient(135deg, #a78bfa, #f472b6);
+          border: none;
+          border-radius: 4px;
+          color: #fff;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
+          align-self: flex-end;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
        .search-controls-panel button:hover {
          box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
@@ -1151,14 +1164,14 @@
                  <div class="featured-meta-label">Channels</div>
                  <div class="featured-meta-value" id="featuredChannels">—</div>
         </div>
-      </div>
-    </div>
-              <div>
-               <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
-               <div class="featured-tags" id="featuredTags"></div>
-             </div>
-           </div>
-         </div>
+              </div>
+            </div>
+               <div class="featured-description-wrapper">
+                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
+                <div class="featured-tags" id="featuredTags"></div>
+              </div>
+            </div>
+          </div>
 
          <!-- Now Playing & Controls - MOVED TO FOOTER -->
          <!-- <div class="panel">
