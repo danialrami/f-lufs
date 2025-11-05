@@ -642,37 +642,53 @@
        align-self: auto;
      }
     
-    /* Progress bar */
-    .progress-container {
-      margin: 15px 0;
-    }
-    
-    .progress-bar {
-      width: 100%;
-      height: 6px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 3px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    
+     /* Progress bar */
+     .progress-container {
+       margin: 8px 0;
+     }
+     
+     .progress-bar {
+       width: 100%;
+       height: 4px;
+       background: rgba(255,255,255,0.1);
+       border-radius: 2px;
+       cursor: pointer;
+       position: relative;
+       overflow: hidden;
+     }
+     
      .progress-fill {
        height: 100%;
        background: linear-gradient(90deg, #a78bfa, #f472b6);
-       border-radius: 3px;
+       border-radius: 2px;
        width: 0%;
        transition: width 0.1s linear;
        box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
      }
-    
-    .time-display {
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 5px;
-    }
+     
+     .time-display {
+       display: flex;
+       justify-content: space-between;
+       font-size: 10px;
+       color: rgba(255,255,255,0.5);
+       margin-top: 2px;
+     }
+     
+     .now-playing-compact {
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       font-size: 12px;
+       color: rgba(255,255,255,0.8);
+     }
+     
+     .now-playing-compact .title {
+       flex: 1;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       font-weight: 500;
+     }
     
     /* Stats */
     .stats-grid {
@@ -849,14 +865,11 @@
 
          <!-- Now Playing & Controls -->
          <div class="panel">
-           <h2>🎧 Now Playing</h2>
-           
-           <div id="nowPlayingInfo" class="empty-state">Select a sound to play</div>
-           
-           <div class="player-controls">
-             <button onclick="playCurrent()" id="playBtn">▶️ Play</button>
-             <button onclick="pauseCurrent()" id="pauseBtn" style="display:none;">⏸️ Pause</button>
-             <button onclick="stopCurrent()">⏹️ Stop</button>
+           <div class="now-playing-compact">
+             <span class="title" id="nowPlayingCompact">— No sound selected —</span>
+             <button onclick="playCurrent()" id="playBtnMini" style="padding: 4px 8px; font-size: 11px;">▶️</button>
+             <button onclick="pauseCurrent()" id="pauseBtnMini" style="padding: 4px 8px; font-size: 11px; display: none;">⏸️</button>
+             <button onclick="stopCurrent()" style="padding: 4px 8px; font-size: 11px;">⏹️</button>
            </div>
 
            <div class="progress-container">
@@ -1181,11 +1194,8 @@
        }
        document.getElementById('featuredTags').innerHTML = tagsHtml;
        
-       // Update now playing
-       var html = '<strong>' + state.currentSound.name + '</strong><br/>' +
-         'Duration: ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
-         'By: ' + state.currentSound.username;
-       document.getElementById('nowPlayingInfo').innerHTML = html;
+       // Update compact now playing
+       document.getElementById('nowPlayingCompact').textContent = state.currentSound.name;
        
        // Update compact player info
        document.getElementById('compactPlayerInfo').textContent = state.currentSound.name;
@@ -1235,8 +1245,8 @@
        state.currentSource = src;
        state.isPlaying = true;
        
-       document.getElementById('playBtn').style.display = 'none';
-       document.getElementById('pauseBtn').style.display = 'block';
+       document.getElementById('playBtnMini').style.display = 'none';
+       document.getElementById('pauseBtnMini').style.display = 'block';
        document.getElementById('compactPlayBtn').style.display = 'none';
        document.getElementById('compactPauseBtn').style.display = 'block';
        document.getElementById('compactPlayer').style.display = 'flex';
@@ -1249,8 +1259,8 @@
        if (state.audioContext.state === 'running') {
          state.audioContext.suspend();
          state.isPlaying = false;
-         document.getElementById('pauseBtn').style.display = 'none';
-         document.getElementById('playBtn').style.display = 'block';
+         document.getElementById('pauseBtnMini').style.display = 'none';
+         document.getElementById('playBtnMini').style.display = 'block';
          document.getElementById('compactPauseBtn').style.display = 'none';
          document.getElementById('compactPlayBtn').style.display = 'block';
          addStatus('⏸️ Paused', 'success');
@@ -1264,13 +1274,14 @@
          } catch(e) {}
        }
        state.isPlaying = false;
-       document.getElementById('playBtn').style.display = 'block';
-       document.getElementById('pauseBtn').style.display = 'none';
+       document.getElementById('playBtnMini').style.display = 'block';
+       document.getElementById('pauseBtnMini').style.display = 'none';
        document.getElementById('compactPlayer').style.display = 'none';
        document.getElementById('compactPlayBtn').style.display = 'block';
        document.getElementById('compactPauseBtn').style.display = 'none';
        document.getElementById('progressFill').style.width = '0%';
        document.getElementById('currentTime').textContent = '0:00';
+       document.getElementById('nowPlayingCompact').textContent = '— No sound selected —';
        addStatus('⏹️ Stopped', 'success');
      }
 
