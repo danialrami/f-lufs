@@ -894,51 +894,122 @@
         box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
       }
       
-      .player-footer-controls button:hover {
-        box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
-      }
-   </style>
+       .player-footer-controls button:hover {
+         box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
+       }
+
+       /* Search Controls Panel */
+       .search-controls-panel {
+         background: rgba(10, 14, 27, 0.95);
+         border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+         padding: 12px 20px;
+         display: flex;
+         align-items: flex-end;
+         justify-content: center;
+         gap: 12px;
+         flex-shrink: 0;
+         z-index: 99;
+         backdrop-filter: blur(10px);
+         width: 100vw;
+         box-sizing: border-box;
+         position: relative;
+         left: 50%;
+         right: 50%;
+         margin-left: -50vw;
+         margin-right: -50vw;
+         flex-wrap: wrap;
+       }
+
+       .search-controls-panel .control-group,
+       .search-controls-panel .range-group {
+         display: flex;
+         flex-direction: column;
+         min-width: fit-content;
+       }
+
+       .search-controls-panel .control-group label,
+       .search-controls-panel .range-group label {
+         margin-bottom: 4px;
+         font-size: 12px;
+         font-weight: 500;
+         color: rgba(255, 255, 255, 0.8);
+       }
+
+       .search-controls-panel .control-group input,
+       .search-controls-panel .control-group select,
+       .search-controls-panel .range-group input {
+         padding: 6px 8px;
+         font-size: 12px;
+         background: rgba(255, 255, 255, 0.1);
+         border: 1px solid rgba(167, 139, 250, 0.3);
+         border-radius: 4px;
+         color: #fff;
+         transition: all 0.2s ease;
+       }
+
+       .search-controls-panel .control-group input:focus,
+       .search-controls-panel .control-group select:focus,
+       .search-controls-panel .range-group input:focus {
+         outline: none;
+         background: rgba(255, 255, 255, 0.15);
+         border-color: rgba(167, 139, 250, 0.6);
+       }
+
+       .search-controls-panel .control-group select {
+         cursor: pointer;
+       }
+
+       .search-controls-panel .range-inputs {
+         display: flex;
+         gap: 6px;
+         align-items: center;
+       }
+
+       .search-controls-panel .range-inputs input {
+         width: 50px;
+       }
+
+       .search-controls-panel .range-inputs span {
+         color: rgba(255, 255, 255, 0.5);
+       }
+
+       .search-controls-panel .range-slider {
+         width: 100px;
+         cursor: pointer;
+       }
+
+       .search-controls-panel .range-display {
+         font-size: 11px;
+         color: rgba(255, 255, 255, 0.6);
+         text-align: center;
+       }
+
+       .search-controls-panel button {
+         padding: 6px 14px;
+         font-size: 12px;
+         background: linear-gradient(135deg, #a78bfa, #f472b6);
+         border: none;
+         border-radius: 4px;
+         color: #fff;
+         font-weight: 500;
+         cursor: pointer;
+         transition: all 0.2s ease;
+         box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
+         align-self: flex-end;
+       }
+
+       .search-controls-panel button:hover {
+         box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
+         transform: translateY(-1px);
+       }
+
+    </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-       <h1>🎵 F.LUFS</h1>
-      <p>Audio Aggregator</p>
-       <div class="controls">
-         <div class="control-group">
-           <label>Search Terms</label>
-           <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
-         </div>
-         <div class="range-group">
-           <label>Duration Range (seconds)</label>
-           <div class="range-inputs">
-             <input type="number" id="minDurationInput" min="0.1" max="60" value="0.5" step="0.1" style="width: 50px;">
-             <span style="color: rgba(255,255,255,0.5);">-</span>
-             <input type="number" id="maxDurationInput" min="0.1" max="60" value="10" step="0.1" style="width: 50px;">
-           </div>
-           <input type="range" id="minDurationSlider" class="range-slider" min="0.1" max="60" value="0.5" step="0.1">
-           <input type="range" id="maxDurationSlider" class="range-slider" min="0.1" max="60" value="10" step="0.1">
-           <div class="range-display" id="rangeDisplay">0.5s - 10s</div>
-         </div>
-         <div class="control-group">
-           <label>Visualizer</label>
-           <select id="visualizerMode">
-             <option value="waveform">Waveform</option>
-             <option value="frequency">Frequency</option>
-             <option value="both">Both</option>
-           </select>
-         </div>
-         <button onclick="performSearch()">Search</button>
-       </div>
-
-       <!-- Compact Player (appears when playing) -->
-       <div class="compact-player" id="compactPlayer" style="display: none;">
-         <div class="compact-player-info" id="compactPlayerInfo">—</div>
-         <button onclick="playCurrent()" id="compactPlayBtn">▶️</button>
-         <button onclick="pauseCurrent()" id="compactPauseBtn" style="display:none;">⏸️</button>
-         <button onclick="stopCurrent()">⏹️</button>
-       </div>
-    </div>
+     <div class="header">
+        <h1>🎵 F.LUFS</h1>
+     </div>
 
      <div class="main-layout">
         <!-- Visualizations Sidebar (Left) - DISABLED -->
@@ -956,9 +1027,37 @@
               <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
             </div>
           </div>
-        </div> -->
+         </div> -->
 
-       <div class="main-content">
+        <!-- Search Controls Panel -->
+        <div class="search-controls-panel">
+          <div class="control-group">
+            <label>Search Terms</label>
+            <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
+          </div>
+          <div class="range-group">
+            <label>Duration Range (seconds)</label>
+            <div class="range-inputs">
+              <input type="number" id="minDurationInput" min="0.1" max="60" value="0.5" step="0.1">
+              <span>-</span>
+              <input type="number" id="maxDurationInput" min="0.1" max="60" value="10" step="0.1">
+            </div>
+            <input type="range" id="minDurationSlider" class="range-slider" min="0.1" max="60" value="0.5" step="0.1">
+            <input type="range" id="maxDurationSlider" class="range-slider" min="0.1" max="60" value="10" step="0.1">
+            <div class="range-display" id="rangeDisplay">0.5s - 10s</div>
+          </div>
+          <div class="control-group">
+            <label>Visualizer</label>
+            <select id="visualizerMode">
+              <option value="waveform">Waveform</option>
+              <option value="frequency">Frequency</option>
+              <option value="both">Both</option>
+            </select>
+          </div>
+          <button onclick="performSearch()">🔍 Search</button>
+        </div>
+
+        <div class="main-content">
          <!-- Featured Sound Panel -->
          <div class="featured-panel" id="featuredPanel">
            <div class="featured-artwork" id="featuredArtwork">🎵</div>
