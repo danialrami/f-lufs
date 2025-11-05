@@ -1413,24 +1413,41 @@
       state.analyser.connect(state.analyserFreq);
       
        src.onended = function() {
-         state.isPlaying = false;
-         document.getElementById('playBtn').style.display = 'block';
-         document.getElementById('pauseBtn').style.display = 'none';
-         document.getElementById('compactPlayer').style.display = 'none';
-         document.getElementById('footerPlayBtn').style.display = 'block';
-         document.getElementById('footerPauseBtn').style.display = 'none';
-       };
+          state.isPlaying = false;
+          
+          // Update button states (with null checks for commented-out elements)
+          var playBtn = document.getElementById('playBtn');
+          var pauseBtn = document.getElementById('pauseBtn');
+          var compactPlayer = document.getElementById('compactPlayer');
+          var footerPlayBtn = document.getElementById('footerPlayBtn');
+          var footerPauseBtn = document.getElementById('footerPauseBtn');
+          
+          if (playBtn) playBtn.style.display = 'block';
+          if (pauseBtn) pauseBtn.style.display = 'none';
+          if (compactPlayer) compactPlayer.style.display = 'none';
+          if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+          if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+        };
       
        src.start(0);
        state.currentSource = src;
        state.isPlaying = true;
        
-       document.getElementById('playBtnMini').style.display = 'none';
-       document.getElementById('pauseBtnMini').style.display = 'block';
-       document.getElementById('compactPlayBtn').style.display = 'none';
-       document.getElementById('compactPauseBtn').style.display = 'block';
-       document.getElementById('compactPlayer').style.display = 'flex';
-       document.getElementById('totalTime').textContent = formatTime(state.currentSound.duration);
+       // Update button states (with null checks for commented-out elements)
+       var playBtnMini = document.getElementById('playBtnMini');
+       var pauseBtnMini = document.getElementById('pauseBtnMini');
+       var compactPlayBtn = document.getElementById('compactPlayBtn');
+       var compactPauseBtn = document.getElementById('compactPauseBtn');
+       var compactPlayer = document.getElementById('compactPlayer');
+       var totalTime = document.getElementById('totalTime');
+       
+       if (playBtnMini) playBtnMini.style.display = 'none';
+       if (pauseBtnMini) pauseBtnMini.style.display = 'block';
+       if (compactPlayBtn) compactPlayBtn.style.display = 'none';
+       if (compactPauseBtn) compactPauseBtn.style.display = 'block';
+       if (compactPlayer) compactPlayer.style.display = 'flex';
+       if (totalTime) totalTime.textContent = formatTime(state.currentSound.duration);
+       
        document.getElementById('footerTotalTime').textContent = formatTime(state.currentSound.duration);
        document.getElementById('footerPlayBtn').style.display = 'none';
        document.getElementById('footerPauseBtn').style.display = 'block';
@@ -1438,19 +1455,29 @@
        addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
     }
 
-     function pauseCurrent() {
-       if (state.audioContext.state === 'running') {
-         state.audioContext.suspend();
-         state.isPlaying = false;
-         document.getElementById('pauseBtnMini').style.display = 'none';
-         document.getElementById('playBtnMini').style.display = 'block';
-         document.getElementById('compactPauseBtn').style.display = 'none';
-         document.getElementById('compactPlayBtn').style.display = 'block';
-         document.getElementById('footerPauseBtn').style.display = 'none';
-         document.getElementById('footerPlayBtn').style.display = 'block';
-         addStatus('⏸️ Paused', 'success');
-       }
-     }
+      function pauseCurrent() {
+        if (state.audioContext.state === 'running') {
+          state.audioContext.suspend();
+          state.isPlaying = false;
+          
+          // Update button states (with null checks for commented-out elements)
+          var pauseBtnMini = document.getElementById('pauseBtnMini');
+          var playBtnMini = document.getElementById('playBtnMini');
+          var compactPauseBtn = document.getElementById('compactPauseBtn');
+          var compactPlayBtn = document.getElementById('compactPlayBtn');
+          var footerPauseBtn = document.getElementById('footerPauseBtn');
+          var footerPlayBtn = document.getElementById('footerPlayBtn');
+          
+          if (pauseBtnMini) pauseBtnMini.style.display = 'none';
+          if (playBtnMini) playBtnMini.style.display = 'block';
+          if (compactPauseBtn) compactPauseBtn.style.display = 'none';
+          if (compactPlayBtn) compactPlayBtn.style.display = 'block';
+          if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+          if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+          
+          addStatus('⏸️ Paused', 'success');
+        }
+      }
 
      function stopCurrent() {
        if (state.currentSource) {
@@ -1459,14 +1486,27 @@
          } catch(e) {}
        }
        state.isPlaying = false;
-       document.getElementById('playBtnMini').style.display = 'block';
-       document.getElementById('pauseBtnMini').style.display = 'none';
-       document.getElementById('compactPlayer').style.display = 'none';
-       document.getElementById('compactPlayBtn').style.display = 'block';
-       document.getElementById('compactPauseBtn').style.display = 'none';
-       document.getElementById('progressFill').style.width = '0%';
-       document.getElementById('currentTime').textContent = '0:00';
-       document.getElementById('nowPlayingCompact').textContent = '— No sound selected —';
+       
+       // Update button states (with null checks for commented-out elements)
+       var playBtnMini = document.getElementById('playBtnMini');
+       var pauseBtnMini = document.getElementById('pauseBtnMini');
+       var compactPlayer = document.getElementById('compactPlayer');
+       var compactPlayBtn = document.getElementById('compactPlayBtn');
+       var compactPauseBtn = document.getElementById('compactPauseBtn');
+       var progressFill = document.getElementById('progressFill');
+       var currentTime = document.getElementById('currentTime');
+       var nowPlayingCompact = document.getElementById('nowPlayingCompact');
+       
+       if (playBtnMini) playBtnMini.style.display = 'block';
+       if (pauseBtnMini) pauseBtnMini.style.display = 'none';
+       if (compactPlayer) compactPlayer.style.display = 'none';
+       if (compactPlayBtn) compactPlayBtn.style.display = 'block';
+       if (compactPauseBtn) compactPauseBtn.style.display = 'none';
+       if (progressFill) progressFill.style.width = '0%';
+       if (currentTime) currentTime.textContent = '0:00';
+       if (nowPlayingCompact) nowPlayingCompact.textContent = '— No sound selected —';
+       
+       // Update footer
        document.getElementById('footerPlayBtn').style.display = 'block';
        document.getElementById('footerPauseBtn').style.display = 'none';
        document.getElementById('footerProgressFill').style.width = '0%';
@@ -1554,18 +1594,24 @@
       }
     }
 
-     function updatePlayback() {
-       if (!state.isPlaying || !state.currentSound) return;
+      function updatePlayback() {
+        if (!state.isPlaying || !state.currentSound) return;
 
-       var elapsed = state.audioContext.currentTime - state.playbackStartTime;
-       var duration = state.currentSound.duration;
-       var progress = (elapsed / duration) * 100;
+        var elapsed = state.audioContext.currentTime - state.playbackStartTime;
+        var duration = state.currentSound.duration;
+        var progress = (elapsed / duration) * 100;
 
-       document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
-       document.getElementById('currentTime').textContent = formatTime(elapsed);
-       document.getElementById('footerProgressFill').style.width = Math.min(progress, 100) + '%';
-       document.getElementById('footerCurrentTime').textContent = formatTime(elapsed);
-     }
+        // Update progress fill (with null checks for commented-out elements)
+        var progressFill = document.getElementById('progressFill');
+        var currentTime = document.getElementById('currentTime');
+        var footerProgressFill = document.getElementById('footerProgressFill');
+        var footerCurrentTime = document.getElementById('footerCurrentTime');
+        
+        if (progressFill) progressFill.style.width = Math.min(progress, 100) + '%';
+        if (currentTime) currentTime.textContent = formatTime(elapsed);
+        if (footerProgressFill) footerProgressFill.style.width = Math.min(progress, 100) + '%';
+        if (footerCurrentTime) footerCurrentTime.textContent = formatTime(elapsed);
+      }
 
      function animate() {
        if (state.isPlaying) {

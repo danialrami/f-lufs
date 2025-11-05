@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "dotenv": "^17.2.3",
     "waves-loaders": "^0.1.2",
     "xmlhttprequest": "1.8.0"
   },

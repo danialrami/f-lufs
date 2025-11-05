@@ -3,38 +3,152 @@
 <head>
   <title>simple-freesound tests</title>
   <script type="text/javascript" src="simple-freesound.umd.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .loading {
+      background-color: #e3f2fd;
+      color: #1976d2;
+    }
+    .success {
+      background-color: #e8f5e9;
+      color: #388e3c;
+    }
+    .error {
+      background-color: #ffebee;
+      color: #d32f2f;
+    }
+    .sound-info {
+      background-color: #f9f9f9;
+      padding: 10px;
+      margin: 10px 0;
+      border-left: 4px solid #1976d2;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>🎵 Freesound Browser</h1>
+    <div id="status" class="status loading">Initializing...</div>
+    <div id="results"></div>
+    <button onclick="location.reload()">Reset</button>
+  </div>
+
   <script type="text/javascript">
-    var audioContext = new window.AudioContext();
-    var apiKey = 'your_api_key_here';
-    var sf = new simpleFreesound.SimpleFreesound(apiKey);
+    function updateStatus(message, type) {
+      var statusDiv = document.getElementById('status');
+      statusDiv.textContent = message;
+      statusDiv.className = 'status ' + (type || 'loading');
+      console.log('[' + type + '] ' + message);
+    }
 
-    sf.query({
-      search: [ 'drum', 'snare' ],
-      duration: [ 0.01, 0.2 ]
-    })
-    .then(function(ids) { return sf.download(); })
-    .then(function(buffers) {
-      var ids = Object.keys(sf.currentSoundsInfo);
-      // console.log(ids);
-      // var firstSoundInfo = sf.currentSoundsInfo[ids[ids.length - 1]];
-      // console.log(firstSoundInfo);
+    function addResult(html) {
+      var resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML += html;
+    }
 
-      // We can access the buffers in a variety of ways :
-      var index = 0;//ids.length - 1;
-      // var b = buffers[0];
-      // var b = sf.getBuffers();
-      // var b = firstSoundInfo[0];
-      var b = sf.currentSoundsInfo[ids[index]].buffer;
-      // console.log(b);
+    try {
+      updateStatus('🔄 Creating audio context...', 'loading');
+      var audioContext = new window.AudioContext();
+      
+      var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
+      // Enable storeSoundsInfo to cache sound data
+      var sf = new simpleFreesound.SimpleFreesound(apiKey, true);
 
-      var src = audioContext.createBufferSource();
-      src.buffer = b;
-      src.loop = 0;
-      src.connect(audioContext.destination);
-      src.start(0);
-    });
+      updateStatus('🔍 Searching for sounds...', 'loading');
+
+      sf.query({
+        search: [ 'drum' ],
+        duration: [ 0.5, 5 ]
+      })
+      .then(function(ids) {
+        updateStatus('⬇️ Downloading ' + Object.keys(sf.currentSoundsInfo).length + ' sounds...', 'loading');
+        return sf.download();
+      })
+      .then(function(buffers) {
+        var ids = Object.keys(sf.currentSoundsInfo);
+        
+        if (ids.length === 0) {
+          updateStatus('❌ No sounds found', 'error');
+          return;
+        }
+
+        updateStatus('✅ Found and downloaded ' + ids.length + ' sounds!', 'success');
+
+        // Display sound info
+        var soundsHtml = '<h3>Sounds Found:</h3>';
+        ids.slice(0, 5).forEach(function(id, idx) {
+          var sound = sf.currentSoundsInfo[id];
+          soundsHtml += '<div class="sound-info">' +
+            '<strong>' + (idx + 1) + '. ' + sound.name + '</strong><br/>' +
+            'ID: ' + id + ' | Duration: ' + sound.duration.toFixed(2) + 's | By: ' + sound.username +
+            '</div>';
+        });
+        addResult(soundsHtml);
+
+        // Play first sound
+        var index = 0;
+        var b = sf.currentSoundsInfo[ids[index]].buffer;
+        
+        addResult('<p><button onclick="playSound()">▶️ Play First Sound</button></p>');
+        window.currentBuffer = b;
+        window.currentAudioContext = audioContext;
+
+        console.log('Ready to play! Click the play button or check console.');
+      })
+      .catch(function(error) {
+        updateStatus('❌ Error: ' + error.message, 'error');
+        console.error('Full error:', error);
+      });
+
+      window.playSound = function() {
+        if (window.currentBuffer && window.currentAudioContext) {
+          var src = window.currentAudioContext.createBufferSource();
+          src.buffer = window.currentBuffer;
+          src.loop = 0;
+          src.connect(window.currentAudioContext.destination);
+          src.start(0);
+          console.log('Playing sound...');
+        }
+      };
+
+    } catch (error) {
+      updateStatus('❌ Fatal error: ' + error.message, 'error');
+      console.error('Full error:', error);
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Freesound Browser - Enhanced</title>
+  <script type="text/javascript" src="simple-freesound.umd.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      margin: 0;
+      color: #333;
+    }
+    
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    label {
+      font-size: 12px;
+      font-weight: bold;
+      color: #666;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    
+    input, select {
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    button {
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      align-self: flex-end;
+    }
+    
+    button:hover {
+      background: #5568d3;
+    }
+    
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .content {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 20px;
+    }
+    
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .status-panel {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .status-item {
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-item.loading {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+    
+    .status-item.success {
+      background: #e8f5e9;
+      color: #388e3c;
+    }
+    
+    .status-item.error {
+      background: #ffebee;
+      color: #d32f2f;
+    }
+    
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .sounds-grid {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .sounds-grid h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .sound-card {
+      background: #f9f9f9;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-left: 4px solid #667eea;
+    }
+    
+    .sound-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left-color: #764ba2;
+    }
+    
+    .sound-card.active {
+      background: #f0f4ff;
+      border-left-color: #764ba2;
+    }
+    
+    .sound-name {
+      font-weight: bold;
+      color: #333;
+      margin: 0 0 5px 0;
+    }
+    
+    .sound-meta {
+      font-size: 12px;
+      color: #666;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+    }
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .player-panel {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .player-panel h3 {
+      margin-top: 0;
+      color: #333;
+    }
+    
+    .player-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .player-buttons button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+    }
+    
+    .now-playing {
+      background: #f0f4ff;
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #666;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .stats-panel {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+    
+    .stat-label {
+      color: #666;
+      font-size: 13px;
+    }
+    
+    .stat-value {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎵 Freesound Browser</h1>
+      <div class="controls">
+        <div class="control-group">
+          <label>Search Terms</label>
+          <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="drum">
+        </div>
+        <div class="control-group">
+          <label>Min Duration (s)</label>
+          <input type="number" id="minDuration" min="0" value="0.5" step="0.1">
+        </div>
+        <div class="control-group">
+          <label>Max Duration (s)</label>
+          <input type="number" id="maxDuration" min="0" value="5" step="0.1">
+        </div>
+        <button onclick="performSearch()">Search</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="main">
+        <div class="status-panel">
+          <div id="statusContainer"></div>
+        </div>
+        
+        <div class="sounds-grid">
+          <h3>Results</h3>
+          <div id="soundsList">
+            <div class="empty-state">Enter search terms and click Search to begin</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <div class="player-panel">
+          <h3>Player</h3>
+          <div class="player-buttons">
+            <button onclick="playCurrent()">▶️ Play</button>
+            <button onclick="stopCurrent()">⏹️ Stop</button>
+          </div>
+          <div class="now-playing">
+            <strong>Now Playing:</strong>
+            <div id="nowPlaying">None selected</div>
+          </div>
+        </div>
+
+        <div class="stats-panel">
+          <h3>Stats</h3>
+          <div class="stat-item">
+            <span class="stat-label">Results Found:</span>
+            <span class="stat-value" id="statsFound">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Downloaded:</span>
+            <span class="stat-value" id="statsDownloaded">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Total Duration:</span>
+            <span class="stat-value" id="statsDuration">0s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Global state
+    var state = {
+      audioContext: null,
+      sf: null,
+      currentSound: null,
+      currentSource: null,
+      sounds: [],
+      statuses: []
+    };
+
+    // Initialize
+    function init() {
+      try {
+        state.audioContext = new window.AudioContext();
+        var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
+        state.sf = new simpleFreesound.SimpleFreesound(apiKey, true);
+        addStatus('✅ Initialized', 'success');
+      } catch (error) {
+        addStatus('❌ Initialization error: ' + error.message, 'error');
+      }
+    }
+
+    function addStatus(message, type) {
+      state.statuses.push({ message: message, type: type, time: new Date() });
+      if (state.statuses.length > 10) state.statuses.shift();
+      renderStatuses();
+      console.log('[' + type + '] ' + message);
+    }
+
+    function renderStatuses() {
+      var html = '';
+      state.statuses.forEach(function(status) {
+        var emoji = status.type === 'loading' ? '<span class="spinner">⟳</span>' : 
+                    status.type === 'success' ? '✅' : '❌';
+        html += '<div class="status-item ' + status.type + '">' + emoji + ' ' + status.message + '</div>';
+      });
+      document.getElementById('statusContainer').innerHTML = html;
+    }
+
+    function performSearch() {
+      if (!state.sf) {
+        addStatus('❌ Not initialized', 'error');
+        return;
+      }
+
+      var searchTerms = document.getElementById('searchTerms').value.trim().split(',').map(function(s) { return s.trim(); });
+      var minDuration = parseFloat(document.getElementById('minDuration').value) || 0;
+      var maxDuration = parseFloat(document.getElementById('maxDuration').value) || 10;
+
+      if (searchTerms.length === 0 || !searchTerms[0]) {
+        addStatus('❌ Enter search terms', 'error');
+        return;
+      }
+
+      addStatus('🔍 Searching for: ' + searchTerms.join(', '), 'loading');
+
+      state.sf.query({
+        search: searchTerms,
+        duration: [minDuration, maxDuration]
+      })
+      .then(function() {
+        var count = Object.keys(state.sf.currentSoundsInfo).length;
+        addStatus('📥 Downloading ' + count + ' sounds...', 'loading');
+        return state.sf.download();
+      })
+      .then(function() {
+        state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
+          return state.sf.currentSoundsInfo[id];
+        });
+        
+        addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+        renderSounds();
+        updateStats();
+      })
+      .catch(function(error) {
+        addStatus('❌ Search error: ' + error.message, 'error');
+        console.error(error);
+      });
+    }
+
+    function renderSounds() {
+      var html = '';
+      
+      if (state.sounds.length === 0) {
+        html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
+      } else {
+        state.sounds.forEach(function(sound, idx) {
+          var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
+          html += '<div class="sound-card" onclick="selectSound(' + idx + ')">' +
+            '<p class="sound-name">' + (idx + 1) + '. ' + sound.name + '</p>' +
+            '<div class="sound-meta">' +
+            '<span>📝 ID: ' + sound.id + '</span>' +
+            '<span>⏱️ ' + duration + 's</span>' +
+            '<span>👤 ' + sound.username + '</span>' +
+            '</div>' +
+            '</div>';
+        });
+      }
+      
+      document.getElementById('soundsList').innerHTML = html;
+    }
+
+    function selectSound(idx) {
+      state.currentSound = state.sounds[idx];
+      document.querySelectorAll('.sound-card').forEach(function(card, i) {
+        card.classList.toggle('active', i === idx);
+      });
+      
+      document.getElementById('nowPlaying').textContent = 
+        state.currentSound.name + ' (' + state.currentSound.duration.toFixed(2) + 's) by ' + state.currentSound.username;
+      
+      addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
+    }
+
+    function playCurrent() {
+      if (!state.currentSound || !state.currentSound.buffer) {
+        addStatus('❌ No sound selected or no buffer', 'error');
+        return;
+      }
+
+      stopCurrent();
+      
+      var src = state.audioContext.createBufferSource();
+      src.buffer = state.currentSound.buffer;
+      src.connect(state.audioContext.destination);
+      src.start(0);
+      
+      state.currentSource = src;
+      addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
+    }
+
+    function stopCurrent() {
+      if (state.currentSource) {
+        try {
+          state.currentSource.stop(0);
+        } catch(e) {}
+      }
+      addStatus('⏹️ Stopped', 'success');
+    }
+
+    function updateStats() {
+      document.getElementById('statsFound').textContent = state.sounds.length;
+      document.getElementById('statsDownloaded').textContent = state.sounds.length;
+      
+      var totalDuration = state.sounds.reduce(function(sum, sound) {
+        return sum + (sound.duration || 0);
+      }, 0);
+      
+      document.getElementById('statsDuration').textContent = totalDuration.toFixed(1) + 's';
+    }
+
+    // Start
+    init();
+  </script>
+</body>
+</html>

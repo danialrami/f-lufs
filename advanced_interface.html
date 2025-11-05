@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Freesound Advanced - Visualizer & Playback</title>
+  <script type="text/javascript" src="simple-freesound.umd.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 0;
+      margin: 0;
+      background: #0a0e27;
+      color: #fff;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .header h1 {
+      margin: 0 0 10px 0;
+      font-size: 28px;
+    }
+    
+    .header p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    label {
+      font-size: 11px;
+      font-weight: bold;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+    
+    input, select {
+      padding: 8px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 4px;
+      font-size: 14px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.15);
+    }
+    
+    button {
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+      align-self: flex-end;
+      transition: all 0.2s;
+    }
+    
+    button:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+    }
+    
+    button:disabled {
+      background: rgba(255,255,255,0.2);
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 20px;
+    }
+    
+    .panel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .panel h2 {
+      margin: 0 0 15px 0;
+      font-size: 18px;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+    
+    .panel h3 {
+      margin: 15px 0 10px 0;
+      font-size: 14px;
+      color: #667eea;
+    }
+    
+    .status-container {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .status-item {
+      padding: 8px;
+      margin: 5px 0;
+      border-radius: 4px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-item.loading {
+      background: rgba(30, 144, 255, 0.2);
+      color: #1e90ff;
+    }
+    
+    .status-item.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+    }
+    
+    .status-item.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+    }
+    
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Waveform visualization */
+    .visualizer-container {
+      background: rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .visualizer-label {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    
+    canvas {
+      border-radius: 4px;
+      background: rgba(0,0,0,0.5);
+    }
+    
+    .waveform-canvas {
+      width: 100%;
+      height: 120px;
+      display: block;
+    }
+    
+    .frequency-canvas {
+      width: 100%;
+      height: 80px;
+      display: block;
+      margin-top: 15px;
+    }
+    
+    .playback-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+    
+    .info-item {
+      background: rgba(102, 126, 234, 0.1);
+      padding: 10px;
+      border-radius: 4px;
+      border-left: 3px solid #667eea;
+    }
+    
+    .info-label {
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    
+    .info-value {
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    
+    /* Sounds list */
+    .sounds-list {
+      max-height: 600px;
+      overflow-y: auto;
+    }
+    
+    .sound-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 6px;
+      padding: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .sound-item:hover {
+      background: rgba(102, 126, 234, 0.2);
+      border-color: rgba(102, 126, 234, 0.5);
+      transform: translateX(5px);
+    }
+    
+    .sound-item.active {
+      background: rgba(102, 126, 234, 0.3);
+      border-color: #667eea;
+      box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .sound-item-name {
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+    
+    .sound-item-meta {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    /* Player controls */
+    .player-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .player-controls button {
+      flex: 1;
+      padding: 12px;
+      font-size: 14px;
+    }
+    
+    /* Progress bar */
+    .progress-container {
+      margin: 15px 0;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 5px;
+    }
+    
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    
+    .stat-box {
+      background: rgba(102, 126, 234, 0.1);
+      padding: 12px;
+      border-radius: 4px;
+      border-left: 3px solid #667eea;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #667eea;
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: rgba(255,255,255,0.4);
+    }
+    
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(102, 126, 234, 0.3);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(102, 126, 234, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎵 Advanced Freesound Browser</h1>
+      <p>Real-time waveform visualization & playback analysis</p>
+      <div class="controls">
+        <div class="control-group">
+          <label>Search Terms</label>
+          <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
+        </div>
+        <div class="control-group">
+          <label>Min Duration (s)</label>
+          <input type="number" id="minDuration" min="0" value="0.5" step="0.1">
+        </div>
+        <div class="control-group">
+          <label>Max Duration (s)</label>
+          <input type="number" id="maxDuration" min="0" value="10" step="0.1">
+        </div>
+        <div class="control-group">
+          <label>Visualizer</label>
+          <select id="visualizerMode">
+            <option value="waveform">Waveform</option>
+            <option value="frequency">Frequency</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+        <button onclick="performSearch()">Search</button>
+      </div>
+    </div>
+
+    <div class="main-layout">
+      <div>
+        <!-- Status Panel -->
+        <div class="panel">
+          <h2>📊 Status</h2>
+          <div class="status-container" id="statusContainer"></div>
+        </div>
+
+        <!-- Visualizers -->
+        <div class="panel">
+          <h2>📈 Live Visualization</h2>
+          
+          <div class="visualizer-container">
+            <div class="visualizer-label">Waveform</div>
+            <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+          </div>
+          
+          <div class="visualizer-container">
+            <div class="visualizer-label">Frequency Spectrum</div>
+            <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Now Playing & Controls -->
+        <div class="panel">
+          <h2>🎧 Now Playing</h2>
+          
+          <div id="nowPlayingInfo" class="empty-state">Select a sound to play</div>
+          
+          <div class="player-controls">
+            <button onclick="playCurrent()" id="playBtn">▶️ Play</button>
+            <button onclick="pauseCurrent()" id="pauseBtn" style="display:none;">⏸️ Pause</button>
+            <button onclick="stopCurrent()">⏹️ Stop</button>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="time-display">
+              <span id="currentTime">0:00</span>
+              <span id="totalTime">0:00</span>
+            </div>
+          </div>
+
+          <div class="playback-info">
+            <div class="info-item">
+              <div class="info-label">Volume</div>
+              <div class="info-value" id="infoVolume">100%</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Sample Rate</div>
+              <div class="info-value" id="infoSampleRate">0Hz</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Channels</div>
+              <div class="info-value" id="infoChannels">0</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Status</div>
+              <div class="info-value" id="infoStatus">Stopped</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sounds List -->
+        <div class="panel">
+          <h2>🎵 Results</h2>
+          <div class="sounds-list" id="soundsList">
+            <div class="empty-state">Enter search terms and click Search to begin</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Stats -->
+        <div class="panel">
+          <h2>📈 Stats</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="statsFound">0</div>
+              <div class="stat-label">Found</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statsDownloaded">0</div>
+              <div class="stat-label">Downloaded</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statsDuration">0s</div>
+              <div class="stat-label">Total Duration</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="statsAvgDuration">0s</div>
+              <div class="stat-label">Avg Duration</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Sound Info -->
+        <div class="panel">
+          <h2>ℹ️ Sound Info</h2>
+          <div id="soundDetailsInfo" class="empty-state" style="font-size: 12px;">No sound selected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // Global state
+    var state = {
+      audioContext: null,
+      sf: null,
+      currentSound: null,
+      currentSource: null,
+      currentGain: null,
+      sounds: [],
+      statuses: [],
+      isPlaying: false,
+      startTime: 0,
+      analyser: null,
+      analyserFreq: null,
+      animationId: null,
+      playbackStartTime: null
+    };
+
+    // Canvas setup
+    var waveformCanvas = document.getElementById('waveformCanvas');
+    var waveformCtx = waveformCanvas.getContext('2d');
+    var frequencyCanvas = document.getElementById('frequencyCanvas');
+    var frequencyCtx = frequencyCanvas.getContext('2d');
+
+    // Initialize
+    function init() {
+      try {
+        state.audioContext = new window.AudioContext();
+        
+        // Create analysers
+        state.analyser = state.audioContext.createAnalyser();
+        state.analyser.fftSize = 2048;
+        state.analyser.connect(state.audioContext.destination);
+        
+        state.analyserFreq = state.audioContext.createAnalyser();
+        state.analyserFreq.fftSize = 256;
+        
+        var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
+        state.sf = new simpleFreesound.SimpleFreesound(apiKey, true);
+        addStatus('✅ Initialized', 'success');
+        
+        // Start animation loop
+        animate();
+      } catch (error) {
+        addStatus('❌ Initialization error: ' + error.message, 'error');
+      }
+    }
+
+    function addStatus(message, type) {
+      state.statuses.push({ message: message, type: type, time: new Date() });
+      if (state.statuses.length > 10) state.statuses.shift();
+      renderStatuses();
+      console.log('[' + type + '] ' + message);
+    }
+
+    function renderStatuses() {
+      var html = '';
+      state.statuses.forEach(function(status) {
+        var emoji = status.type === 'loading' ? '<span class="spinner">⟳</span>' : 
+                    status.type === 'success' ? '✅' : '❌';
+        html += '<div class="status-item ' + status.type + '">' + emoji + ' ' + status.message + '</div>';
+      });
+      document.getElementById('statusContainer').innerHTML = html;
+    }
+
+    function performSearch() {
+      if (!state.sf) {
+        addStatus('❌ Not initialized', 'error');
+        return;
+      }
+
+      stopCurrent();
+
+      var searchTerms = document.getElementById('searchTerms').value.trim().split(',').map(function(s) { return s.trim(); });
+      var minDuration = parseFloat(document.getElementById('minDuration').value) || 0;
+      var maxDuration = parseFloat(document.getElementById('maxDuration').value) || 10;
+
+      if (searchTerms.length === 0 || !searchTerms[0]) {
+        addStatus('❌ Enter search terms', 'error');
+        return;
+      }
+
+      addStatus('🔍 Searching for: ' + searchTerms.join(', '), 'loading');
+
+      state.sf.query({
+        search: searchTerms,
+        duration: [minDuration, maxDuration]
+      })
+      .then(function() {
+        var count = Object.keys(state.sf.currentSoundsInfo).length;
+        addStatus('📥 Downloading ' + count + ' sounds...', 'loading');
+        return state.sf.download();
+      })
+      .then(function() {
+        state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
+          return state.sf.currentSoundsInfo[id];
+        });
+        
+        addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+        renderSounds();
+        updateStats();
+      })
+      .catch(function(error) {
+        addStatus('❌ Search error: ' + error.message, 'error');
+        console.error(error);
+      });
+    }
+
+    function renderSounds() {
+      var html = '';
+      
+      if (state.sounds.length === 0) {
+        html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
+      } else {
+        state.sounds.forEach(function(sound, idx) {
+          var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
+          html += '<div class="sound-item" onclick="selectSound(' + idx + ')">' +
+            '<div class="sound-item-name">' + (idx + 1) + '. ' + sound.name + '</div>' +
+            '<div class="sound-item-meta">' +
+            '<span>⏱️ ' + duration + 's</span>' +
+            '<span>👤 ' + sound.username + '</span>' +
+            '</div>' +
+            '</div>';
+        });
+      }
+      
+      document.getElementById('soundsList').innerHTML = html;
+    }
+
+    function selectSound(idx) {
+      stopCurrent();
+      state.currentSound = state.sounds[idx];
+      
+      document.querySelectorAll('.sound-item').forEach(function(item, i) {
+        item.classList.toggle('active', i === idx);
+      });
+      
+      // Update now playing
+      var html = '<strong>' + state.currentSound.name + '</strong><br/>' +
+        'Duration: ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
+        'By: ' + state.currentSound.username;
+      document.getElementById('nowPlayingInfo').innerHTML = html;
+      
+      // Update sound details
+      var detailsHtml = '<div style="text-align: left; font-size: 12px;">' +
+        '<strong>' + state.currentSound.name + '</strong><br/><br/>' +
+        '<strong>ID:</strong> ' + state.currentSound.id + '<br/>' +
+        '<strong>Duration:</strong> ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
+        '<strong>Artist:</strong> ' + state.currentSound.username + '<br/>' +
+        '<strong>Channels:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A') + '<br/>' +
+        '<strong>Sample Rate:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.sampleRate + 'Hz' : 'N/A') + '<br/>' +
+        '</div>';
+      document.getElementById('soundDetailsInfo').innerHTML = detailsHtml;
+      
+      addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
+    }
+
+    function playCurrent() {
+      if (!state.currentSound || !state.currentSound.buffer) {
+        addStatus('❌ No sound selected or no buffer', 'error');
+        return;
+      }
+
+      if (state.isPlaying) return;
+
+      state.playbackStartTime = state.audioContext.currentTime;
+      
+      var src = state.audioContext.createBufferSource();
+      src.buffer = state.currentSound.buffer;
+      
+      state.currentGain = state.audioContext.createGain();
+      state.currentGain.gain.value = 1;
+      
+      src.connect(state.currentGain);
+      state.currentGain.connect(state.analyser);
+      state.analyser.connect(state.analyserFreq);
+      
+      src.onended = function() {
+        state.isPlaying = false;
+        document.getElementById('playBtn').style.display = 'block';
+        document.getElementById('pauseBtn').style.display = 'none';
+        document.getElementById('infoStatus').textContent = 'Finished';
+      };
+      
+      src.start(0);
+      state.currentSource = src;
+      state.isPlaying = true;
+      
+      document.getElementById('playBtn').style.display = 'none';
+      document.getElementById('pauseBtn').style.display = 'block';
+      document.getElementById('totalTime').textContent = formatTime(state.currentSound.duration);
+      document.getElementById('infoStatus').textContent = 'Playing';
+      
+      addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
+    }
+
+    function pauseCurrent() {
+      if (state.audioContext.state === 'running') {
+        state.audioContext.suspend();
+        state.isPlaying = false;
+        document.getElementById('pauseBtn').style.display = 'none';
+        document.getElementById('playBtn').style.display = 'block';
+        document.getElementById('infoStatus').textContent = 'Paused';
+        addStatus('⏸️ Paused', 'success');
+      }
+    }
+
+    function stopCurrent() {
+      if (state.currentSource) {
+        try {
+          state.currentSource.stop(0);
+        } catch(e) {}
+      }
+      state.isPlaying = false;
+      document.getElementById('playBtn').style.display = 'block';
+      document.getElementById('pauseBtn').style.display = 'none';
+      document.getElementById('progressFill').style.width = '0%';
+      document.getElementById('currentTime').textContent = '0:00';
+      document.getElementById('infoStatus').textContent = 'Stopped';
+      addStatus('⏹️ Stopped', 'success');
+    }
+
+    function updateStats() {
+      document.getElementById('statsFound').textContent = state.sounds.length;
+      document.getElementById('statsDownloaded').textContent = state.sounds.length;
+      
+      var totalDuration = state.sounds.reduce(function(sum, sound) {
+        return sum + (sound.duration || 0);
+      }, 0);
+      
+      var avgDuration = state.sounds.length > 0 ? totalDuration / state.sounds.length : 0;
+      
+      document.getElementById('statsDuration').textContent = totalDuration.toFixed(1) + 's';
+      document.getElementById('statsAvgDuration').textContent = avgDuration.toFixed(1) + 's';
+    }
+
+    function formatTime(seconds) {
+      var mins = Math.floor(seconds / 60);
+      var secs = Math.floor(seconds % 60);
+      return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    function drawWaveform() {
+      var bufferLength = state.analyser.frequencyBinCount;
+      var dataArray = new Uint8Array(bufferLength);
+      state.analyser.getByteFrequencyData(dataArray);
+
+      waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+      waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+      waveformCtx.lineWidth = 2;
+      waveformCtx.strokeStyle = '#667eea';
+      waveformCtx.beginPath();
+
+      var sliceWidth = waveformCanvas.width / bufferLength;
+      var x = 0;
+
+      for (var i = 0; i < bufferLength; i++) {
+        var v = dataArray[i] / 128.0;
+        var y = (v * waveformCanvas.height) / 2;
+
+        if (i === 0) {
+          waveformCtx.moveTo(x, y);
+        } else {
+          waveformCtx.lineTo(x, y);
+        }
+        x += sliceWidth;
+      }
+
+      waveformCtx.stroke();
+    }
+
+    function drawFrequency() {
+      var bufferLength = state.analyserFreq.frequencyBinCount;
+      var dataArray = new Uint8Array(bufferLength);
+      state.analyserFreq.getByteFrequencyData(dataArray);
+
+      frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+      frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+
+      var barWidth = (frequencyCanvas.width / bufferLength) * 2.5;
+      var x = 0;
+
+      for (var i = 0; i < bufferLength; i++) {
+        var barHeight = (dataArray[i] / 255) * frequencyCanvas.height;
+
+        var hue = (i / bufferLength) * 360;
+        frequencyCtx.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
+        frequencyCtx.fillRect(x, frequencyCanvas.height - barHeight, barWidth, barHeight);
+
+        x += barWidth + 1;
+      }
+    }
+
+    function updatePlayback() {
+      if (!state.isPlaying || !state.currentSound) return;
+
+      var elapsed = state.audioContext.currentTime - state.playbackStartTime;
+      var duration = state.currentSound.duration;
+      var progress = (elapsed / duration) * 100;
+
+      document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
+      document.getElementById('currentTime').textContent = formatTime(elapsed);
+    }
+
+    function animate() {
+      if (state.isPlaying) {
+        drawWaveform();
+        drawFrequency();
+        updatePlayback();
+      } else {
+        waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+        frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+        frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+      }
+
+      state.animationId = requestAnimationFrame(animate);
+    }
+
+    // Progress bar click handler
+    document.getElementById('progressBar').addEventListener('click', function(e) {
+      if (!state.isPlaying || !state.currentSound) return;
+      
+      var rect = this.getBoundingClientRect();
+      var percent = (e.clientX - rect.left) / rect.width;
+      var newTime = percent * state.currentSound.duration;
+      
+      stopCurrent();
+      state.playbackStartTime = state.audioContext.currentTime - newTime;
+      playCurrent();
+    });
+
+    // Initialize
+    init();
+  </script>
+</body>
+</html>
