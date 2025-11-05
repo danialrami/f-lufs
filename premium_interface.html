@@ -24,31 +24,34 @@
        flex-direction: column;
        height: 100%;
        width: 100%;
-       max-width: 100%;
-       margin: 0;
+       max-width: 1600px;
+       margin: 0 auto;
        padding: 0;
        flex: 1;
      }
     
      .header {
        background: linear-gradient(135deg, #a78bfa 0%, #f87171 100%);
-       padding: 12px 20px;
+       padding: 8px 20px;
        border-radius: 0;
        margin: 0;
        box-shadow: 0 8px 32px rgba(167, 139, 250, 0.2);
        display: flex;
        align-items: center;
-       gap: 15px;
+       justify-content: space-between;
+       gap: 20px;
        flex-shrink: 0;
        z-index: 100;
+       flex-wrap: nowrap;
      }
      
      .header h1 {
        margin: 0;
-       font-size: 20px;
+       font-size: 18px;
        color: #fff;
        white-space: nowrap;
        flex-shrink: 0;
+       letter-spacing: 2px;
      }
      
      .header p {
@@ -58,9 +61,10 @@
      .controls {
        display: flex;
        align-items: flex-end;
-       gap: 10px;
+       gap: 12px;
        flex: 1;
-       flex-wrap: wrap;
+       flex-wrap: nowrap;
+       justify-content: center;
      }
      
      .control-group {
@@ -222,7 +226,9 @@
        flex: 1;
        width: 100%;
        overflow: hidden;
-       padding: 0 20px;
+       padding: 20px;
+       max-width: 100%;
+       margin: 0 auto;
      }
      
      .visualizer-sidebar {
@@ -599,7 +605,8 @@
        align-items: center;
        gap: 8px;
        margin-left: auto;
-       padding: 8px 12px;
+       flex-shrink: 0;
+       padding: 6px 10px;
        background: rgba(255,255,255,0.1);
        border-radius: 4px;
        backdrop-filter: blur(10px);
