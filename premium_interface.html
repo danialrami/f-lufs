@@ -1320,77 +1320,100 @@
        document.getElementById('soundsList').innerHTML = html;
      }
 
-     function selectSound(idx) {
-       stopCurrent();
-       state.currentSound = state.sounds[idx];
-       
-       document.querySelectorAll('.sound-item').forEach(function(item, i) {
-         item.classList.toggle('active', i === idx);
-       });
-       
-       // Update featured panel
-       document.getElementById('featuredTitle').textContent = state.currentSound.name;
-       document.getElementById('featuredDuration').textContent = state.currentSound.duration.toFixed(2) + 's';
-       document.getElementById('featuredArtist').textContent = state.currentSound.username;
-       document.getElementById('featuredLicense').textContent = state.currentSound.license || 'CC0';
-       document.getElementById('featuredDownloads').textContent = (state.currentSound.num_downloads || 0);
-       document.getElementById('featuredSampleRate').textContent = (state.currentSound.buffer ? state.currentSound.buffer.sampleRate / 1000 + 'kHz' : 'N/A');
-       document.getElementById('featuredChannels').textContent = (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A');
-       document.getElementById('featuredDescription').textContent = state.currentSound.description || 'No description provided.';
-       
-       // Update featured artwork
-       var artworkEl = document.getElementById('featuredArtwork');
-       if (state.currentSound.images && state.currentSound.images.waveform_m) {
-         artworkEl.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
-       } else {
-         artworkEl.textContent = '🎵';
-       }
-       
-       // Update featured tags
-       var tagsHtml = '';
-       if (state.currentSound.tags && state.currentSound.tags.length > 0) {
-         state.currentSound.tags.forEach(function(tag) {
-           tagsHtml += '<div class="tag">' + tag + '</div>';
-         });
-       } else {
-         tagsHtml = '<div class="tag">No tags</div>';
-       }
-       document.getElementById('featuredTags').innerHTML = tagsHtml;
-       
-        // Update compact now playing
-        document.getElementById('nowPlayingCompact').textContent = state.currentSound.name;
+      function selectSound(idx) {
+        stopCurrent();
+        state.currentSound = state.sounds[idx];
         
-        // Update compact player info
-        document.getElementById('compactPlayerInfo').textContent = state.currentSound.name;
+        document.querySelectorAll('.sound-item').forEach(function(item, i) {
+          item.classList.toggle('active', i === idx);
+        });
         
-        // Update footer player
-        document.getElementById('footerTitle').textContent = state.currentSound.name;
-        document.getElementById('footerArtist').textContent = state.currentSound.username;
+        // Update featured panel (with null checks)
+        var featuredTitle = document.getElementById('featuredTitle');
+        var featuredDuration = document.getElementById('featuredDuration');
+        var featuredArtist = document.getElementById('featuredArtist');
+        var featuredLicense = document.getElementById('featuredLicense');
+        var featuredDownloads = document.getElementById('featuredDownloads');
+        var featuredSampleRate = document.getElementById('featuredSampleRate');
+        var featuredChannels = document.getElementById('featuredChannels');
+        var featuredDescription = document.getElementById('featuredDescription');
+        var artworkEl = document.getElementById('featuredArtwork');
+        var featuredTags = document.getElementById('featuredTags');
+        var nowPlayingCompact = document.getElementById('nowPlayingCompact');
+        var compactPlayerInfo = document.getElementById('compactPlayerInfo');
+        var footerTitle = document.getElementById('footerTitle');
+        var footerArtist = document.getElementById('footerArtist');
         var footerArtwork = document.getElementById('footerArtwork');
-        if (state.currentSound.images && state.currentSound.images.waveform_m) {
-          footerArtwork.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
-        } else {
-          footerArtwork.textContent = '🎵';
+        var soundDetailsInfo = document.getElementById('soundDetailsInfo');
+        
+        if (featuredTitle) featuredTitle.textContent = state.currentSound.name;
+        if (featuredDuration) featuredDuration.textContent = state.currentSound.duration.toFixed(2) + 's';
+        if (featuredArtist) featuredArtist.textContent = state.currentSound.username;
+        if (featuredLicense) featuredLicense.textContent = state.currentSound.license || 'CC0';
+        if (featuredDownloads) featuredDownloads.textContent = (state.currentSound.num_downloads || 0);
+        if (featuredSampleRate) featuredSampleRate.textContent = (state.currentSound.buffer ? state.currentSound.buffer.sampleRate / 1000 + 'kHz' : 'N/A');
+        if (featuredChannels) featuredChannels.textContent = (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A');
+        if (featuredDescription) featuredDescription.textContent = state.currentSound.description || 'No description provided.';
+        
+        // Update featured artwork
+        if (artworkEl) {
+          if (state.currentSound.images && state.currentSound.images.waveform_m) {
+            artworkEl.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
+          } else {
+            artworkEl.textContent = '🎵';
+          }
         }
-       
-       // Update sound details
-       var detailsHtml = '<div style="text-align: left; font-size: 12px;">' +
-         '<strong>' + state.currentSound.name + '</strong><br/><br/>' +
-         '<strong>ID:</strong> ' + state.currentSound.id + '<br/>' +
-         '<strong>Duration:</strong> ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
-         '<strong>Artist:</strong> ' + state.currentSound.username + '<br/>' +
-         '<strong>Channels:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A') + '<br/>' +
-         '<strong>Sample Rate:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.sampleRate + 'Hz' : 'N/A') + '<br/>' +
-         '</div>';
-        document.getElementById('soundDetailsInfo').innerHTML = detailsHtml;
         
-        addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
+        // Update featured tags
+        if (featuredTags) {
+          var tagsHtml = '';
+          if (state.currentSound.tags && state.currentSound.tags.length > 0) {
+            state.currentSound.tags.forEach(function(tag) {
+              tagsHtml += '<div class="tag">' + tag + '</div>';
+            });
+          } else {
+            tagsHtml = '<div class="tag">No tags</div>';
+          }
+          featuredTags.innerHTML = tagsHtml;
+        }
         
-        // Auto-play the selected sound
-        setTimeout(function() {
-          playCurrent();
-        }, 100);
-      }
+         // Update compact now playing
+         if (nowPlayingCompact) nowPlayingCompact.textContent = state.currentSound.name;
+         
+         // Update compact player info
+         if (compactPlayerInfo) compactPlayerInfo.textContent = state.currentSound.name;
+         
+         // Update footer player
+         if (footerTitle) footerTitle.textContent = state.currentSound.name;
+         if (footerArtist) footerArtist.textContent = state.currentSound.username;
+         if (footerArtwork) {
+           if (state.currentSound.images && state.currentSound.images.waveform_m) {
+             footerArtwork.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
+           } else {
+             footerArtwork.textContent = '🎵';
+           }
+         }
+        
+        // Update sound details
+        if (soundDetailsInfo) {
+          var detailsHtml = '<div style="text-align: left; font-size: 12px;">' +
+            '<strong>' + state.currentSound.name + '</strong><br/><br/>' +
+            '<strong>ID:</strong> ' + state.currentSound.id + '<br/>' +
+            '<strong>Duration:</strong> ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
+            '<strong>Artist:</strong> ' + state.currentSound.username + '<br/>' +
+            '<strong>Channels:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A') + '<br/>' +
+            '<strong>Sample Rate:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.sampleRate + 'Hz' : 'N/A') + '<br/>' +
+            '</div>';
+           soundDetailsInfo.innerHTML = detailsHtml;
+         }
+         
+         addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
+         
+         // Auto-play the selected sound
+         setTimeout(function() {
+           playCurrent();
+         }, 100);
+       }
 
     function playCurrent() {
       if (!state.currentSound || !state.currentSound.buffer) {
