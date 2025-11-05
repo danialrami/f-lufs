@@ -404,47 +404,112 @@
       margin-top: 5px;
     }
     
-    /* Sounds list */
-    .sounds-list {
-      max-height: 600px;
-      overflow-y: auto;
-    }
-    
-    .sound-item {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    
-    .sound-item:hover {
-      background: rgba(102, 126, 234, 0.2);
-      border-color: rgba(102, 126, 234, 0.5);
-      transform: translateX(5px);
-    }
-    
-    .sound-item.active {
-      background: rgba(102, 126, 234, 0.3);
-      border-color: #667eea;
-      box-shadow: 0 0 15px rgba(102, 126, 234, 0.3);
-    }
-    
-    .sound-item-name {
-      font-weight: bold;
-      font-size: 13px;
-      margin-bottom: 5px;
-      color: #fff;
-    }
-    
-    .sound-item-meta {
-      font-size: 11px;
-      color: rgba(255,255,255,0.6);
-      display: flex;
-      justify-content: space-between;
-    }
+     /* Sounds list */
+     .sounds-list {
+       display: grid;
+       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+       gap: 12px;
+       max-height: 600px;
+       overflow-y: auto;
+     }
+     
+     .sound-item {
+       background: rgba(255,255,255,0.05);
+       border: 1px solid rgba(255,255,255,0.1);
+       border-radius: 8px;
+       overflow: hidden;
+       cursor: pointer;
+       transition: all 0.3s;
+       display: flex;
+       flex-direction: column;
+     }
+     
+     .sound-item:hover {
+       background: rgba(102, 126, 234, 0.15);
+       border-color: rgba(102, 126, 234, 0.4);
+       transform: translateY(-4px);
+       box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+     }
+     
+     .sound-item.active {
+       background: rgba(102, 126, 234, 0.25);
+       border-color: #667eea;
+       box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+     }
+     
+     .sound-item-waveform {
+       width: 100%;
+       height: 60px;
+       background: rgba(0,0,0,0.2);
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-size: 28px;
+       overflow: hidden;
+       flex-shrink: 0;
+     }
+     
+     .sound-item-waveform img {
+       width: 100%;
+       height: 100%;
+       object-fit: cover;
+     }
+     
+     .sound-item-content {
+       padding: 12px;
+       display: flex;
+       flex-direction: column;
+       flex: 1;
+     }
+     
+     .sound-item-name {
+       font-weight: bold;
+       font-size: 13px;
+       margin-bottom: 6px;
+       color: #fff;
+       line-height: 1.3;
+       max-height: 36px;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       display: -webkit-box;
+       -webkit-line-clamp: 2;
+       -webkit-box-orient: vertical;
+     }
+     
+     .sound-item-meta {
+       font-size: 11px;
+       color: rgba(255,255,255,0.6);
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       gap: 8px;
+       margin-bottom: 8px;
+     }
+     
+     .sound-item-meta-item {
+       background: rgba(255,255,255,0.03);
+       padding: 4px 6px;
+       border-radius: 3px;
+       border-left: 2px solid #667eea;
+     }
+     
+     .sound-item-meta-label {
+       font-size: 10px;
+       color: rgba(255,255,255,0.5);
+       text-transform: uppercase;
+     }
+     
+     .sound-item-meta-value {
+       font-weight: bold;
+       color: #667eea;
+     }
+     
+     .sound-item-footer {
+       font-size: 11px;
+       color: rgba(255,255,255,0.5);
+       border-top: 1px solid rgba(255,255,255,0.05);
+       padding-top: 8px;
+       margin-top: auto;
+     }
     
     /* Player controls */
     .player-controls {
@@ -889,26 +954,46 @@
       });
     }
 
-    function renderSounds() {
-      var html = '';
-      
-      if (state.sounds.length === 0) {
-        html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
-      } else {
-        state.sounds.forEach(function(sound, idx) {
-          var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
-          html += '<div class="sound-item" onclick="selectSound(' + idx + ')">' +
-            '<div class="sound-item-name">' + (idx + 1) + '. ' + sound.name + '</div>' +
-            '<div class="sound-item-meta">' +
-            '<span>⏱️ ' + duration + 's</span>' +
-            '<span>👤 ' + sound.username + '</span>' +
-            '</div>' +
-            '</div>';
-        });
-      }
-      
-      document.getElementById('soundsList').innerHTML = html;
-    }
+     function renderSounds() {
+       var html = '';
+       
+       if (state.sounds.length === 0) {
+         html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
+       } else {
+         state.sounds.forEach(function(sound, idx) {
+           var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
+           var waveformImg = sound.images && sound.images.waveform_m ? sound.images.waveform_m : null;
+           
+           html += '<div class="sound-item" onclick="selectSound(' + idx + ')">';
+           
+           // Waveform image
+           if (waveformImg) {
+             html += '<div class="sound-item-waveform"><img src="' + waveformImg + '" alt="waveform"></div>';
+           } else {
+             html += '<div class="sound-item-waveform">🎵</div>';
+           }
+           
+           // Content
+           html += '<div class="sound-item-content">' +
+             '<div class="sound-item-name">' + sound.name + '</div>' +
+             '<div class="sound-item-meta">' +
+             '<div class="sound-item-meta-item">' +
+             '<div class="sound-item-meta-label">Duration</div>' +
+             '<div class="sound-item-meta-value">' + duration + 's</div>' +
+             '</div>' +
+             '<div class="sound-item-meta-item">' +
+             '<div class="sound-item-meta-label">Downloads</div>' +
+             '<div class="sound-item-meta-value">' + (sound.num_downloads || 0) + '</div>' +
+             '</div>' +
+             '</div>' +
+             '<div class="sound-item-footer">By <strong>' + sound.username + '</strong></div>' +
+             '</div>' +
+             '</div>';
+         });
+       }
+       
+       document.getElementById('soundsList').innerHTML = html;
+     }
 
      function selectSound(idx) {
        stopCurrent();
