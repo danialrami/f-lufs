@@ -961,11 +961,11 @@
       playbackStartTime: null
     };
 
-     // Canvas setup
-     var waveformCanvas = document.getElementById('waveformCanvas');
-     var waveformCtx = waveformCanvas.getContext('2d');
-     var frequencyCanvas = document.getElementById('frequencyCanvas');
-     var frequencyCtx = frequencyCanvas.getContext('2d');
+      // Canvas setup (visualizers disabled)
+      var waveformCanvas = document.getElementById('waveformCanvas');
+      var waveformCtx = waveformCanvas ? waveformCanvas.getContext('2d') : null;
+      var frequencyCanvas = document.getElementById('frequencyCanvas');
+      var frequencyCtx = frequencyCanvas ? frequencyCanvas.getContext('2d') : null;
 
      // Download current sound
      function downloadCurrentSound() {
@@ -1312,6 +1312,8 @@
     }
 
      function drawWaveform() {
+       if (!waveformCtx || !waveformCanvas) return;
+       
        var bufferLength = state.analyser.frequencyBinCount;
        var dataArray = new Uint8Array(bufferLength);
        state.analyser.getByteFrequencyData(dataArray);
@@ -1346,12 +1348,14 @@
     }
 
     function drawFrequency() {
-      var bufferLength = state.analyserFreq.frequencyBinCount;
-      var dataArray = new Uint8Array(bufferLength);
-      state.analyserFreq.getByteFrequencyData(dataArray);
+       if (!frequencyCtx || !frequencyCanvas) return;
+       
+       var bufferLength = state.analyserFreq.frequencyBinCount;
+       var dataArray = new Uint8Array(bufferLength);
+       state.analyserFreq.getByteFrequencyData(dataArray);
 
-      frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-      frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+       frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+       frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
 
       var barWidth = (frequencyCanvas.width / bufferLength) * 2.5;
       var x = 0;
@@ -1378,20 +1382,24 @@
       document.getElementById('currentTime').textContent = formatTime(elapsed);
     }
 
-    function animate() {
-      if (state.isPlaying) {
-        drawWaveform();
-        drawFrequency();
-        updatePlayback();
-      } else {
-        waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-        waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
-        frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-        frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
-      }
+     function animate() {
+       if (state.isPlaying) {
+         drawWaveform();
+         drawFrequency();
+         updatePlayback();
+       } else {
+         if (waveformCtx && waveformCanvas) {
+           waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+           waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+         }
+         if (frequencyCtx && frequencyCanvas) {
+           frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
+           frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+         }
+       }
 
-      state.animationId = requestAnimationFrame(animate);
-    }
+       state.animationId = requestAnimationFrame(animate);
+     }
 
     // Progress bar click handler
     document.getElementById('progressBar').addEventListener('click', function(e) {
