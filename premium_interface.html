@@ -575,18 +575,46 @@
        margin-top: auto;
      }
     
-    /* Player controls */
-    .player-controls {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    
-    .player-controls button {
-      flex: 1;
-      padding: 12px;
-      font-size: 14px;
-    }
+     /* Compact Player */
+     .compact-player {
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       margin-left: auto;
+       padding: 8px 12px;
+       background: rgba(255,255,255,0.1);
+       border-radius: 4px;
+       backdrop-filter: blur(10px);
+     }
+     
+     .compact-player button {
+       padding: 6px 12px;
+       font-size: 12px;
+       margin: 0;
+       box-shadow: none;
+     }
+     
+     .compact-player-info {
+       font-size: 12px;
+       color: rgba(255,255,255,0.8);
+       max-width: 150px;
+       white-space: nowrap;
+       overflow: hidden;
+       text-overflow: ellipsis;
+     }
+     
+     /* Player controls */
+     .player-controls {
+       display: flex;
+       gap: 8px;
+       margin-bottom: 12px;
+     }
+     
+     .player-controls button {
+       flex: 1;
+       padding: 10px;
+       font-size: 13px;
+     }
     
     /* Progress bar */
     .progress-container {
@@ -721,6 +749,14 @@
          </div>
          <button onclick="performSearch()">Search</button>
        </div>
+
+       <!-- Compact Player (appears when playing) -->
+       <div class="compact-player" id="compactPlayer" style="display: none;">
+         <div class="compact-player-info" id="compactPlayerInfo">—</div>
+         <button onclick="playCurrent()" id="compactPlayBtn">▶️</button>
+         <button onclick="pauseCurrent()" id="compactPauseBtn" style="display:none;">⏸️</button>
+         <button onclick="stopCurrent()">⏹️</button>
+       </div>
     </div>
 
     <div class="main-layout">
@@ -761,11 +797,19 @@
                    <div class="featured-meta-label">License</div>
                    <div class="featured-meta-value" id="featuredLicense">—</div>
                  </div>
-                 <div class="featured-meta-item">
-                   <div class="featured-meta-label">Downloads</div>
-                   <div class="featured-meta-value" id="featuredDownloads">—</div>
-                 </div>
+               <div class="featured-meta-item">
+                 <div class="featured-meta-label">Downloads</div>
+                 <div class="featured-meta-value" id="featuredDownloads">—</div>
                </div>
+               <div class="featured-meta-item">
+                 <div class="featured-meta-label">Sample Rate</div>
+                 <div class="featured-meta-value" id="featuredSampleRate">—</div>
+               </div>
+               <div class="featured-meta-item">
+                 <div class="featured-meta-label">Channels</div>
+                 <div class="featured-meta-value" id="featuredChannels">—</div>
+               </div>
+             </div>
              </div>
              <div>
                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
@@ -793,25 +837,6 @@
              <div class="time-display">
                <span id="currentTime">0:00</span>
                <span id="totalTime">0:00</span>
-             </div>
-           </div>
-
-           <div class="playback-info">
-             <div class="info-item">
-               <div class="info-label">Volume</div>
-               <div class="info-value" id="infoVolume">100%</div>
-             </div>
-             <div class="info-item">
-               <div class="info-label">Sample Rate</div>
-               <div class="info-value" id="infoSampleRate">0Hz</div>
-             </div>
-             <div class="info-item">
-               <div class="info-label">Channels</div>
-               <div class="info-value" id="infoChannels">0</div>
-             </div>
-             <div class="info-item">
-               <div class="info-label">Status</div>
-               <div class="info-value" id="infoStatus">Stopped</div>
              </div>
            </div>
          </div>
@@ -1079,6 +1104,8 @@
        document.getElementById('featuredArtist').textContent = state.currentSound.username;
        document.getElementById('featuredLicense').textContent = state.currentSound.license || 'CC0';
        document.getElementById('featuredDownloads').textContent = (state.currentSound.num_downloads || 0);
+       document.getElementById('featuredSampleRate').textContent = (state.currentSound.buffer ? state.currentSound.buffer.sampleRate / 1000 + 'kHz' : 'N/A');
+       document.getElementById('featuredChannels').textContent = (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A');
        document.getElementById('featuredDescription').textContent = state.currentSound.description || 'No description provided.';
        
        // Update featured artwork
@@ -1105,6 +1132,9 @@
          'Duration: ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
          'By: ' + state.currentSound.username;
        document.getElementById('nowPlayingInfo').innerHTML = html;
+       
+       // Update compact player info
+       document.getElementById('compactPlayerInfo').textContent = state.currentSound.name;
        
        // Update sound details
        var detailsHtml = '<div style="text-align: left; font-size: 12px;">' +
@@ -1140,50 +1170,55 @@
       state.currentGain.connect(state.analyser);
       state.analyser.connect(state.analyserFreq);
       
-      src.onended = function() {
-        state.isPlaying = false;
-        document.getElementById('playBtn').style.display = 'block';
-        document.getElementById('pauseBtn').style.display = 'none';
-        document.getElementById('infoStatus').textContent = 'Finished';
-      };
+       src.onended = function() {
+         state.isPlaying = false;
+         document.getElementById('playBtn').style.display = 'block';
+         document.getElementById('pauseBtn').style.display = 'none';
+         document.getElementById('compactPlayer').style.display = 'none';
+       };
       
-      src.start(0);
-      state.currentSource = src;
-      state.isPlaying = true;
-      
-      document.getElementById('playBtn').style.display = 'none';
-      document.getElementById('pauseBtn').style.display = 'block';
-      document.getElementById('totalTime').textContent = formatTime(state.currentSound.duration);
-      document.getElementById('infoStatus').textContent = 'Playing';
-      
-      addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
+       src.start(0);
+       state.currentSource = src;
+       state.isPlaying = true;
+       
+       document.getElementById('playBtn').style.display = 'none';
+       document.getElementById('pauseBtn').style.display = 'block';
+       document.getElementById('compactPlayBtn').style.display = 'none';
+       document.getElementById('compactPauseBtn').style.display = 'block';
+       document.getElementById('compactPlayer').style.display = 'flex';
+       document.getElementById('totalTime').textContent = formatTime(state.currentSound.duration);
+       
+       addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
     }
 
-    function pauseCurrent() {
-      if (state.audioContext.state === 'running') {
-        state.audioContext.suspend();
-        state.isPlaying = false;
-        document.getElementById('pauseBtn').style.display = 'none';
-        document.getElementById('playBtn').style.display = 'block';
-        document.getElementById('infoStatus').textContent = 'Paused';
-        addStatus('⏸️ Paused', 'success');
-      }
-    }
+     function pauseCurrent() {
+       if (state.audioContext.state === 'running') {
+         state.audioContext.suspend();
+         state.isPlaying = false;
+         document.getElementById('pauseBtn').style.display = 'none';
+         document.getElementById('playBtn').style.display = 'block';
+         document.getElementById('compactPauseBtn').style.display = 'none';
+         document.getElementById('compactPlayBtn').style.display = 'block';
+         addStatus('⏸️ Paused', 'success');
+       }
+     }
 
-    function stopCurrent() {
-      if (state.currentSource) {
-        try {
-          state.currentSource.stop(0);
-        } catch(e) {}
-      }
-      state.isPlaying = false;
-      document.getElementById('playBtn').style.display = 'block';
-      document.getElementById('pauseBtn').style.display = 'none';
-      document.getElementById('progressFill').style.width = '0%';
-      document.getElementById('currentTime').textContent = '0:00';
-      document.getElementById('infoStatus').textContent = 'Stopped';
-      addStatus('⏹️ Stopped', 'success');
-    }
+     function stopCurrent() {
+       if (state.currentSource) {
+         try {
+           state.currentSource.stop(0);
+         } catch(e) {}
+       }
+       state.isPlaying = false;
+       document.getElementById('playBtn').style.display = 'block';
+       document.getElementById('pauseBtn').style.display = 'none';
+       document.getElementById('compactPlayer').style.display = 'none';
+       document.getElementById('compactPlayBtn').style.display = 'block';
+       document.getElementById('compactPauseBtn').style.display = 'none';
+       document.getElementById('progressFill').style.width = '0%';
+       document.getElementById('currentTime').textContent = '0:00';
+       addStatus('⏹️ Stopped', 'success');
+     }
 
      function updateStats() {
        document.getElementById('statsFound').textContent = state.sounds.length;
