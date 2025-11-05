@@ -237,6 +237,8 @@
        width: 100%;
        overflow: hidden;
        padding: 20px;
+       padding-left: 40px;
+       padding-right: 40px;
        max-width: 100%;
        margin: 0 auto;
      }
@@ -856,57 +858,82 @@
         text-overflow: ellipsis;
       }
       
-      .player-footer-progress {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        min-width: 150px;
-      }
-      
-      .player-footer-bar {
-        width: 100%;
-        height: 4px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 2px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .player-footer-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #a78bfa, #f472b6);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.1s linear;
-      }
-      
-      .player-footer-times {
-        display: flex;
-        justify-content: space-between;
-        font-size: 10px;
-        color: rgba(255,255,255,0.5);
-      }
-      
-      .player-footer-controls {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-shrink: 0;
-      }
-      
-      .player-footer-controls button {
-        padding: 6px 12px;
-        font-size: 12px;
-        margin: 0;
-        background: linear-gradient(135deg, #a78bfa, #f472b6);
-        box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
-      }
-      
-       .player-footer-controls button:hover {
-         box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
+       .player-footer-progress {
+         flex: 1;
+         display: flex;
+         flex-direction: column;
+         gap: 6px;
+         min-width: 150px;
+         padding: 0 20px;
        }
+       
+       .player-footer-bar {
+         width: 100%;
+         height: 8px;
+         background: rgba(255,255,255,0.1);
+         border-radius: 4px;
+         cursor: pointer;
+         position: relative;
+         overflow: hidden;
+         transition: height 0.2s ease;
+       }
+       
+       .player-footer-bar:hover {
+         height: 12px;
+         background: rgba(255,255,255,0.15);
+       }
+       
+       .player-footer-fill {
+         height: 100%;
+         background: linear-gradient(90deg, #a78bfa, #f472b6);
+         border-radius: 4px;
+         width: 0%;
+         transition: width 0.1s linear;
+       }
+       
+       .player-footer-times {
+         display: flex;
+         justify-content: space-between;
+         font-size: 11px;
+         color: rgba(255,255,255,0.6);
+         font-weight: 500;
+       }
+       
+       .player-footer-controls {
+         display: flex;
+         gap: 16px;
+         align-items: center;
+         justify-content: center;
+         flex-shrink: 0;
+         padding: 0 20px;
+       }
+       
+       .player-footer-controls button {
+         padding: 10px 16px;
+         font-size: 16px;
+         margin: 0;
+         border: none;
+         background: linear-gradient(135deg, #a78bfa, #f472b6);
+         border-radius: 6px;
+         color: #fff;
+         cursor: pointer;
+         transition: all 0.2s ease;
+         box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
+         min-width: 44px;
+         min-height: 44px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+       }
+       
+        .player-footer-controls button:hover {
+          box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
+          transform: translateY(-2px);
+        }
+        
+        .player-footer-controls button:active {
+          transform: translateY(0);
+        }
 
        /* Search Controls Panel */
        .search-controls-panel {
@@ -1090,18 +1117,17 @@
                  <div class="featured-meta-label">Sample Rate</div>
                  <div class="featured-meta-value" id="featuredSampleRate">—</div>
                </div>
-               <div class="featured-meta-item">
-                 <div class="featured-meta-label">Channels</div>
-                 <div class="featured-meta-value" id="featuredChannels">—</div>
-        </div>
-      </div>
-    </div>
+                <div class="featured-meta-item">
+                  <div class="featured-meta-label">Channels</div>
+                  <div class="featured-meta-value" id="featuredChannels">—</div>
+                </div>
+              </div>
               <div>
-               <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
-               <div class="featured-tags" id="featuredTags"></div>
-             </div>
-           </div>
-         </div>
+                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
+                <div class="featured-tags" id="featuredTags"></div>
+              </div>
+            </div>
+          </div>
 
          <!-- Now Playing & Controls - MOVED TO FOOTER -->
          <!-- <div class="panel">
