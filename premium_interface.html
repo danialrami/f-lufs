@@ -263,18 +263,19 @@
        height: 100%;
      }
      
-     .featured-panel {
-       background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.1));
-       border: 1px solid rgba(167, 139, 250, 0.3);
-       border-radius: 8px;
-       padding: 20px;
-       display: grid;
-       grid-template-columns: 200px 1fr;
-       gap: 20px;
-       align-items: start;
-       min-height: 260px;
-       box-shadow: 0 8px 24px rgba(167, 139, 250, 0.1);
-     }
+      .featured-panel {
+        background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.1));
+        border: 1px solid rgba(167, 139, 250, 0.3);
+        border-radius: 8px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 20px;
+        align-items: stretch;
+        min-height: 260px;
+        box-shadow: 0 8px 24px rgba(167, 139, 250, 0.1);
+        overflow: hidden;
+      }
      
      .featured-artwork {
        width: 200px;
@@ -295,12 +296,12 @@
        object-fit: cover;
      }
      
-      .featured-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 15px;
-      }
+       .featured-content {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         gap: 15px;
+       }
      
      .featured-title {
        font-size: 20px;
@@ -337,20 +338,20 @@
        color: #fff;
      }
      
-     .featured-description {
-       color: rgba(255,255,255,0.7);
-       font-size: 13px;
-       line-height: 1.5;
-       margin-bottom: 15px;
-     }
-     
-      .featured-description-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        flex: 1;
-        justify-content: space-between;
+      .featured-description {
+        color: rgba(255,255,255,0.7);
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 0;
       }
+     
+       .featured-description-wrapper {
+         display: flex;
+         flex-direction: column;
+         gap: 10px;
+         flex: 1;
+         justify-content: flex-start;
+       }
 
       .featured-tags {
         display: flex;
