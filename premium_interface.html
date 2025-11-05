@@ -208,8 +208,18 @@
     
      .main-layout {
        display: grid;
-       grid-template-columns: 1fr 320px;
+       grid-template-columns: 80px 1fr 320px;
        gap: 20px;
+       align-items: start;
+     }
+     
+     .visualizer-sidebar {
+       display: flex;
+       flex-direction: column;
+       gap: 20px;
+       position: sticky;
+       top: 20px;
+       max-height: calc(100vh - 200px);
      }
      
      .main-content {
@@ -393,40 +403,41 @@
       to { transform: rotate(360deg); }
     }
     
-    /* Waveform visualization */
-    .visualizer-container {
-      background: rgba(0,0,0,0.3);
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .visualizer-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
+     /* Waveform visualization */
+     .visualizer-container {
+       background: rgba(0,0,0,0.3);
+       border-radius: 8px;
+       padding: 10px;
+       display: flex;
+       flex-direction: column;
+       border: 1px solid rgba(167, 139, 250, 0.2);
+     }
+     
+     .visualizer-label {
+       font-size: 10px;
+       color: rgba(255,255,255,0.5);
+       margin-bottom: 6px;
+       text-transform: uppercase;
+       font-weight: bold;
+     }
     
     canvas {
       border-radius: 4px;
       background: rgba(0,0,0,0.5);
     }
     
-    .waveform-canvas {
-      width: 100%;
-      height: 120px;
-      display: block;
-    }
-    
-    .frequency-canvas {
-      width: 100%;
-      height: 80px;
-      display: block;
-      margin-top: 15px;
-    }
+     .waveform-canvas {
+       width: 100%;
+       height: 200px;
+       display: block;
+     }
+     
+     .frequency-canvas {
+       width: 100%;
+       height: 180px;
+       display: block;
+       margin-top: 0;
+     }
     
     .playback-info {
       display: grid;
@@ -713,6 +724,23 @@
     </div>
 
     <div class="main-layout">
+       <!-- Visualizations Sidebar (Left) -->
+       <div class="visualizer-sidebar" id="visualizerSidebar">
+         <div class="panel">
+           <div class="visualizer-container">
+             <div class="visualizer-label">Waveform</div>
+             <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+           </div>
+         </div>
+         
+         <div class="panel">
+           <div class="visualizer-container">
+             <div class="visualizer-label">Spectrum</div>
+             <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
+           </div>
+         </div>
+       </div>
+
        <div class="main-content">
          <!-- Featured Sound Panel -->
          <div class="featured-panel" id="featuredPanel">
@@ -743,27 +771,6 @@
                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
                <div class="featured-tags" id="featuredTags"></div>
              </div>
-           </div>
-         </div>
-
-         <!-- Status Panel -->
-         <div class="panel">
-           <h2>📊 Status</h2>
-           <div class="status-container" id="statusContainer"></div>
-         </div>
-
-         <!-- Visualizers -->
-         <div class="panel">
-           <h2>📈 Live Visualization</h2>
-           
-           <div class="visualizer-container">
-             <div class="visualizer-label">Waveform</div>
-             <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
-           </div>
-           
-           <div class="visualizer-container">
-             <div class="visualizer-label">Frequency Spectrum</div>
-             <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
            </div>
          </div>
 
