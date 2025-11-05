@@ -1007,57 +1007,57 @@
 </head>
 <body>
   <div class="container">
-     <div class="header">
-        <h1>🎵 F.LUFS</h1>
-     </div>
+      <div class="header">
+         <h1>🎵 F.LUFS</h1>
+      </div>
 
-     <div class="main-layout">
-        <!-- Visualizations Sidebar (Left) - DISABLED -->
-        <!-- <div class="visualizer-sidebar" id="visualizerSidebar">
-          <div class="panel">
-            <div class="visualizer-container">
-              <div class="visualizer-label">Waveform</div>
-              <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
-            </div>
-          </div>
-          
-          <div class="panel">
-            <div class="visualizer-container">
-              <div class="visualizer-label">Spectrum</div>
-              <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
-            </div>
-          </div>
-         </div> -->
-
-        <!-- Search Controls Panel -->
-        <div class="search-controls-panel">
-          <div class="control-group">
-            <label>Search Terms</label>
-            <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
-          </div>
-          <div class="range-group">
-            <label>Duration Range (seconds)</label>
-            <div class="range-inputs">
-              <input type="number" id="minDurationInput" min="0.1" max="60" value="0.5" step="0.1">
-              <span>-</span>
-              <input type="number" id="maxDurationInput" min="0.1" max="60" value="10" step="0.1">
-            </div>
-            <input type="range" id="minDurationSlider" class="range-slider" min="0.1" max="60" value="0.5" step="0.1">
-            <input type="range" id="maxDurationSlider" class="range-slider" min="0.1" max="60" value="10" step="0.1">
-            <div class="range-display" id="rangeDisplay">0.5s - 10s</div>
-          </div>
-          <div class="control-group">
-            <label>Visualizer</label>
-            <select id="visualizerMode">
-              <option value="waveform">Waveform</option>
-              <option value="frequency">Frequency</option>
-              <option value="both">Both</option>
-            </select>
-          </div>
-          <button onclick="performSearch()">🔍 Search</button>
+      <!-- Search Controls Panel -->
+      <div class="search-controls-panel">
+        <div class="control-group">
+          <label>Search Terms</label>
+          <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
         </div>
+        <div class="range-group">
+          <label>Duration Range (seconds)</label>
+          <div class="range-inputs">
+            <input type="number" id="minDurationInput" min="0.1" max="60" value="0.5" step="0.1">
+            <span>-</span>
+            <input type="number" id="maxDurationInput" min="0.1" max="60" value="10" step="0.1">
+          </div>
+          <input type="range" id="minDurationSlider" class="range-slider" min="0.1" max="60" value="0.5" step="0.1">
+          <input type="range" id="maxDurationSlider" class="range-slider" min="0.1" max="60" value="10" step="0.1">
+          <div class="range-display" id="rangeDisplay">0.5s - 10s</div>
+        </div>
+        <div class="control-group">
+          <label>Visualizer</label>
+          <select id="visualizerMode">
+            <option value="waveform">Waveform</option>
+            <option value="frequency">Frequency</option>
+            <option value="both">Both</option>
+          </select>
+        </div>
+        <button onclick="performSearch()">🔍 Search</button>
+      </div>
 
-        <div class="main-content">
+      <div class="main-layout">
+         <!-- Visualizations Sidebar (Left) - DISABLED -->
+         <!-- <div class="visualizer-sidebar" id="visualizerSidebar">
+           <div class="panel">
+             <div class="visualizer-container">
+               <div class="visualizer-label">Waveform</div>
+               <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+             </div>
+           </div>
+           
+           <div class="panel">
+             <div class="visualizer-container">
+               <div class="visualizer-label">Spectrum</div>
+               <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
+             </div>
+           </div>
+          </div> -->
+
+         <div class="main-content">
          <!-- Featured Sound Panel -->
          <div class="featured-panel" id="featuredPanel">
            <div class="featured-artwork" id="featuredArtwork">🎵</div>
