@@ -615,6 +615,20 @@
        padding: 10px;
        font-size: 13px;
      }
+     
+     /* Download section */
+     .download-section {
+       display: flex;
+       flex-direction: column;
+       gap: 8px;
+     }
+     
+     .download-section button {
+       width: 100%;
+       padding: 12px;
+       font-size: 13px;
+       align-self: auto;
+     }
     
     /* Progress bar */
     .progress-container {
@@ -852,6 +866,11 @@
 
        <!-- Sidebar -->
        <div class="sidebar">
+         <!-- Download Button -->
+         <div class="panel download-section">
+           <button onclick="downloadCurrentSound()" id="downloadBtn">⬇️ Download</button>
+         </div>
+
          <!-- Current Sound Info -->
          <div class="panel">
            <h2>ℹ️ Sound Info</h2>
@@ -913,6 +932,26 @@
      var waveformCtx = waveformCanvas.getContext('2d');
      var frequencyCanvas = document.getElementById('frequencyCanvas');
      var frequencyCtx = frequencyCanvas.getContext('2d');
+
+     // Download current sound
+     function downloadCurrentSound() {
+       if (!state.currentSound || !state.currentSound.url) {
+         addStatus('❌ No sound selected or URL unavailable', 'error');
+         return;
+       }
+
+       try {
+         var link = document.createElement('a');
+         link.href = state.currentSound.url;
+         link.download = (state.currentSound.name || 'sound') + '.mp3';
+         document.body.appendChild(link);
+         link.click();
+         document.body.removeChild(link);
+         addStatus('✅ Download started: ' + state.currentSound.name, 'success');
+       } catch (error) {
+         addStatus('❌ Download failed: ' + error.message, 'error');
+       }
+     }
 
      // Range slider synchronization
      function setupRangeSliders() {
