@@ -217,11 +217,12 @@
     
      .main-layout {
        display: grid;
-       grid-template-columns: 120px 1fr 320px;
-       gap: 0;
+       grid-template-columns: 1fr 320px;
+       gap: 20px;
        flex: 1;
        width: 100%;
        overflow: hidden;
+       padding: 0 20px;
      }
      
      .visualizer-sidebar {
@@ -237,7 +238,7 @@
        display: flex;
        flex-direction: column;
        gap: 20px;
-       padding: 20px;
+       padding: 20px 0;
        overflow-y: auto;
        height: 100%;
      }
@@ -742,7 +743,7 @@
        display: flex;
        flex-direction: column;
        gap: 20px;
-       padding: 20px 12px;
+       padding: 20px 0;
        overflow-y: auto;
        height: 100%;
      }
@@ -809,23 +810,23 @@
        </div>
     </div>
 
-    <div class="main-layout">
-       <!-- Visualizations Sidebar (Left) -->
-       <div class="visualizer-sidebar" id="visualizerSidebar">
-         <div class="panel">
-           <div class="visualizer-container">
-             <div class="visualizer-label">Waveform</div>
-             <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
-           </div>
-         </div>
-         
-         <div class="panel">
-           <div class="visualizer-container">
-             <div class="visualizer-label">Spectrum</div>
-             <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
-           </div>
-         </div>
-       </div>
+     <div class="main-layout">
+        <!-- Visualizations Sidebar (Left) - DISABLED -->
+        <!-- <div class="visualizer-sidebar" id="visualizerSidebar">
+          <div class="panel">
+            <div class="visualizer-container">
+              <div class="visualizer-label">Waveform</div>
+              <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
+            </div>
+          </div>
+          
+          <div class="panel">
+            <div class="visualizer-container">
+              <div class="visualizer-label">Spectrum</div>
+              <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
+            </div>
+          </div>
+        </div> -->
 
        <div class="main-content">
          <!-- Featured Sound Panel -->
