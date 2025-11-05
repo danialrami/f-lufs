@@ -827,16 +827,16 @@
 
        <!-- Sidebar -->
        <div class="sidebar">
-         <!-- Search Status Info -->
-         <div class="panel">
-           <h2>🔍 Search Info</h2>
-           <div id="searchInfo" class="empty-state" style="font-size: 12px;">Perform a search to see statistics</div>
-         </div>
-
          <!-- Current Sound Info -->
          <div class="panel">
            <h2>ℹ️ Sound Info</h2>
            <div id="soundDetailsInfo" class="empty-state" style="font-size: 12px;">No sound selected</div>
+         </div>
+
+         <!-- Status Panel -->
+         <div class="panel">
+           <h2>📊 Status</h2>
+           <div class="status-container" id="statusContainer"></div>
          </div>
 
          <!-- Stats -->
@@ -1017,7 +1017,6 @@
          addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
          renderSounds();
          updateStats();
-         updateSearchInfo(searchTerms, minDuration, maxDuration);
        })
       .catch(function(error) {
         addStatus('❌ Search error: ' + error.message, 'error');
@@ -1200,21 +1199,7 @@
        document.getElementById('statsAvgDuration').textContent = avgDuration.toFixed(1) + 's';
      }
 
-     function updateSearchInfo(terms, minDur, maxDur) {
-       var html = '<div style="text-align: left; font-size: 12px;">' +
-         '<strong>Search Query:</strong><br/>' +
-         '<div style="margin: 8px 0; padding: 8px; background: rgba(102, 126, 234, 0.1); border-radius: 4px;">' +
-         terms.join(', ') +
-         '</div>' +
-         '<strong>Duration Range:</strong><br/>' +
-         '<div style="margin: 8px 0;">' + minDur.toFixed(1) + 's - ' + maxDur.toFixed(1) + 's</div>' +
-         '<strong>Timestamp:</strong><br/>' +
-         '<div style="margin: 8px 0; color: rgba(255,255,255,0.6);">' + new Date().toLocaleTimeString() + '</div>' +
-         '</div>';
-       document.getElementById('searchInfo').innerHTML = html;
-     }
-
-    function formatTime(seconds) {
+     function formatTime(seconds) {
       var mins = Math.floor(seconds / 60);
       var secs = Math.floor(seconds % 60);
       return mins + ':' + (secs < 10 ? '0' : '') + secs;
