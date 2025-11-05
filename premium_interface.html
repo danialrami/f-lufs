@@ -691,6 +691,18 @@
 
        <!-- Sidebar -->
        <div class="sidebar">
+         <!-- Search Status Info -->
+         <div class="panel">
+           <h2>🔍 Search Info</h2>
+           <div id="searchInfo" class="empty-state" style="font-size: 12px;">Perform a search to see statistics</div>
+         </div>
+
+         <!-- Current Sound Info -->
+         <div class="panel">
+           <h2>ℹ️ Sound Info</h2>
+           <div id="soundDetailsInfo" class="empty-state" style="font-size: 12px;">No sound selected</div>
+         </div>
+
          <!-- Stats -->
          <div class="panel">
            <h2>📈 Stats</h2>
@@ -712,12 +724,6 @@
                <div class="stat-label">Avg Duration</div>
              </div>
            </div>
-         </div>
-
-         <!-- Current Sound Info -->
-         <div class="panel">
-           <h2>ℹ️ Sound Info</h2>
-           <div id="soundDetailsInfo" class="empty-state" style="font-size: 12px;">No sound selected</div>
          </div>
        </div>
      </div>
@@ -839,17 +845,17 @@
       document.getElementById('statusContainer').innerHTML = html;
     }
 
-    function performSearch() {
-      if (!state.sf) {
-        addStatus('❌ Not initialized', 'error');
-        return;
-      }
+     function performSearch() {
+       if (!state.sf) {
+         addStatus('❌ Not initialized', 'error');
+         return;
+       }
 
-      stopCurrent();
+       stopCurrent();
 
-      var searchTerms = document.getElementById('searchTerms').value.trim().split(',').map(function(s) { return s.trim(); });
-      var minDuration = parseFloat(document.getElementById('minDuration').value) || 0;
-      var maxDuration = parseFloat(document.getElementById('maxDuration').value) || 10;
+       var searchTerms = document.getElementById('searchTerms').value.trim().split(',').map(function(s) { return s.trim(); });
+       var minDuration = parseFloat(document.getElementById('minDurationSlider').value) || 0.5;
+       var maxDuration = parseFloat(document.getElementById('maxDurationSlider').value) || 10;
 
       if (searchTerms.length === 0 || !searchTerms[0]) {
         addStatus('❌ Enter search terms', 'error');
@@ -867,15 +873,16 @@
         addStatus('📥 Downloading ' + count + ' sounds...', 'loading');
         return state.sf.download();
       })
-      .then(function() {
-        state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
-          return state.sf.currentSoundsInfo[id];
-        });
-        
-        addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
-        renderSounds();
-        updateStats();
-      })
+       .then(function() {
+         state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
+           return state.sf.currentSoundsInfo[id];
+         });
+         
+         addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+         renderSounds();
+         updateStats();
+         updateSearchInfo(searchTerms, minDuration, maxDuration);
+       })
       .catch(function(error) {
         addStatus('❌ Search error: ' + error.message, 'error');
         console.error(error);
@@ -1023,19 +1030,33 @@
       addStatus('⏹️ Stopped', 'success');
     }
 
-    function updateStats() {
-      document.getElementById('statsFound').textContent = state.sounds.length;
-      document.getElementById('statsDownloaded').textContent = state.sounds.length;
-      
-      var totalDuration = state.sounds.reduce(function(sum, sound) {
-        return sum + (sound.duration || 0);
-      }, 0);
-      
-      var avgDuration = state.sounds.length > 0 ? totalDuration / state.sounds.length : 0;
-      
-      document.getElementById('statsDuration').textContent = totalDuration.toFixed(1) + 's';
-      document.getElementById('statsAvgDuration').textContent = avgDuration.toFixed(1) + 's';
-    }
+     function updateStats() {
+       document.getElementById('statsFound').textContent = state.sounds.length;
+       document.getElementById('statsDownloaded').textContent = state.sounds.length;
+       
+       var totalDuration = state.sounds.reduce(function(sum, sound) {
+         return sum + (sound.duration || 0);
+       }, 0);
+       
+       var avgDuration = state.sounds.length > 0 ? totalDuration / state.sounds.length : 0;
+       
+       document.getElementById('statsDuration').textContent = totalDuration.toFixed(1) + 's';
+       document.getElementById('statsAvgDuration').textContent = avgDuration.toFixed(1) + 's';
+     }
+
+     function updateSearchInfo(terms, minDur, maxDur) {
+       var html = '<div style="text-align: left; font-size: 12px;">' +
+         '<strong>Search Query:</strong><br/>' +
+         '<div style="margin: 8px 0; padding: 8px; background: rgba(102, 126, 234, 0.1); border-radius: 4px;">' +
+         terms.join(', ') +
+         '</div>' +
+         '<strong>Duration Range:</strong><br/>' +
+         '<div style="margin: 8px 0;">' + minDur.toFixed(1) + 's - ' + maxDur.toFixed(1) + 's</div>' +
+         '<strong>Timestamp:</strong><br/>' +
+         '<div style="margin: 8px 0; color: rgba(255,255,255,0.6);">' + new Date().toLocaleTimeString() + '</div>' +
+         '</div>';
+       document.getElementById('searchInfo').innerHTML = html;
+     }
 
     function formatTime(seconds) {
       var mins = Math.floor(seconds / 60);
