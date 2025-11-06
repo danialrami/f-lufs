@@ -1069,7 +1069,8 @@
       analyserFreq: null,
       animationId: null,
       playbackStartTime: null,
-      pausedTime: 0
+      pausedTime: 0,
+      userStoppedPlayback: false
     };
 
     // Canvas setup for visualizers
@@ -1421,6 +1422,13 @@
         return;
       }
 
+      console.log('[playCurrent START] state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime, 'state.isPlaying:', state.isPlaying);
+      
+      if (!state.currentSound || !state.currentSound.buffer) {
+        addStatus('❌ No sound selected or no buffer', 'error');
+        return;
+      }
+
       // Check if this is a resume from pause BEFORE we modify any state
       var isResume = state.isPaused;
       console.log('[playCurrent] isResume:', isResume, 'pausedTime:', state.pausedTime, 'isPlaying:', state.isPlaying);
@@ -1428,6 +1436,8 @@
       // Always stop any existing playback to prevent layering
       if (state.currentSource) {
         try {
+          // Mark that we're stopping programmatically, not because audio ended
+          state.userStoppedPlayback = true;
           state.currentSource.stop(0);
         } catch(e) {}
       }
@@ -1454,9 +1464,16 @@
       state.analyser.connect(state.analyserFreq);
       
       src.onended = function() {
+        console.log('[onended callback] userStoppedPlayback:', state.userStoppedPlayback);
         state.isPlaying = false;
-        state.isPaused = false;
-        state.pausedTime = 0;
+        
+        // Only reset pause state if the audio ended naturally (not if we stopped it programmatically)
+        if (!state.userStoppedPlayback) {
+          state.isPaused = false;
+          state.pausedTime = 0;
+        }
+        state.userStoppedPlayback = false;
+        
         var footerPlayBtn = document.getElementById('footer-play-btn');
         var footerPauseBtn = document.getElementById('footer-pause-btn');
         
@@ -1516,6 +1533,7 @@
       console.log('[stopCurrent] resetting pausedTime from:', state.pausedTime, 'isPaused:', state.isPaused, 'fullStop:', fullStop);
       if (state.currentSource) {
         try {
+          state.userStoppedPlayback = true;
           state.currentSource.stop(0);
         } catch(e) {}
       }
@@ -1526,6 +1544,7 @@
         state.isPaused = false;
         state.pausedTime = 0;
       }
+      state.userStoppedPlayback = false;
       
       var footerPlayBtn = document.getElementById('footer-play-btn');
       var footerPauseBtn = document.getElementById('footer-pause-btn');
