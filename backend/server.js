@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // Middleware
 app.use(cors());
@@ -215,5 +215,6 @@ app.listen(PORT, () => {
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
   console.log(`🌐 Frontend available at http://localhost:${PORT}`);
   console.log(`\n🔐 API Key loaded: ${API_KEY ? '✓' : '✗'}`);
+  console.log(`\n💡 Tip: Use PORT=xxxx npm start to run on a different port`);
   console.log(`\nPress Ctrl+C to stop\n`);
 });

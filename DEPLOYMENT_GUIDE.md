@@ -17,7 +17,7 @@ npm install
 # Start the server
 npm run dev
 
-# Open browser to http://localhost:3000
+# Open browser to http://localhost:8080
 ```
 
 That's it! Your frontend will now call the backend instead of exposing your API key.
@@ -97,7 +97,7 @@ server {
     server_name your-domain.com;
 
     location / {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:8080;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -164,9 +164,9 @@ Before sharing your demo:
 npm install
 ```
 
-### "Port 3000 in use"
+### "Port 8080 in use"
 ```bash
-PORT=3001 npm run dev
+PORT=9000 npm run dev
 ```
 
 ### "API key not found"

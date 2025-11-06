@@ -47,7 +47,7 @@ npm run dev
 npm start
 ```
 
-Server will run on `http://localhost:3000` (or `$PORT` environment variable)
+Server will run on `http://localhost:8080` (or `$PORT` environment variable)
 
 ## API Endpoints
 
@@ -151,9 +151,9 @@ server {
 - Check `.env` file exists in project root
 - Verify `FREESOUND_CLIENT_SECRET_API_KEY` is set correctly
 
-**"Port 3000 already in use"**
-- Use different port: `PORT=3001 npm start`
-- Or kill existing process
+**"Port 8080 already in use"**
+- Use different port: `PORT=9000 npm start`
+- Or kill existing process: `lsof -ti:8080 | xargs kill -9`
 
 **"Search returns no results"**
 - Check search terms and duration range
