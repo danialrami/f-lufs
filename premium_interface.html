@@ -1419,6 +1419,9 @@
         return;
       }
 
+      // Check if this is a resume from pause BEFORE we modify any state
+      var isResume = state.isPaused;
+      
       // Always stop any existing playback to prevent layering
       if (state.currentSource) {
         try {
@@ -1431,7 +1434,7 @@
       }
 
       // If resuming from pause, use the paused time; otherwise start from beginning
-      var startOffset = state.isPaused ? state.pausedTime : 0;
+      var startOffset = isResume ? state.pausedTime : 0;
       state.playbackStartTime = state.audioContext.currentTime - startOffset;
       state.isPaused = false;
      
@@ -1468,7 +1471,8 @@
       if (footerPauseBtn) footerPauseBtn.style.display = 'block';
       if (footerTotalTime) footerTotalTime.textContent = formatTime(state.currentSound.duration);
       
-      addStatus(state.isPaused ? '▶️ Resumed' : '▶️ Playing: ' + state.currentSound.name, 'success');
+      var statusMsg = isResume ? '▶️ Resumed from ' + formatTime(startOffset) : '▶️ Playing: ' + state.currentSound.name;
+      addStatus(statusMsg, 'success');
     }
 
     function pauseCurrent() {
