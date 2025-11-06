@@ -1429,36 +1429,53 @@
     }
     
     function loadAudioPreview() {
-      if (!state.currentSound || !state.currentSound.previews) {
-        addStatus('❌ No audio preview available', 'error');
+      if (!state.currentSound) {
+        addStatus('❌ No sound selected', 'error');
         return;
       }
 
-      // Use the mp3 preview from Freesound API
-      var previewUrl = state.currentSound.previews['preview-hq-mp3'];
+      // Try different preview formats in order of preference
+      var previewUrl = null;
+      
+      if (state.currentSound.previews) {
+        previewUrl = state.currentSound.previews['preview-hq-mp3'] ||
+                     state.currentSound.previews['preview-lq-mp3'] ||
+                     state.currentSound.previews['preview-hq-ogg'] ||
+                     state.currentSound.previews['preview-lq-ogg'];
+      }
       
       if (!previewUrl) {
-        addStatus('❌ No audio preview available', 'error');
+        addStatus('❌ No audio preview available for this sound', 'error');
+        console.error('Sound object:', state.currentSound);
         return;
       }
 
       addStatus('📥 Loading audio...', 'loading');
+      console.log('Loading preview from:', previewUrl);
 
-      var loader = new loaders.AudioBufferLoader();
-      loader.load(previewUrl, {
-        audioContext: state.audioContext,
-        onprogress: function(progress) {
-          console.log('Loading progress:', (progress * 100).toFixed(1) + '%');
-        },
-        onsuccess: function(buffer) {
-          state.currentSound.buffer = buffer;
-          addStatus('✅ Audio ready', 'success');
-          playCurrent();
-        },
-        onerror: function(error) {
-          addStatus('❌ Audio load failed: ' + error, 'error');
-          console.error('Audio loading error:', error);
+      // Use fetch to load the audio with better error handling
+      fetch(previewUrl, {
+        mode: 'cors',
+        credentials: 'omit'
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Failed to fetch audio: ' + response.statusText);
         }
+        return response.arrayBuffer();
+      })
+      .then(function(arrayBuffer) {
+        addStatus('🔧 Decoding audio...', 'loading');
+        return state.audioContext.decodeAudioData(arrayBuffer);
+      })
+      .then(function(buffer) {
+        state.currentSound.buffer = buffer;
+        addStatus('✅ Audio ready', 'success');
+        playCurrent();
+      })
+      .catch(function(error) {
+        addStatus('❌ Audio load failed: ' + error.message, 'error');
+        console.error('Audio loading error:', error);
       });
     }
 

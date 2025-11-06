@@ -83,7 +83,7 @@ app.post('/api/search', async (req, res) => {
     const params = new URLSearchParams({
       query: searchTerms,
       filter: `duration:[${minDuration} TO ${maxDuration}]`,
-      fields: 'id,name,duration,username,num_downloads,filesize,bitrate,channels,images,tags',
+      fields: 'id,name,duration,username,num_downloads,filesize,bitrate,channels,images,tags,previews',
       page_size: 15,
       sort: 'score',
       token: API_KEY,
@@ -94,9 +94,15 @@ app.post('/api/search', async (req, res) => {
 
     const data = await fetchWithRetry(url);
 
+    // Ensure all results have previews field
+    const results = (data.results || []).map(sound => ({
+      ...sound,
+      previews: sound.previews || {}
+    }));
+
     res.json({
       count: data.count,
-      results: data.results || [],
+      results: results,
     });
   } catch (error) {
     console.error('[SEARCH ERROR]', error.message);
