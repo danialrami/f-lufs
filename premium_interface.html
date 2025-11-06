@@ -1206,6 +1206,23 @@
       }
     }
 
+    // Setup spacebar for play/pause
+    function setupSpacebarControl() {
+      document.addEventListener('keydown', function(event) {
+        // Only trigger if spacebar is pressed and not in input field
+        if (event.code === 'Space' && event.target.tagName !== 'INPUT') {
+          event.preventDefault();
+          
+          // If currently playing, pause; if paused or stopped, play
+          if (state.isPlaying) {
+            pauseCurrent();
+          } else {
+            playCurrent();
+          }
+        }
+      });
+    }
+
     // Initialize
     function init() {
       try {
@@ -1235,6 +1252,7 @@
         
         setupRangeSliders();
         setupSearchEnter();
+        setupSpacebarControl();
         animate();
       } catch (error) {
         addStatus('❌ Initialization error: ' + error.message, 'error');
