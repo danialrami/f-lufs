@@ -1414,6 +1414,8 @@
     }
 
     function playCurrent() {
+      console.log('[playCurrent START] state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime, 'state.isPlaying:', state.isPlaying);
+      
       if (!state.currentSound || !state.currentSound.buffer) {
         addStatus('❌ No sound selected or no buffer', 'error');
         return;
@@ -1498,6 +1500,7 @@
       
       state.isPlaying = false;
       state.isPaused = true;
+      console.log('[pauseCurrent] state.isPaused set to TRUE:', state.isPaused);
       
       var footerPauseBtn = document.getElementById('footer-pause-btn');
       var footerPlayBtn = document.getElementById('footer-play-btn');
@@ -1505,6 +1508,7 @@
       if (footerPauseBtn) footerPauseBtn.style.display = 'none';
       if (footerPlayBtn) footerPlayBtn.style.display = 'block';
       
+      console.log('[pauseCurrent] after button updates - state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime);
       addStatus('⏸️ Paused at ' + formatTime(state.pausedTime), 'success');
     }
 
