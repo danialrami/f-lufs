@@ -1415,15 +1415,6 @@
     }
 
     function playCurrent() {
-      console.log('[playCurrent START] state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime, 'state.isPlaying:', state.isPlaying);
-      
-      if (!state.currentSound || !state.currentSound.buffer) {
-        addStatus('❌ No sound selected or no buffer', 'error');
-        return;
-      }
-
-      console.log('[playCurrent START] state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime, 'state.isPlaying:', state.isPlaying);
-      
       if (!state.currentSound || !state.currentSound.buffer) {
         addStatus('❌ No sound selected or no buffer', 'error');
         return;
@@ -1431,7 +1422,6 @@
 
       // Check if this is a resume from pause BEFORE we modify any state
       var isResume = state.isPaused;
-      console.log('[playCurrent] isResume:', isResume, 'pausedTime:', state.pausedTime, 'isPlaying:', state.isPlaying);
       
       // Always stop any existing playback to prevent layering
       if (state.currentSource) {
@@ -1448,9 +1438,7 @@
 
       // If resuming from pause, use the paused time; otherwise start from beginning
       var startOffset = isResume ? state.pausedTime : 0;
-      console.log('[playCurrent] startOffset:', startOffset, 'audioContext.currentTime:', state.audioContext.currentTime);
       state.playbackStartTime = state.audioContext.currentTime - startOffset;
-      console.log('[playCurrent] playbackStartTime set to:', state.playbackStartTime);
       state.isPaused = false;
      
       var src = state.audioContext.createBufferSource();
@@ -1464,7 +1452,6 @@
       state.analyser.connect(state.analyserFreq);
       
       src.onended = function() {
-        console.log('[onended callback] userStoppedPlayback:', state.userStoppedPlayback);
         state.isPlaying = false;
         
         // Only reset pause state if the audio ended naturally (not if we stopped it programmatically)
@@ -1481,7 +1468,6 @@
         if (footerPauseBtn) footerPauseBtn.style.display = 'none';
       };
      
-      console.log('[playCurrent] calling src.start(0, ' + startOffset + ')');
       src.start(0, startOffset);
       state.currentSource = src;
       state.isPlaying = true;
@@ -1506,7 +1492,6 @@
 
       // Save the current playback position
       state.pausedTime = state.audioContext.currentTime - state.playbackStartTime;
-      console.log('[pauseCurrent] audioContext.currentTime:', state.audioContext.currentTime, 'playbackStartTime:', state.playbackStartTime, 'pausedTime:', state.pausedTime);
       
       // Stop the current source
       if (state.currentSource) {
@@ -1517,7 +1502,6 @@
       
       state.isPlaying = false;
       state.isPaused = true;
-      console.log('[pauseCurrent] state.isPaused set to TRUE:', state.isPaused);
       
       var footerPauseBtn = document.getElementById('footer-pause-btn');
       var footerPlayBtn = document.getElementById('footer-play-btn');
@@ -1525,12 +1509,10 @@
       if (footerPauseBtn) footerPauseBtn.style.display = 'none';
       if (footerPlayBtn) footerPlayBtn.style.display = 'block';
       
-      console.log('[pauseCurrent] after button updates - state.isPaused:', state.isPaused, 'state.pausedTime:', state.pausedTime);
       addStatus('⏸️ Paused at ' + formatTime(state.pausedTime), 'success');
     }
 
     function stopCurrent(fullStop) {
-      console.log('[stopCurrent] resetting pausedTime from:', state.pausedTime, 'isPaused:', state.isPaused, 'fullStop:', fullStop);
       if (state.currentSource) {
         try {
           state.userStoppedPlayback = true;
