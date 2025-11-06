@@ -8,407 +8,408 @@
       box-sizing: border-box;
     }
     
-      body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        padding: 0;
-        margin: 0;
-        background: linear-gradient(135deg, #0f1419 0%, #1a0f2e 100%);
-        color: #fff;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        overflow-x: hidden;
-      }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+      padding: 0;
+      margin: 0;
+      background: #0a0e1b;
+      color: #e8eaed;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
     
-      .container {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        margin-top: 45px;
-        margin-bottom: 60px;
-        overflow: hidden;
-      }
+    .container {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
+      margin-top: 48px;
+      margin-bottom: 64px;
+      overflow: hidden;
+    }
     
-      .header {
-        background: linear-gradient(135deg, #a78bfa 0%, #f87171 100%);
-        padding: 8px 20px;
-        border-radius: 0;
-        margin: 0;
-        box-shadow: 0 8px 32px rgba(167, 139, 250, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 20px;
-        flex-shrink: 0;
-        z-index: 100;
-        flex-wrap: nowrap;
-        width: 100vw;
-        box-sizing: border-box;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-      }
-      
-      .header h1 {
-        margin: 0;
-        font-size: 18px;
-        color: #fff;
-        white-space: nowrap;
-        flex-shrink: 0;
-        letter-spacing: 2px;
-      }
-     
-     .header p {
-       display: none;
-     }
-     
-     .controls {
-       display: flex;
-       align-items: flex-end;
-       gap: 12px;
-       flex: 1;
-       flex-wrap: nowrap;
-       justify-content: center;
-     }
-     
-     .control-group {
-       display: flex;
-       flex-direction: column;
-       min-width: 150px;
-     }
-     
-     .control-group label {
-       margin-bottom: 4px;
-     }
-     
-     .control-group input,
-     .control-group select {
-       padding: 6px 8px;
-       font-size: 13px;
-     }
-     
-      /* Range slider styles */
-      .range-group {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        min-width: 250px;
-        max-width: 450px;
-      }
-     
-     .range-group label {
-       margin-bottom: 4px;
-     }
-     
-      .range-inputs {
-        display: none;
-      }
-      
-      .range-inputs input {
-        width: 45px;
-        padding: 4px 6px;
-        font-size: 12px;
-      }
-     
-      .range-slider {
-        width: 100%;
-        height: 8px;
-        border-radius: 4px;
-        background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(167, 139, 250, 0.2) 50%, rgba(255,255,255,0.1) 100%);
-        outline: none;
-        -webkit-appearance: none;
-        appearance: none;
-        pointer-events: none;
-        position: relative;
-        z-index: 5;
-        margin: 10px 0;
-      }
-      
-      .range-slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #a78bfa, #f472b6);
-        cursor: pointer;
-        pointer-events: all;
-        box-shadow: 0 0 16px rgba(167, 139, 250, 0.7), inset 0 2px 4px rgba(255,255,255,0.3);
-        transition: all 0.2s;
-      }
-      
-      .range-slider::-webkit-slider-thumb:hover {
-        background: linear-gradient(135deg, #c4b5fd, #fb7185);
-        box-shadow: 0 0 20px rgba(167, 139, 250, 0.9), inset 0 2px 4px rgba(255,255,255,0.3);
-        transform: scale(1.15);
-      }
-      
-      .range-slider::-moz-range-thumb {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #a78bfa, #f472b6);
-        cursor: pointer;
-        border: none;
-        box-shadow: 0 0 16px rgba(167, 139, 250, 0.7), inset 0 2px 4px rgba(255,255,255,0.3);
-        transition: all 0.2s;
-      }
-      
-      .range-slider::-moz-range-thumb:hover {
-        background: linear-gradient(135deg, #c4b5fd, #fb7185);
-        box-shadow: 0 0 20px rgba(167, 139, 250, 0.9), inset 0 2px 4px rgba(255,255,255,0.3);
-        transform: scale(1.15);
-      }
-     
-      .range-display {
-        font-size: 13px;
-        font-weight: 600;
-        color: #fff;
-        text-align: center;
-        margin-top: 8px;
-        background: rgba(167, 139, 250, 0.15);
-        padding: 6px 12px;
-        border-radius: 4px;
-        border: 1px solid rgba(167, 139, 250, 0.3);
-        letter-spacing: 0.5px;
-      }
+    .header {
+      background: #0a0e1b;
+      border-bottom: 1px solid rgba(79, 158, 255, 0.15);
+      padding: 0 20px;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+      flex-shrink: 0;
+      z-index: 100;
+      flex-wrap: nowrap;
+      width: 100vw;
+      height: 48px;
+      box-sizing: border-box;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #e8eaed;
+      white-space: nowrap;
+      flex-shrink: 0;
+      letter-spacing: 0.5px;
+    }
+   
+    .header p {
+      display: none;
+    }
+   
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      flex-wrap: nowrap;
+      justify-content: center;
+    }
+   
+    .control-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px;
+    }
+   
+    .control-group label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+   
+    .control-group input,
+    .control-group select {
+      padding: 6px 10px;
+      font-size: 13px;
+      min-width: 120px;
+    }
+   
+    /* Range slider styles */
+    .range-group {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      max-width: 350px;
+    }
+   
+    .range-group label {
+      font-size: 11px;
+      font-weight: 500;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+   
+    .range-inputs {
+      display: none;
+    }
+    
+    .range-inputs input {
+      width: 45px;
+      padding: 4px 6px;
+      font-size: 12px;
+    }
+   
+    .range-slider {
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(79, 158, 255, 0.2);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      pointer-events: none;
+      position: relative;
+      z-index: 5;
+    }
+    
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #4f9eff;
+      cursor: pointer;
+      pointer-events: all;
+      transition: all 0.2s;
+    }
+    
+    .range-slider::-webkit-slider-thumb:hover {
+      background: #68a8ff;
+    }
+    
+    .range-slider::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #4f9eff;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    
+    .range-slider::-moz-range-thumb:hover {
+      background: #68a8ff;
+    }
+   
+    .range-display {
+      font-size: 12px;
+      font-weight: 500;
+      color: #e8eaed;
+      background: #141824;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #2a2f3f;
+      letter-spacing: 0.3px;
+      min-width: 80px;
+      text-align: center;
+    }
     
     label {
       font-size: 11px;
-      font-weight: bold;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 5px;
+      font-weight: 500;
+      color: #9ca3af;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
     input, select {
-      padding: 8px;
-      border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 10px;
+      border: 1px solid #2a2f3f;
       border-radius: 4px;
-      font-size: 14px;
-      background: rgba(255,255,255,0.1);
-      color: white;
+      font-size: 13px;
+      background: #141824;
+      color: #e8eaed;
     }
     
     input::placeholder {
-      color: rgba(255,255,255,0.5);
+      color: #6b7280;
     }
     
     input:focus, select:focus {
       outline: none;
-      border-color: rgba(255,255,255,0.5);
-      background: rgba(255,255,255,0.15);
+      border-color: #4f9eff;
+      background: #1e2230;
+      box-shadow: 0 0 0 3px rgba(79, 158, 255, 0.1);
     }
     
-     button {
-       padding: 8px 16px;
-       background: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
-       color: white;
-       border: none;
-       border-radius: 4px;
-       cursor: pointer;
-       font-weight: bold;
-       font-size: 13px;
-       transition: all 0.2s;
-       box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
-       white-space: nowrap;
-       align-self: flex-end;
-     }
-     
-     button:hover {
-       background: linear-gradient(135deg, #c4b5fd 0%, #fb7185 100%);
-       transform: translateY(-2px);
-       box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4);
-     }
+    button {
+      padding: 8px 14px;
+      background: #4f9eff;
+      color: #0a0e1b;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      transition: background 0.2s;
+      white-space: nowrap;
+      align-self: center;
+    }
+    
+    button:hover {
+      background: #68a8ff;
+    }
     
     button:disabled {
-      background: rgba(255,255,255,0.2);
+      background: #2a2f3f;
+      color: #6b7280;
       cursor: not-allowed;
-      transform: none;
     }
     
-     .main-layout {
-       display: grid;
-       grid-template-columns: 1fr 320px;
-       gap: 20px;
-       flex: 1;
-       width: 100%;
-       overflow: hidden;
-       padding: 20px;
-       max-width: 100%;
-       margin: 0 auto;
-     }
-     
-     .visualizer-sidebar {
-       display: flex;
-       flex-direction: column;
-       gap: 12px;
-       padding: 12px 6px;
-       height: 100%;
-       overflow-y: auto;
-     }
-     
-     .main-content {
-       display: flex;
-       flex-direction: column;
-       gap: 20px;
-       padding: 20px 0;
-       overflow-y: auto;
-       height: 100%;
-     }
-     
-      .featured-panel {
-        background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.1));
-        border: 1px solid rgba(167, 139, 250, 0.3);
-        border-radius: 8px;
-        padding: 20px;
-        display: grid;
-        grid-template-columns: 200px 1fr;
-        gap: 20px;
-        align-items: stretch;
-        min-height: 260px;
-        box-shadow: 0 8px 24px rgba(167, 139, 250, 0.1);
-        overflow: hidden;
-      }
-     
-     .featured-artwork {
-       width: 200px;
-       height: 200px;
-       border-radius: 8px;
-       background: rgba(0,0,0,0.3);
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       font-size: 80px;
-       flex-shrink: 0;
-       overflow: hidden;
-     }
-     
-     .featured-artwork img {
-       width: 100%;
-       height: 100%;
-       object-fit: cover;
-     }
-     
-       .featured-content {
-         display: flex;
-         flex-direction: column;
-         justify-content: space-between;
-         gap: 15px;
-       }
-     
-     .featured-title {
-       font-size: 20px;
-       font-weight: bold;
-       margin-bottom: 10px;
-       color: #fff;
-       line-height: 1.3;
-     }
-     
-     .featured-meta {
-       display: grid;
-       grid-template-columns: 1fr 1fr;
-       gap: 12px;
-       margin-bottom: 15px;
-       font-size: 13px;
-     }
-     
-     .featured-meta-item {
-       background: rgba(167, 139, 250, 0.1);
-       padding: 8px 10px;
-       border-radius: 4px;
-       border-left: 2px solid #a78bfa;
-     }
-     
-     .featured-meta-label {
-       color: rgba(255,255,255,0.6);
-       font-size: 11px;
-       text-transform: uppercase;
-       margin-bottom: 3px;
-     }
-     
-     .featured-meta-value {
-       font-weight: bold;
-       color: #fff;
-     }
-     
-      .featured-description {
-        color: rgba(255,255,255,0.7);
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 0;
-      }
-     
-       .featured-description-wrapper {
-         display: flex;
-         flex-direction: column;
-         gap: 10px;
-         flex: 1;
-         justify-content: flex-start;
-       }
+    .main-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 16px;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+      padding: 16px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+    .visualizer-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0;
+      height: 100%;
+      overflow-y: auto;
+    }
+    
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0;
+      overflow-y: auto;
+      height: 100%;
+    }
+    
+    .featured-panel {
+      background: #1e2230;
+      border: 1px solid #2a2f3f;
+      border-left: 3px solid #4f9eff;
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+   
+    .featured-artwork {
+      width: 64px;
+      height: 64px;
+      border-radius: 4px;
+      background: #141824;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 1px solid #2a2f3f;
+    }
+   
+    .featured-artwork img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+   
+    .featured-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+   
+    .featured-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+      color: #e8eaed;
+      line-height: 1.4;
+    }
+   
+    .featured-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+   
+    .featured-meta-item {
+      display: flex;
+      gap: 4px;
+      align-items: baseline;
+    }
+   
+    .featured-meta-label {
+      color: #6b7280;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+   
+    .featured-meta-value {
+      font-weight: 500;
+      color: #e8eaed;
+      font-size: 12px;
+    }
+   
+    .featured-description {
+      color: #9ca3af;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+      display: none; /* Hidden for compact layout */
+    }
+   
+    .featured-description-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-      .featured-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: auto;
-      }
-     
-     .tag {
-       background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(244, 114, 182, 0.1));
-       color: #c4b5fd;
-       padding: 4px 8px;
-       border-radius: 3px;
-       font-size: 11px;
-       border: 1px solid rgba(167, 139, 250, 0.4);
-       transition: all 0.2s;
-     }
-     
-     .tag:hover {
-       background: linear-gradient(135deg, rgba(167, 139, 250, 0.3), rgba(244, 114, 182, 0.2));
-       border-color: rgba(167, 139, 250, 0.6);
-     }
-     
-     .results-container {
-       display: flex;
-       flex-direction: column;
-       gap: 20px;
-     }
+    .featured-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+   
+    .tag {
+      background: transparent;
+      color: #9ca3af;
+      padding: 0;
+      border-radius: 0;
+      font-size: 12px;
+      border: none;
+      transition: color 0.2s;
+    }
+   
+    .tag:hover {
+      color: #4f9eff;
+    }
+   
+    .tag::before {
+      content: "#";
+      opacity: 0.5;
+    }
+   
+    .results-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
     
-     .panel {
-       background: rgba(255,255,255,0.05);
-       border: 1px solid rgba(255,255,255,0.1);
-       padding: 16px;
-       border-radius: 8px;
-       backdrop-filter: blur(10px);
-       flex-shrink: 0;
-     }
+    .panel {
+      background: #1e2230;
+      border: 1px solid #2a2f3f;
+      padding: 16px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
     
-     .panel h2 {
-       margin: 0 0 15px 0;
-       font-size: 18px;
-       background: linear-gradient(90deg, #a78bfa, #f472b6);
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       background-clip: text;
-       padding-bottom: 10px;
-       border-bottom: 2px solid rgba(167, 139, 250, 0.3);
-     }
-     
-     .panel h3 {
-       margin: 15px 0 10px 0;
-       font-size: 14px;
-       background: linear-gradient(90deg, #a78bfa, #f472b6);
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       background-clip: text;
-     }
+    .panel h2 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8eaed;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #2a2f3f;
+    }
+    
+    .panel h3 {
+      margin: 12px 0 8px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e8eaed;
+    }
     
     .status-container {
       max-height: 150px;
@@ -416,28 +417,32 @@
     }
     
     .status-item {
-      padding: 8px;
+      padding: 8px 10px;
       margin: 5px 0;
       border-radius: 4px;
-      font-size: 13px;
+      font-size: 12px;
       display: flex;
       align-items: center;
       gap: 8px;
+      border-left: 2px solid transparent;
     }
     
     .status-item.loading {
-      background: rgba(30, 144, 255, 0.2);
-      color: #1e90ff;
+      background: rgba(79, 158, 255, 0.1);
+      color: #4f9eff;
+      border-left-color: #4f9eff;
     }
     
     .status-item.success {
-      background: rgba(34, 197, 94, 0.2);
-      color: #22c55e;
+      background: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+      border-left-color: #10b981;
     }
     
     .status-item.error {
-      background: rgba(239, 68, 68, 0.2);
+      background: rgba(239, 68, 68, 0.1);
       color: #ef4444;
+      border-left-color: #ef4444;
     }
     
     .spinner {
@@ -450,832 +455,605 @@
       to { transform: rotate(360deg); }
     }
     
-     /* Waveform visualization */
-     .visualizer-container {
-       background: rgba(0,0,0,0.3);
-       border-radius: 8px;
-       padding: 10px;
-       display: flex;
-       flex-direction: column;
-       border: 1px solid rgba(167, 139, 250, 0.2);
-     }
-     
-     .visualizer-label {
-       font-size: 10px;
-       color: rgba(255,255,255,0.5);
-       margin-bottom: 6px;
-       text-transform: uppercase;
-       font-weight: bold;
-     }
+    /* Waveform visualization */
+    .visualizer-container {
+      background: #141824;
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #2a2f3f;
+    }
+    
+    .visualizer-label {
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
     
     canvas {
       border-radius: 4px;
-      background: rgba(0,0,0,0.5);
+      background: #0a0e1b;
     }
     
-     .waveform-canvas {
-       width: 100%;
-       height: 45vh;
-       display: block;
-       min-height: 150px;
-     }
-     
-     .frequency-canvas {
-       width: 100%;
-       height: 45vh;
-       display: block;
-       min-height: 150px;
-       margin-top: 0;
-     }
+    .waveform-canvas {
+      width: 100%;
+      height: 45vh;
+      display: block;
+      min-height: 150px;
+    }
+    
+    .frequency-canvas {
+      width: 100%;
+      height: 45vh;
+      display: block;
+      min-height: 150px;
+      margin-top: 0;
+    }
     
     .playback-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 15px;
-      font-size: 13px;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 12px;
     }
     
-     .info-item {
-       background: rgba(167, 139, 250, 0.1);
-       padding: 10px;
-       border-radius: 4px;
-       border-left: 3px solid #a78bfa;
-     }
+    .info-item {
+      background: rgba(79, 158, 255, 0.05);
+      padding: 8px 10px;
+      border-radius: 4px;
+      border-left: 2px solid #4f9eff;
+    }
     
     .info-label {
-      color: rgba(255,255,255,0.6);
+      color: #6b7280;
       font-size: 11px;
       text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
     
     .info-value {
-      font-weight: bold;
-      margin-top: 5px;
+      font-weight: 500;
+      margin-top: 4px;
+      color: #e8eaed;
+      font-size: 13px;
     }
     
-     /* Sounds list */
-     .sounds-list {
-       display: grid;
-       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-       gap: 12px;
-       max-height: 600px;
-       overflow-y: auto;
-     }
-     
-     .sound-item {
-       background: rgba(255,255,255,0.05);
-       border: 1px solid rgba(255,255,255,0.1);
-       border-radius: 8px;
-       overflow: hidden;
-       cursor: pointer;
-       transition: all 0.3s;
-       display: flex;
-       flex-direction: column;
-     }
-     
-     .sound-item:hover {
-       background: rgba(167, 139, 250, 0.15);
-       border-color: rgba(167, 139, 250, 0.4);
-       transform: translateY(-4px);
-       box-shadow: 0 8px 24px rgba(167, 139, 250, 0.2);
-     }
-     
-     .sound-item.active {
-       background: rgba(167, 139, 250, 0.25);
-       border-color: #a78bfa;
-       box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
-     }
-     
-     .sound-item-waveform {
-       width: 100%;
-       height: 60px;
-       background: rgba(0,0,0,0.2);
-       display: flex;
-       align-items: center;
-       justify-content: center;
-       font-size: 28px;
-       overflow: hidden;
-       flex-shrink: 0;
-     }
-     
-     .sound-item-waveform img {
-       width: 100%;
-       height: 100%;
-       object-fit: cover;
-     }
-     
-     .sound-item-content {
-       padding: 12px;
-       display: flex;
-       flex-direction: column;
-       flex: 1;
-     }
-     
-     .sound-item-name {
-       font-weight: bold;
-       font-size: 13px;
-       margin-bottom: 6px;
-       color: #fff;
-       line-height: 1.3;
-       max-height: 36px;
-       overflow: hidden;
-       text-overflow: ellipsis;
-       display: -webkit-box;
-       -webkit-line-clamp: 2;
-       -webkit-box-orient: vertical;
-     }
-     
-     .sound-item-meta {
-       font-size: 11px;
-       color: rgba(255,255,255,0.6);
-       display: grid;
-       grid-template-columns: 1fr 1fr;
-       gap: 8px;
-       margin-bottom: 8px;
-     }
-     
-     .sound-item-meta-item {
-       background: rgba(167, 139, 250, 0.1);
-       padding: 4px 6px;
-       border-radius: 3px;
-       border-left: 2px solid #a78bfa;
-     }
-     
-     .sound-item-meta-label {
-       font-size: 10px;
-       color: rgba(255,255,255,0.5);
-       text-transform: uppercase;
-     }
-     
-     .sound-item-meta-value {
-       font-weight: bold;
-       background: linear-gradient(90deg, #a78bfa, #f472b6);
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       background-clip: text;
-     }
-     
-     .sound-item-footer {
-       font-size: 11px;
-       color: rgba(255,255,255,0.5);
-       border-top: 1px solid rgba(255,255,255,0.05);
-       padding-top: 8px;
-       margin-top: auto;
-     }
+    /* Sounds list */
+    .sounds-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      max-height: 600px;
+      overflow-y: auto;
+    }
     
-     /* Compact Player */
-     .compact-player {
-       display: flex;
-       align-items: center;
-       gap: 8px;
-       margin-left: auto;
-       flex-shrink: 0;
-       padding: 6px 10px;
-       background: rgba(255,255,255,0.1);
-       border-radius: 4px;
-       backdrop-filter: blur(10px);
-     }
-     
-     .compact-player button {
-       padding: 6px 12px;
-       font-size: 12px;
-       margin: 0;
-       box-shadow: none;
-     }
-     
-     .compact-player-info {
-       font-size: 12px;
-       color: rgba(255,255,255,0.8);
-       max-width: 150px;
-       white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-     }
-     
-     /* Player controls */
-     .player-controls {
-       display: flex;
-       gap: 8px;
-       margin-bottom: 12px;
-     }
-     
-     .player-controls button {
-       flex: 1;
-       padding: 10px;
-       font-size: 13px;
-     }
-     
-     /* Download section */
-     .download-section {
-       display: flex;
-       flex-direction: column;
-       gap: 8px;
-     }
-     
-     .download-section button {
-       width: 100%;
-       padding: 12px;
-       font-size: 13px;
-       align-self: auto;
-     }
+    .sound-item {
+      background: #1e2230;
+      border: 1px solid #2a2f3f;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
     
-     /* Progress bar */
-     .progress-container {
-       margin: 8px 0;
-     }
-     
-     .progress-bar {
-       width: 100%;
-       height: 4px;
-       background: rgba(255,255,255,0.1);
-       border-radius: 2px;
-       cursor: pointer;
-       position: relative;
-       overflow: hidden;
-     }
-     
-     .progress-fill {
-       height: 100%;
-       background: linear-gradient(90deg, #a78bfa, #f472b6);
-       border-radius: 2px;
-       width: 0%;
-       transition: width 0.1s linear;
-       box-shadow: 0 0 10px rgba(167, 139, 250, 0.5);
-     }
-     
-     .time-display {
-       display: flex;
-       justify-content: space-between;
-       font-size: 10px;
-       color: rgba(255,255,255,0.5);
-       margin-top: 2px;
-     }
-     
-     .now-playing-compact {
-       display: flex;
-       align-items: center;
-       gap: 8px;
-       font-size: 12px;
-       color: rgba(255,255,255,0.8);
-     }
-     
-     .now-playing-compact .title {
-       flex: 1;
-       white-space: nowrap;
-       overflow: hidden;
-       text-overflow: ellipsis;
-       font-weight: 500;
-     }
+    .sound-item:hover {
+      background: #242936;
+      border-color: #4f9eff;
+    }
+    
+    .sound-item.active {
+      background: #242936;
+      border-color: #4f9eff;
+      box-shadow: inset 0 0 0 1px #4f9eff;
+    }
+    
+    .sound-item-waveform {
+      width: 100%;
+      height: 48px;
+      background: #141824;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-bottom: 1px solid #2a2f3f;
+    }
+    
+    .sound-item-waveform img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .sound-item-content {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    
+    .sound-item-name {
+      font-weight: 500;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: #e8eaed;
+      line-height: 1.4;
+      max-height: 36px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    
+    .sound-item-meta {
+      font-size: 11px;
+      color: #9ca3af;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    
+    .sound-item-meta-item {
+      display: flex;
+      gap: 4px;
+      align-items: baseline;
+    }
+    
+    .sound-item-meta-label {
+      font-size: 10px;
+      color: #6b7280;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    
+    .sound-item-meta-value {
+      font-weight: 500;
+      color: #e8eaed;
+    }
+    
+    .sound-item-footer {
+      font-size: 11px;
+      color: #6b7280;
+      border-top: 1px solid #2a2f3f;
+      padding-top: 8px;
+      margin-top: auto;
+    }
+    
+    /* Compact Player */
+    .compact-player {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: auto;
+      flex-shrink: 0;
+      padding: 0;
+    }
+    
+    .compact-player button {
+      padding: 6px 12px;
+      font-size: 12px;
+      margin: 0;
+    }
+    
+    .compact-player-info {
+      font-size: 12px;
+      color: #9ca3af;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* Player controls */
+    .player-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    
+    .player-controls button {
+      flex: 1;
+      padding: 8px;
+      font-size: 13px;
+    }
+    
+    /* Download section */
+    .download-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .download-section button {
+      width: 100%;
+      padding: 10px;
+      font-size: 13px;
+      align-self: auto;
+    }
+    
+    /* Progress bar */
+    .progress-container {
+      margin: 8px 0;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 3px;
+      background: #2a2f3f;
+      border-radius: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: #4f9eff;
+      border-radius: 2px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    
+    .now-playing-compact {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #9ca3af;
+    }
+    
+    .now-playing-compact .title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+      color: #e8eaed;
+    }
     
     /* Stats */
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 8px;
     }
     
-     .stat-box {
-       background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(244, 114, 182, 0.05));
-       padding: 12px;
-       border-radius: 4px;
-       border-left: 3px solid #a78bfa;
-       text-align: center;
-       transition: all 0.3s;
-     }
-     
-     .stat-box:hover {
-       background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.1));
-       border-left-color: #f472b6;
-     }
-     
-     .stat-value {
-       font-size: 20px;
-       font-weight: bold;
-       background: linear-gradient(90deg, #a78bfa, #f472b6);
-       -webkit-background-clip: text;
-       -webkit-text-fill-color: transparent;
-       background-clip: text;
-     }
+    .stat-box {
+      background: rgba(79, 158, 255, 0.05);
+      padding: 12px;
+      border-radius: 4px;
+      border-left: 2px solid #4f9eff;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    
+    .stat-box:hover {
+      background: rgba(79, 158, 255, 0.1);
+    }
+    
+    .stat-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #4f9eff;
+    }
     
     .stat-label {
       font-size: 11px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 5px;
+      color: #6b7280;
+      margin-top: 4px;
       text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
     }
     
     .empty-state {
       text-align: center;
-      padding: 30px;
-      color: rgba(255,255,255,0.4);
+      padding: 40px 20px;
+      color: #6b7280;
+      font-size: 13px;
     }
     
-     .sidebar {
-       display: flex;
-       flex-direction: column;
-       gap: 20px;
-       padding: 20px 0;
-       overflow-y: auto;
-       height: 100%;
-     }
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0;
+      overflow-y: auto;
+      height: 100%;
+    }
     
     /* Scrollbar styling */
     ::-webkit-scrollbar {
-      width: 8px;
+      width: 6px;
+      height: 6px;
     }
     
     ::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.05);
-      border-radius: 4px;
+      background: #141824;
     }
     
-     ::-webkit-scrollbar-thumb {
-       background: linear-gradient(180deg, #a78bfa, #f472b6);
-       border-radius: 4px;
-       opacity: 0.4;
-     }
-     
-      ::-webkit-scrollbar-thumb:hover {
-        opacity: 0.7;
-      }
-      
-      /* Player Footer */
-      .player-footer {
-        background: rgba(10, 14, 27, 0.95);
-        border-top: 1px solid rgba(167, 139, 250, 0.2);
-        padding: 12px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 16px;
-        flex-shrink: 0;
-        z-index: 101;
-        backdrop-filter: blur(10px);
-        width: 100vw;
-        box-sizing: border-box;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-      }
-      
-        .player-footer-info {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          flex: 0 0 auto;
-          min-width: auto;
-          order: -1;
-        }
-      
-      .player-footer-artwork {
-        width: 40px;
-        height: 40px;
-        border-radius: 4px;
-        background: rgba(167, 139, 250, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        flex-shrink: 0;
-        overflow: hidden;
-      }
-      
-      .player-footer-artwork img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      
-      .player-footer-details {
-        display: flex;
-        flex-direction: column;
-        min-width: 0;
-        flex: 1;
-      }
-      
-      .player-footer-title {
-        font-weight: 600;
-        font-size: 13px;
-        color: #fff;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      
-      .player-footer-artist {
-        font-size: 11px;
-        color: rgba(255,255,255,0.6);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      
-       .player-footer-progress {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          min-width: 300px;
-          max-width: none;
-        }
-      
-      .player-footer-bar {
-        width: 100%;
-        height: 4px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 2px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-      }
-      
-      .player-footer-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #a78bfa, #f472b6);
-        border-radius: 2px;
-        width: 0%;
-        transition: width 0.1s linear;
-      }
-      
-      .player-footer-times {
-        display: flex;
-        justify-content: space-between;
-        font-size: 10px;
-        color: rgba(255,255,255,0.5);
-      }
-      
-       .player-footer-controls {
-         display: flex;
-         gap: 12px;
-         align-items: center;
-         flex-shrink: 0;
-         margin-left: auto;
-       }
-      
-      .player-footer-controls button {
-        padding: 6px 12px;
-        font-size: 12px;
-        margin: 0;
-        background: linear-gradient(135deg, #a78bfa, #f472b6);
-        box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
-      }
-      
-       .player-footer-controls button:hover {
-         box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
-       }
-
-       /* Search Controls Panel */
-       .search-controls-panel {
-         background: rgba(255, 255, 255, 0.05);
-         border: 1px solid rgba(255, 255, 255, 0.1);
-         padding: 14px 16px;
-         border-radius: 8px;
-         backdrop-filter: blur(10px);
-         display: grid;
-         grid-template-columns: 2fr 1.5fr auto;
-         gap: 16px;
-         align-items: flex-end;
-         width: 100%;
-         box-sizing: border-box;
-       }
-
-       .search-controls-panel .control-group,
-       .search-controls-panel .range-group {
-         display: flex;
-         flex-direction: column;
-         gap: 4px;
-       }
-
-       .search-controls-panel .control-group label,
-       .search-controls-panel .range-group label {
-         font-size: 11px;
-         font-weight: 600;
-         color: rgba(255, 255, 255, 0.6);
-         text-transform: uppercase;
-         letter-spacing: 0.5px;
-       }
-
-       .search-controls-panel .control-group input,
-       .search-controls-panel .control-group select,
-       .search-controls-panel .range-group input {
-         padding: 8px 10px;
-         font-size: 13px;
-         background: rgba(255, 255, 255, 0.08);
-         border: 1px solid rgba(167, 139, 250, 0.4);
-         border-radius: 4px;
-         color: #fff;
-         transition: all 0.2s ease;
-       }
-
-       .search-controls-panel .control-group input:focus,
-       .search-controls-panel .control-group select:focus,
-       .search-controls-panel .range-group input:focus {
-         outline: none;
-         background: rgba(255, 255, 255, 0.12);
-         border-color: rgba(167, 139, 250, 0.7);
-         box-shadow: 0 0 8px rgba(167, 139, 250, 0.2);
-       }
-
-       .search-controls-panel .control-group select {
-         cursor: pointer;
-       }
-
-        .search-controls-panel .range-inputs {
-          display: none;
-        }
-
-        .search-controls-panel .range-inputs input {
-          width: 50px;
-        }
-
-        .search-controls-panel .range-inputs span {
-          color: rgba(255, 255, 255, 0.5);
-          font-size: 12px;
-        }
-
-        .search-controls-panel .range-slider {
-          display: block;
-          width: 100%;
-          height: 6px;
-          border-radius: 3px;
-          background: rgba(255,255,255,0.1);
-          outline: none;
-          -webkit-appearance: none;
-          appearance: none;
-          pointer-events: none;
-          position: relative;
-          z-index: 5;
-          margin: 6px 0;
-        }
-
-        .search-controls-panel .range-display {
-          font-size: 12px;
-          font-weight: 600;
-          color: #fff;
-          text-align: center;
-          background: rgba(167, 139, 250, 0.1);
-          padding: 4px 8px;
-          border-radius: 3px;
-          border: 1px solid rgba(167, 139, 250, 0.2);
-        }
-
-        .search-controls-panel .range-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #a78bfa, #f472b6);
-          cursor: pointer;
-          pointer-events: all;
-          box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
-          transition: all 0.2s;
-        }
-
-        .search-controls-panel .range-slider::-webkit-slider-thumb:hover {
-          background: linear-gradient(135deg, #c4b5fd, #fb7185);
-          box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
-          transform: scale(1.1);
-        }
-
-        .search-controls-panel .range-slider::-moz-range-thumb {
-          width: 16px;
-          height: 16px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #a78bfa, #f472b6);
-          cursor: pointer;
-          border: none;
-          box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
-          transition: all 0.2s;
-        }
-
-        .search-controls-panel .range-slider::-moz-range-thumb:hover {
-          background: linear-gradient(135deg, #c4b5fd, #fb7185);
-          box-shadow: 0 0 12px rgba(167, 139, 250, 0.7);
-          transform: scale(1.1);
-        }
-
-         .search-controls-panel button {
-          padding: 8px 16px;
-          font-size: 13px;
-          background: linear-gradient(135deg, #a78bfa, #f472b6);
-          border: none;
-          border-radius: 4px;
-          color: #fff;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          box-shadow: 0 2px 8px rgba(167, 139, 250, 0.2);
-          align-self: flex-end;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-       .search-controls-panel button:hover {
-         box-shadow: 0 4px 12px rgba(167, 139, 250, 0.4);
-         transform: translateY(-2px);
-       }
-
-    </style>
+    ::-webkit-scrollbar-thumb {
+      background: #2a2f3f;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #4f9eff;
+    }
+    
+    /* Player Footer */
+    .player-footer {
+      background: #0a0e1b;
+      border-top: 1px solid #2a2f3f;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      flex-shrink: 0;
+      z-index: 101;
+      width: 100vw;
+      box-sizing: border-box;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+    }
+    
+    .player-footer-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 0 0 auto;
+      min-width: auto;
+      order: -1;
+    }
+    
+    .player-footer-artwork {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      background: #141824;
+      border: 1px solid #2a2f3f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    
+    .player-footer-artwork img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .player-footer-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+    
+    .player-footer-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #e8eaed;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 200px;
+    }
+    
+    .player-footer-artist {
+      font-size: 11px;
+      color: #6b7280;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .player-footer-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex: 1;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .player-footer-controls button {
+      padding: 6px 14px;
+      font-size: 12px;
+    }
+    
+    .player-footer-progress {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 400px;
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #4f9eff;
+      color: #4f9eff;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(79, 158, 255, 0.1);
+    }
+    
+    .btn-secondary:disabled {
+      border-color: #2a2f3f;
+      color: #6b7280;
+      background: transparent;
+    }
+  </style>
 </head>
 <body>
+  <div class="header">
+    <h1>F.LUFS</h1>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="query">Query</label>
+        <input type="text" id="query" placeholder="e.g. drum loop" />
+      </div>
+      
+      <div class="range-group">
+        <label for="duration-slider">Duration</label>
+        <input type="range" id="duration-slider" class="range-slider" min="0" max="30" value="15" step="1" />
+        <div class="range-display" id="duration-display">0-15s</div>
+      </div>
+      
+      <div class="control-group">
+        <label for="sort">Sort</label>
+        <select id="sort">
+          <option value="score">Relevance</option>
+          <option value="duration_desc">Duration ↓</option>
+          <option value="duration_asc">Duration ↑</option>
+          <option value="downloads_desc">Downloads ↓</option>
+          <option value="rating_desc">Rating ↓</option>
+        </select>
+      </div>
+      
+      <button id="search-btn" onclick="performSearch()">Search</button>
+    </div>
+    
+    <div class="compact-player" id="compact-player" style="display: none;">
+      <button id="compact-play-btn">Play</button>
+      <div class="compact-player-info" id="compact-player-info">No sound playing</div>
+    </div>
+  </div>
+
   <div class="container">
-      <div class="header">
-         <h1>🎵 F.LUFS</h1>
-      </div>
-
-       <div class="main-layout">
-          <!-- Visualizations Sidebar (Left) - DISABLED -->
-          <!-- <div class="visualizer-sidebar" id="visualizerSidebar">
-            <div class="panel">
-              <div class="visualizer-container">
-                <div class="visualizer-label">Waveform</div>
-                <canvas id="waveformCanvas" class="waveform-canvas"></canvas>
-              </div>
-            </div>
-            
-            <div class="panel">
-              <div class="visualizer-container">
-                <div class="visualizer-label">Spectrum</div>
-                <canvas id="frequencyCanvas" class="frequency-canvas"></canvas>
-              </div>
-            </div>
-           </div> -->
-
-          <div class="main-content">
-          <!-- Search Controls Panel -->
-          <div class="search-controls-panel">
-            <div class="control-group">
-              <label>Search Terms</label>
-              <input type="text" id="searchTerms" placeholder="e.g., drum, bass" value="piano">
-            </div>
-            <div class="range-group">
-              <label>Duration Range (seconds)</label>
-              <div class="range-inputs">
-                <input type="number" id="minDurationInput" min="0.1" max="60" value="0.5" step="0.1">
-                <span>-</span>
-                <input type="number" id="maxDurationInput" min="0.1" max="60" value="10" step="0.1">
-              </div>
-              <input type="range" id="minDurationSlider" class="range-slider" min="0.1" max="60" value="0.5" step="0.1">
-              <input type="range" id="maxDurationSlider" class="range-slider" min="0.1" max="60" value="10" step="0.1">
-              <div class="range-display" id="rangeDisplay">0.5s - 10s</div>
-             </div>
-             <!-- <div class="control-group">
-               <label>Visualizer</label>
-               <select id="visualizerMode">
-                 <option value="waveform">Waveform</option>
-                 <option value="frequency">Frequency</option>
-                 <option value="both">Both</option>
-               </select>
-             </div> -->
-             <button onclick="performSearch()">🔍 Search</button>
+    <div class="main-layout">
+      <div class="main-content">
+        <div class="featured-panel" id="featured-panel">
+          <div class="featured-artwork" id="featured-artwork">🎵</div>
+          <div class="featured-content">
+            <h3 class="featured-title" id="featured-title">Featured Sound</h3>
+            <div class="featured-meta" id="featured-meta"></div>
+            <div class="featured-tags" id="featured-tags"></div>
           </div>
-         <!-- Featured Sound Panel -->
-         <div class="featured-panel" id="featuredPanel">
-           <div class="featured-artwork" id="featuredArtwork">🎵</div>
-            <div class="featured-content">
-              <div>
-                <div class="featured-title" id="featuredTitle">Select a sound to see details</div>
-                <div class="featured-meta" id="featuredMeta">
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">Duration</div>
-                    <div class="featured-meta-value" id="featuredDuration">—</div>
-                  </div>
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">Artist</div>
-                    <div class="featured-meta-value" id="featuredArtist">—</div>
-                  </div>
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">License</div>
-                    <div class="featured-meta-value" id="featuredLicense">—</div>
-                  </div>
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">Downloads</div>
-                    <div class="featured-meta-value" id="featuredDownloads">—</div>
-                  </div>
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">Sample Rate</div>
-                    <div class="featured-meta-value" id="featuredSampleRate">—</div>
-                  </div>
-                  <div class="featured-meta-item">
-                    <div class="featured-meta-label">Channels</div>
-                    <div class="featured-meta-value" id="featuredChannels">—</div>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-description-wrapper">
-                <div class="featured-description" id="featuredDescription">Select a sound from the results to see more information</div>
-                <div class="featured-tags" id="featuredTags"></div>
-              </div>
+        </div>
+        
+        <div class="results-container">
+          <div class="panel">
+            <h2>Search Results</h2>
+            <div class="sounds-list" id="sounds-list">
+              <div class="empty-state">Enter a search query and click Search to find sounds</div>
             </div>
           </div>
-
-         <!-- Now Playing & Controls - MOVED TO FOOTER -->
-         <!-- <div class="panel">
-           <div class="now-playing-compact">
-             <span class="title" id="nowPlayingCompact">— No sound selected —</span>
-             <button onclick="playCurrent()" id="playBtnMini" style="padding: 4px 8px; font-size: 11px;">▶️</button>
-             <button onclick="pauseCurrent()" id="pauseBtnMini" style="padding: 4px 8px; font-size: 11px; display: none;">⏸️</button>
-             <button onclick="stopCurrent()" style="padding: 4px 8px; font-size: 11px;">⏹️</button>
-           </div>
-
-           <div class="progress-container">
-             <div class="progress-bar" id="progressBar">
-               <div class="progress-fill" id="progressFill"></div>
-             </div>
-             <div class="time-display">
-               <span id="currentTime">0:00</span>
-               <span id="totalTime">0:00</span>
-             </div>
-           </div>
-         </div> -->
-
-         <!-- Sounds List -->
-         <div class="panel">
-           <h2>🎵 Results</h2>
-           <div class="sounds-list" id="soundsList">
-             <div class="empty-state">Enter search terms and click Search to begin</div>
-           </div>
-         </div>
-       </div>
-
-       <!-- Sidebar -->
-       <div class="sidebar">
-         <!-- Download Button -->
-         <div class="panel download-section">
-           <button onclick="downloadCurrentSound()" id="downloadBtn">⬇️ Download</button>
-         </div>
-
-         <!-- Current Sound Info -->
-         <div class="panel">
-           <h2>ℹ️ Sound Info</h2>
-           <div id="soundDetailsInfo" class="empty-state" style="font-size: 12px;">No sound selected</div>
-         </div>
-
-         <!-- Status Panel -->
-         <div class="panel">
-           <h2>📊 Status</h2>
-           <div class="status-container" id="statusContainer"></div>
-         </div>
-
-         <!-- Stats -->
-         <div class="panel">
-           <h2>📈 Stats</h2>
-           <div class="stats-grid">
-             <div class="stat-box">
-               <div class="stat-value" id="statsFound">0</div>
-               <div class="stat-label">Found</div>
-             </div>
-             <div class="stat-box">
-               <div class="stat-value" id="statsDownloaded">0</div>
-               <div class="stat-label">Downloaded</div>
-             </div>
-             <div class="stat-box">
-               <div class="stat-value" id="statsDuration">0s</div>
-               <div class="stat-label">Total Duration</div>
-             </div>
-             <div class="stat-box">
-               <div class="stat-value" id="statsAvgDuration">0s</div>
-               <div class="stat-label">Avg Duration</div>
-             </div>
-           </div>
-         </div>
-       </div>
+        </div>
       </div>
-   </div>
-   
-   <!-- Player Footer (Spotify/Splice style) - OUTSIDE CONTAINER -->
-   <div class="player-footer" id="playerFooter">
-     <div class="player-footer-info">
-       <div class="player-footer-artwork" id="footerArtwork">🎵</div>
-       <div class="player-footer-details">
-         <div class="player-footer-title" id="footerTitle">— No sound selected —</div>
-         <div class="player-footer-artist" id="footerArtist">Select a sound to play</div>
-       </div>
-     </div>
-     
-     <div class="player-footer-progress">
-       <div class="player-footer-bar" id="footerProgressBar">
-         <div class="player-footer-fill" id="footerProgressFill"></div>
-       </div>
-       <div class="player-footer-times">
-         <span id="footerCurrentTime">0:00</span>
-         <span id="footerTotalTime">0:00</span>
-       </div>
-     </div>
-     
-     <div class="player-footer-controls">
-       <button onclick="playCurrent()" id="footerPlayBtn">▶️</button>
-       <button onclick="pauseCurrent()" id="footerPauseBtn" style="display:none;">⏸️</button>
-       <button onclick="stopCurrent()">⏹️</button>
-     </div>
-   </div>
- 
-   <script type="text/javascript">
+      
+      <div class="visualizer-sidebar">
+        <div class="panel">
+          <h2>Status</h2>
+          <div class="status-container" id="status-container">
+            <div class="status-item">Ready to search</div>
+          </div>
+        </div>
+        
+
+        <div class="panel">
+          <h2>Playback Info</h2>
+          <div class="playback-info">
+            <div class="info-item">
+              <div class="info-label">Duration</div>
+              <div class="info-value" id="info-duration">--</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Format</div>
+              <div class="info-value" id="info-format">--</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Bitrate</div>
+              <div class="info-value" id="info-bitrate">--</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Channels</div>
+              <div class="info-value" id="info-channels">--</div>
+            </div>
+          </div>
+          
+          <h3>Download</h3>
+           <div class="download-section">
+             <button id="download-hq-btn" onclick="downloadCurrentSound()" disabled>Download HQ</button>
+             <button id="download-preview-btn" class="btn-secondary" disabled>Download Preview</button>
+           </div>
+        </div>
+        
+        <div class="panel">
+          <h2>Stats</h2>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="stat-value" id="stat-results">0</div>
+              <div class="stat-label">Results</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="stat-played">0</div>
+              <div class="stat-label">Played</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-footer" id="player-footer">
+    <div class="player-footer-info">
+      <div class="player-footer-artwork" id="footer-artwork">🎵</div>
+      <div class="player-footer-details">
+        <div class="player-footer-title" id="footer-title">No sound playing</div>
+        <div class="player-footer-artist" id="footer-artist">--</div>
+      </div>
+    </div>
+    
+    <div class="player-footer-controls">
+      <button id="footer-play-btn" onclick="playCurrent()">Play</button>
+      <button id="footer-pause-btn" onclick="pauseCurrent()" style="display: none;">Pause</button>
+      <button id="footer-stop-btn" class="btn-secondary" onclick="stopCurrent()">Stop</button>
+    </div>
+    
+    <div class="player-footer-progress">
+      <div class="progress-bar" id="footer-progress-bar">
+        <div class="progress-fill" id="footer-progress-fill"></div>
+      </div>
+      <div class="time-display">
+        <span id="footer-current-time">0:00</span>
+        <span id="footer-total-time">0:00</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
     // Global state
     var state = {
       audioContext: null,
@@ -1293,196 +1071,154 @@
       playbackStartTime: null
     };
 
-      // Canvas setup (visualizers disabled)
-      var waveformCanvas = document.getElementById('waveformCanvas');
-      var waveformCtx = waveformCanvas ? waveformCanvas.getContext('2d') : null;
-      var frequencyCanvas = document.getElementById('frequencyCanvas');
-      var frequencyCtx = frequencyCanvas ? frequencyCanvas.getContext('2d') : null;
+    // Canvas setup for visualizers
+    var waveformCanvas = document.getElementById('waveform-canvas');
+    var waveformCtx = waveformCanvas ? waveformCanvas.getContext('2d') : null;
+    var frequencyCanvas = document.getElementById('frequency-canvas');
+    var frequencyCtx = frequencyCanvas ? frequencyCanvas.getContext('2d') : null;
 
-     // Download current sound
-      function downloadCurrentSound() {
-        if (!state.currentSound || !state.currentSound.buffer) {
-          addStatus('❌ No sound selected or buffer unavailable', 'error');
-          return;
-        }
+    // Download current sound
+    function downloadCurrentSound() {
+      if (!state.currentSound || !state.currentSound.buffer) {
+        addStatus('❌ No sound selected or buffer unavailable', 'error');
+        return;
+      }
 
-        try {
-          addStatus('⬇️ Preparing download...', 'loading');
+      try {
+        addStatus('⬇️ Preparing download...', 'loading');
+        
+        if (state.currentSound.buffer) {
+          var buffer = state.currentSound.buffer;
+          var wav = audioBufferToWav(buffer);
+          var blob = new Blob([wav], { type: 'audio/wav' });
+          var url = URL.createObjectURL(blob);
           
-          // Use the buffer or fallback to URL
-          if (state.currentSound.buffer) {
-            // Convert AudioBuffer to WAV and download
-            var buffer = state.currentSound.buffer;
-            var wav = audioBufferToWav(buffer);
-            var blob = new Blob([wav], { type: 'audio/wav' });
-            var url = URL.createObjectURL(blob);
-            
-            var link = document.createElement('a');
-            link.href = url;
-            link.download = (state.currentSound.name || 'sound') + '.wav';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-            
-            addStatus('✅ Downloaded: ' + state.currentSound.name, 'success');
-          } else if (state.currentSound.url) {
-            // Fallback to downloading preview
-            var link = document.createElement('a');
-            link.href = state.currentSound.url;
-            link.download = (state.currentSound.name || 'sound') + '.mp3';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            addStatus('✅ Downloaded preview: ' + state.currentSound.name, 'success');
-          }
-        } catch (error) {
-          addStatus('❌ Download failed: ' + error.message, 'error');
+          var link = document.createElement('a');
+          link.href = url;
+          link.download = (state.currentSound.name || 'sound') + '.wav';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          
+          addStatus('✅ Downloaded: ' + state.currentSound.name, 'success');
+        } else if (state.currentSound.url) {
+          var link = document.createElement('a');
+          link.href = state.currentSound.url;
+          link.download = (state.currentSound.name || 'sound') + '.mp3';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          addStatus('✅ Downloaded preview: ' + state.currentSound.name, 'success');
         }
+      } catch (error) {
+        addStatus('❌ Download failed: ' + error.message, 'error');
+      }
+    }
+
+    function audioBufferToWav(buffer) {
+      var length = buffer.length * buffer.numberOfChannels * 2 + 44;
+      var arrayBuffer = new ArrayBuffer(length);
+      var view = new DataView(arrayBuffer);
+      var channels = [];
+      var offset = 0;
+      var pos = 0;
+
+      var setUint16 = function(data) {
+        view.setUint16(pos, data, true);
+        pos += 2;
+      };
+      var setUint32 = function(data) {
+        view.setUint32(pos, data, true);
+        pos += 4;
+      };
+
+      setUint32(0x46464952); // "RIFF"
+      setUint32(length - 8);
+      setUint32(0x45564157); // "WAVE"
+
+      setUint32(0x20746d66); // "fmt "
+      setUint32(16);
+      setUint16(1);
+      setUint16(buffer.numberOfChannels);
+      setUint32(buffer.sampleRate);
+      setUint32(buffer.sampleRate * 2 * buffer.numberOfChannels);
+      setUint16(buffer.numberOfChannels * 2);
+      setUint16(16);
+
+      setUint32(0x61746164); // "data"
+      setUint32(length - pos - 4);
+
+      var volume = 0.8;
+      for (var i = 0; i < buffer.numberOfChannels; i++) {
+        channels.push(buffer.getChannelData(i));
       }
 
-      function audioBufferToWav(buffer) {
-        var length = buffer.length * buffer.numberOfChannels * 2 + 44;
-        var arrayBuffer = new ArrayBuffer(length);
-        var view = new DataView(arrayBuffer);
-        var channels = [];
-        var offset = 0;
-        var pos = 0;
-
-        // Write WAV header
-        var setUint16 = function(data) {
-          view.setUint16(pos, data, true);
-          pos += 2;
-        };
-        var setUint32 = function(data) {
-          view.setUint32(pos, data, true);
-          pos += 4;
-        };
-
-        setUint32(0x46464952); // "RIFF"
-        setUint32(length - 8); // file length - 8
-        setUint32(0x45564157); // "WAVE"
-
-        setUint32(0x20746d66); // "fmt " chunk descriptor
-        setUint32(16); // chunk descriptor length
-        setUint16(1); // audio format (1 = PCM)
-        setUint16(buffer.numberOfChannels);
-        setUint32(buffer.sampleRate);
-        setUint32(buffer.sampleRate * 2 * buffer.numberOfChannels); // avg. bytes/sec
-        setUint16(buffer.numberOfChannels * 2); // block-align
-        setUint16(16); // 16-bit
-
-        setUint32(0x61746164); // "data" chunk descriptor
-        setUint32(length - pos - 4); // chunk length
-
-        var volume = 0.8;
+      while (pos < length) {
         for (var i = 0; i < buffer.numberOfChannels; i++) {
-          channels.push(buffer.getChannelData(i));
+          var s = Math.max(-1, Math.min(1, channels[i][offset]));
+          s = s < 0 ? s * 0x8000 : s * 0x7FFF;
+          view.setInt16(pos, s, true);
+          pos += 2;
         }
-
-        while (pos < length) {
-          for (var i = 0; i < buffer.numberOfChannels; i++) {
-            var s = Math.max(-1, Math.min(1, channels[i][offset]));
-            s = s < 0 ? s * 0x8000 : s * 0x7FFF;
-            view.setInt16(pos, s, true);
-            pos += 2;
-          }
-          offset++;
-        }
-
-        return arrayBuffer;
+        offset++;
       }
 
-     // Range slider synchronization
-     function setupRangeSliders() {
-       var minSlider = document.getElementById('minDurationSlider');
-       var maxSlider = document.getElementById('maxDurationSlider');
-       var minInput = document.getElementById('minDurationInput');
-       var maxInput = document.getElementById('maxDurationInput');
-       var display = document.getElementById('rangeDisplay');
+      return arrayBuffer;
+    }
 
-       function updateRangeDisplay() {
-         var minVal = parseFloat(minSlider.value);
-         var maxVal = parseFloat(maxSlider.value);
-         
-         if (minVal > maxVal) {
-           minVal = maxVal;
-           minSlider.value = minVal;
-         }
-         
-         minInput.value = minVal.toFixed(1);
-         maxInput.value = maxVal.toFixed(1);
-         display.textContent = minVal.toFixed(1) + 's - ' + maxVal.toFixed(1) + 's';
-       }
+    // Range slider synchronization
+    function setupRangeSliders() {
+      var slider = document.getElementById('duration-slider');
+      var display = document.getElementById('duration-display');
 
-       function updateFromInputs() {
-         var minVal = parseFloat(minInput.value) || 0.1;
-         var maxVal = parseFloat(maxInput.value) || 60;
-         
-         minVal = Math.max(0.1, Math.min(minVal, 60));
-         maxVal = Math.max(0.1, Math.min(maxVal, 60));
-         
-         if (minVal > maxVal) {
-           var temp = minVal;
-           minVal = maxVal;
-           maxVal = temp;
-         }
-         
-         minSlider.value = minVal;
-         maxSlider.value = maxVal;
-         updateRangeDisplay();
-       }
+      function updateRangeDisplay() {
+        var val = parseFloat(slider.value);
+        display.textContent = '0-' + val + 's';
+      }
 
-       minSlider.addEventListener('input', updateRangeDisplay);
-       maxSlider.addEventListener('input', updateRangeDisplay);
-       minInput.addEventListener('change', updateFromInputs);
-       maxInput.addEventListener('change', updateFromInputs);
-       
+      if (slider) {
+        slider.addEventListener('input', updateRangeDisplay);
         updateRangeDisplay();
       }
+    }
 
-      // Setup search input Enter key
-      function setupSearchEnter() {
-        var searchInput = document.getElementById('searchTerms');
-        if (searchInput) {
-          searchInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              performSearch();
-            }
-          });
-        }
+    // Setup search input Enter key
+    function setupSearchEnter() {
+      var searchInput = document.getElementById('query');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', function(event) {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            performSearch();
+          }
+        });
       }
+    }
 
-      // Initialize
-      function init() {
-       try {
-         state.audioContext = new window.AudioContext();
-         
-         // Create analysers
-         state.analyser = state.audioContext.createAnalyser();
-         state.analyser.fftSize = 2048;
-         state.analyser.connect(state.audioContext.destination);
-         
-         state.analyserFreq = state.audioContext.createAnalyser();
-         state.analyserFreq.fftSize = 256;
-         
-         var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
-         state.sf = new simpleFreesound.SimpleFreesound(apiKey, true);
-         addStatus('✅ Initialized', 'success');
-         
-          // Setup range sliders
-          setupRangeSliders();
-          
-          // Setup search Enter key
-          setupSearchEnter();
-          
-          // Start animation loop
-          animate();
-       } catch (error) {
-         addStatus('❌ Initialization error: ' + error.message, 'error');
-       }
-     }
+    // Initialize
+    function init() {
+      try {
+        state.audioContext = new window.AudioContext();
+        
+        state.analyser = state.audioContext.createAnalyser();
+        state.analyser.fftSize = 2048;
+        state.analyser.connect(state.audioContext.destination);
+        
+        state.analyserFreq = state.audioContext.createAnalyser();
+        state.analyserFreq.fftSize = 256;
+        
+        var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
+        state.sf = new simpleFreesound.SimpleFreesound(apiKey, true);
+        addStatus('✅ Initialized', 'success');
+        
+        setupRangeSliders();
+        setupSearchEnter();
+        animate();
+      } catch (error) {
+        addStatus('❌ Initialization error: ' + error.message, 'error');
+      }
+    }
 
     function addStatus(message, type) {
       state.statuses.push({ message: message, type: type, time: new Date() });
@@ -1498,20 +1234,19 @@
                     status.type === 'success' ? '✅' : '❌';
         html += '<div class="status-item ' + status.type + '">' + emoji + ' ' + status.message + '</div>';
       });
-      document.getElementById('statusContainer').innerHTML = html;
+      document.getElementById('status-container').innerHTML = html;
     }
 
-     function performSearch() {
-       if (!state.sf) {
-         addStatus('❌ Not initialized', 'error');
-         return;
-       }
+    function performSearch() {
+      if (!state.sf) {
+        addStatus('❌ Not initialized', 'error');
+        return;
+      }
 
-       stopCurrent();
+      stopCurrent();
 
-       var searchTerms = document.getElementById('searchTerms').value.trim().split(',').map(function(s) { return s.trim(); });
-       var minDuration = parseFloat(document.getElementById('minDurationSlider').value) || 0.5;
-       var maxDuration = parseFloat(document.getElementById('maxDurationSlider').value) || 10;
+      var searchTerms = document.getElementById('query').value.trim().split(',').map(function(s) { return s.trim(); });
+      var duration = parseFloat(document.getElementById('duration-slider').value) || 15;
 
       if (searchTerms.length === 0 || !searchTerms[0]) {
         addStatus('❌ Enter search terms', 'error');
@@ -1522,179 +1257,164 @@
 
       state.sf.query({
         search: searchTerms,
-        duration: [minDuration, maxDuration]
+        duration: [0, duration]
       })
       .then(function() {
         var count = Object.keys(state.sf.currentSoundsInfo).length;
         addStatus('📥 Downloading ' + count + ' sounds...', 'loading');
         return state.sf.download();
       })
-       .then(function() {
-         state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
-           return state.sf.currentSoundsInfo[id];
-         });
-         
-         addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
-         renderSounds();
-         updateStats();
-       })
+      .then(function() {
+        state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
+          return state.sf.currentSoundsInfo[id];
+        });
+        
+        addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+        renderSounds();
+        updateStats();
+      })
       .catch(function(error) {
         addStatus('❌ Search error: ' + error.message, 'error');
         console.error(error);
       });
     }
 
-     function renderSounds() {
-       var html = '';
-       
-       if (state.sounds.length === 0) {
-         html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
-       } else {
-         state.sounds.forEach(function(sound, idx) {
-           var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
-           var waveformImg = sound.images && sound.images.waveform_m ? sound.images.waveform_m : null;
-           
-           html += '<div class="sound-item" onclick="selectSound(' + idx + ')">';
-           
-           // Waveform image
-           if (waveformImg) {
-             html += '<div class="sound-item-waveform"><img src="' + waveformImg + '" alt="waveform"></div>';
-           } else {
-             html += '<div class="sound-item-waveform">🎵</div>';
-           }
-           
-           // Content
-           html += '<div class="sound-item-content">' +
-             '<div class="sound-item-name">' + sound.name + '</div>' +
-             '<div class="sound-item-meta">' +
-             '<div class="sound-item-meta-item">' +
-             '<div class="sound-item-meta-label">Duration</div>' +
-             '<div class="sound-item-meta-value">' + duration + 's</div>' +
-             '</div>' +
-             '<div class="sound-item-meta-item">' +
-             '<div class="sound-item-meta-label">Downloads</div>' +
-             '<div class="sound-item-meta-value">' + (sound.num_downloads || 0) + '</div>' +
-             '</div>' +
-             '</div>' +
-             '<div class="sound-item-footer">By <strong>' + sound.username + '</strong></div>' +
-             '</div>' +
-             '</div>';
-         });
-       }
-       
-       document.getElementById('soundsList').innerHTML = html;
-     }
-
-      function selectSound(idx) {
-        stopCurrent();
-        state.currentSound = state.sounds[idx];
-        
-        document.querySelectorAll('.sound-item').forEach(function(item, i) {
-          item.classList.toggle('active', i === idx);
-        });
-        
-        // Update featured panel (with null checks)
-        var featuredTitle = document.getElementById('featuredTitle');
-        var featuredDuration = document.getElementById('featuredDuration');
-        var featuredArtist = document.getElementById('featuredArtist');
-        var featuredLicense = document.getElementById('featuredLicense');
-        var featuredDownloads = document.getElementById('featuredDownloads');
-        var featuredSampleRate = document.getElementById('featuredSampleRate');
-        var featuredChannels = document.getElementById('featuredChannels');
-        var featuredDescription = document.getElementById('featuredDescription');
-        var artworkEl = document.getElementById('featuredArtwork');
-        var featuredTags = document.getElementById('featuredTags');
-        var nowPlayingCompact = document.getElementById('nowPlayingCompact');
-        var compactPlayerInfo = document.getElementById('compactPlayerInfo');
-        var footerTitle = document.getElementById('footerTitle');
-        var footerArtist = document.getElementById('footerArtist');
-        var footerArtwork = document.getElementById('footerArtwork');
-        var soundDetailsInfo = document.getElementById('soundDetailsInfo');
-        
-        if (featuredTitle) featuredTitle.textContent = state.currentSound.name;
-        if (featuredDuration) featuredDuration.textContent = state.currentSound.duration.toFixed(2) + 's';
-        if (featuredArtist) featuredArtist.textContent = state.currentSound.username;
-        if (featuredLicense) featuredLicense.textContent = state.currentSound.license || 'CC0';
-        if (featuredDownloads) featuredDownloads.textContent = (state.currentSound.num_downloads || 0);
-        if (featuredSampleRate) featuredSampleRate.textContent = (state.currentSound.buffer ? state.currentSound.buffer.sampleRate / 1000 + 'kHz' : 'N/A');
-        if (featuredChannels) featuredChannels.textContent = (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A');
-        if (featuredDescription) featuredDescription.textContent = state.currentSound.description || 'No description provided.';
-        
-        // Update featured artwork
-        if (artworkEl) {
-          if (state.currentSound.images && state.currentSound.images.waveform_m) {
-            artworkEl.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
-          } else {
-            artworkEl.textContent = '🎵';
-          }
-        }
-        
-        // Update featured tags
-        if (featuredTags) {
-          var tagsHtml = '';
-          if (state.currentSound.tags && state.currentSound.tags.length > 0) {
-            state.currentSound.tags.forEach(function(tag) {
-              tagsHtml += '<div class="tag">' + tag + '</div>';
-            });
-          } else {
-            tagsHtml = '<div class="tag">No tags</div>';
-          }
-          featuredTags.innerHTML = tagsHtml;
-        }
-        
-         // Update compact now playing
-         if (nowPlayingCompact) nowPlayingCompact.textContent = state.currentSound.name;
-         
-         // Update compact player info
-         if (compactPlayerInfo) compactPlayerInfo.textContent = state.currentSound.name;
-         
-         // Update footer player
-         if (footerTitle) footerTitle.textContent = state.currentSound.name;
-         if (footerArtist) footerArtist.textContent = state.currentSound.username;
-         if (footerArtwork) {
-           if (state.currentSound.images && state.currentSound.images.waveform_m) {
-             footerArtwork.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
-           } else {
-             footerArtwork.textContent = '🎵';
-           }
-         }
-        
-        // Update sound details
-        if (soundDetailsInfo) {
-          var detailsHtml = '<div style="text-align: left; font-size: 12px;">' +
-            '<strong>' + state.currentSound.name + '</strong><br/><br/>' +
-            '<strong>ID:</strong> ' + state.currentSound.id + '<br/>' +
-            '<strong>Duration:</strong> ' + state.currentSound.duration.toFixed(2) + 's<br/>' +
-            '<strong>Artist:</strong> ' + state.currentSound.username + '<br/>' +
-            '<strong>Channels:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A') + '<br/>' +
-            '<strong>Sample Rate:</strong> ' + (state.currentSound.buffer ? state.currentSound.buffer.sampleRate + 'Hz' : 'N/A') + '<br/>' +
-            '</div>';
-           soundDetailsInfo.innerHTML = detailsHtml;
-         }
-         
-         addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
-         
-         // Auto-play the selected sound
-         setTimeout(function() {
-           playCurrent();
-         }, 100);
-       }
-
-     function playCurrent() {
-       if (!state.currentSound || !state.currentSound.buffer) {
-         addStatus('❌ No sound selected or no buffer', 'error');
-         return;
-       }
-
-       if (state.isPlaying) return;
-
-       // Resume audio context if suspended (required by modern browsers)
-       if (state.audioContext.state === 'suspended') {
-         state.audioContext.resume();
-       }
-
-       state.playbackStartTime = state.audioContext.currentTime;
+    function renderSounds() {
+      var html = '';
       
+      if (state.sounds.length === 0) {
+        html = '<div class="empty-state">No sounds found. Try different search terms.</div>';
+      } else {
+        state.sounds.forEach(function(sound, idx) {
+          var duration = sound.duration ? sound.duration.toFixed(2) : 'N/A';
+          var waveformImg = sound.images && sound.images.waveform_m ? sound.images.waveform_m : null;
+          
+          html += '<div class="sound-item" onclick="selectSound(' + idx + ')">';
+          
+          if (waveformImg) {
+            html += '<div class="sound-item-waveform"><img src="' + waveformImg + '" alt="waveform"></div>';
+          } else {
+            html += '<div class="sound-item-waveform">🎵</div>';
+          }
+          
+          html += '<div class="sound-item-content">' +
+            '<div class="sound-item-name">' + sound.name + '</div>' +
+            '<div class="sound-item-meta">' +
+            '<div class="sound-item-meta-item">' +
+            '<div class="sound-item-meta-label">Duration</div>' +
+            '<div class="sound-item-meta-value">' + duration + 's</div>' +
+            '</div>' +
+            '<div class="sound-item-meta-item">' +
+            '<div class="sound-item-meta-label">Downloads</div>' +
+            '<div class="sound-item-meta-value">' + (sound.num_downloads || 0) + '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="sound-item-footer">By <strong>' + sound.username + '</strong></div>' +
+            '</div>' +
+            '</div>';
+        });
+      }
+      
+      document.getElementById('sounds-list').innerHTML = html;
+    }
+
+    function selectSound(idx) {
+      stopCurrent();
+      state.currentSound = state.sounds[idx];
+      
+      document.querySelectorAll('.sound-item').forEach(function(item, i) {
+        item.classList.toggle('active', i === idx);
+      });
+      
+      // Update featured panel
+      var featuredTitle = document.getElementById('featured-title');
+      var artworkEl = document.getElementById('featured-artwork');
+      var featuredMeta = document.getElementById('featured-meta');
+      var featuredTags = document.getElementById('featured-tags');
+      var footerTitle = document.getElementById('footer-title');
+      var footerArtist = document.getElementById('footer-artist');
+      var footerArtwork = document.getElementById('footer-artwork');
+      
+      if (featuredTitle) featuredTitle.textContent = state.currentSound.name;
+      
+      if (artworkEl) {
+        if (state.currentSound.images && state.currentSound.images.waveform_m) {
+          artworkEl.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
+        } else {
+          artworkEl.textContent = '🎵';
+        }
+      }
+      
+      // Update featured meta
+      if (featuredMeta) {
+        featuredMeta.innerHTML = '<div class="featured-meta-item">' +
+          '<div class="featured-meta-label">Duration</div>' +
+          '<div class="featured-meta-value">' + state.currentSound.duration.toFixed(2) + 's</div>' +
+          '</div>' +
+          '<div class="featured-meta-item">' +
+          '<div class="featured-meta-label">Artist</div>' +
+          '<div class="featured-meta-value">' + state.currentSound.username + '</div>' +
+          '</div>';
+      }
+      
+      if (featuredTags) {
+        var tagsHtml = '';
+        if (state.currentSound.tags && state.currentSound.tags.length > 0) {
+          state.currentSound.tags.forEach(function(tag) {
+            tagsHtml += '<button class="tag">' + tag + '</button>';
+          });
+        }
+        featuredTags.innerHTML = tagsHtml;
+      }
+      
+      // Update footer player
+      if (footerTitle) footerTitle.textContent = state.currentSound.name;
+      if (footerArtist) footerArtist.textContent = state.currentSound.username;
+      if (footerArtwork) {
+        if (state.currentSound.images && state.currentSound.images.waveform_m) {
+          footerArtwork.innerHTML = '<img src="' + state.currentSound.images.waveform_m + '" alt="waveform">';
+        } else {
+          footerArtwork.textContent = '🎵';
+        }
+      }
+      
+      // Update info panel
+      var infoDuration = document.getElementById('info-duration');
+      var infoFormat = document.getElementById('info-format');
+      var infoBitrate = document.getElementById('info-bitrate');
+      var infoChannels = document.getElementById('info-channels');
+      
+      if (infoDuration) infoDuration.textContent = state.currentSound.duration.toFixed(2) + 's';
+      if (infoFormat) infoFormat.textContent = state.currentSound.filesize ? 'Audio' : 'N/A';
+      if (infoBitrate) infoBitrate.textContent = state.currentSound.bitrate ? (state.currentSound.bitrate / 1000) + 'k' : 'N/A';
+      if (infoChannels) infoChannels.textContent = state.currentSound.buffer ? state.currentSound.buffer.numberOfChannels : 'N/A';
+      
+      // Enable download button
+      var downloadBtn = document.getElementById('download-hq-btn');
+      if (downloadBtn) downloadBtn.disabled = false;
+      
+      addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
+      
+      // Auto-play
+      setTimeout(function() {
+        playCurrent();
+      }, 100);
+    }
+
+    function playCurrent() {
+      if (!state.currentSound || !state.currentSound.buffer) {
+        addStatus('❌ No sound selected or no buffer', 'error');
+        return;
+      }
+
+      if (state.isPlaying) return;
+
+      if (state.audioContext.state === 'suspended') {
+        state.audioContext.resume();
+      }
+
+      state.playbackStartTime = state.audioContext.currentTime;
+     
       var src = state.audioContext.createBufferSource();
       src.buffer = state.currentSound.buffer;
       
@@ -1705,154 +1425,93 @@
       state.currentGain.connect(state.analyser);
       state.analyser.connect(state.analyserFreq);
       
-       src.onended = function() {
-          state.isPlaying = false;
-          
-          // Update button states (with null checks for commented-out elements)
-          var playBtn = document.getElementById('playBtn');
-          var pauseBtn = document.getElementById('pauseBtn');
-          var compactPlayer = document.getElementById('compactPlayer');
-          var footerPlayBtn = document.getElementById('footerPlayBtn');
-          var footerPauseBtn = document.getElementById('footerPauseBtn');
-          
-          if (playBtn) playBtn.style.display = 'block';
-          if (pauseBtn) pauseBtn.style.display = 'none';
-          if (compactPlayer) compactPlayer.style.display = 'none';
-          if (footerPlayBtn) footerPlayBtn.style.display = 'block';
-          if (footerPauseBtn) footerPauseBtn.style.display = 'none';
-        };
+      src.onended = function() {
+        state.isPlaying = false;
+        var footerPlayBtn = document.getElementById('footer-play-btn');
+        var footerPauseBtn = document.getElementById('footer-pause-btn');
+        
+        if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+        if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+      };
+     
+      src.start(0);
+      state.currentSource = src;
+      state.isPlaying = true;
       
-       src.start(0);
-       state.currentSource = src;
-       state.isPlaying = true;
-       
-       // Update button states (with null checks for commented-out elements)
-       var playBtnMini = document.getElementById('playBtnMini');
-       var pauseBtnMini = document.getElementById('pauseBtnMini');
-       var compactPlayBtn = document.getElementById('compactPlayBtn');
-       var compactPauseBtn = document.getElementById('compactPauseBtn');
-       var compactPlayer = document.getElementById('compactPlayer');
-       var totalTime = document.getElementById('totalTime');
-       
-       if (playBtnMini) playBtnMini.style.display = 'none';
-       if (pauseBtnMini) pauseBtnMini.style.display = 'block';
-       if (compactPlayBtn) compactPlayBtn.style.display = 'none';
-       if (compactPauseBtn) compactPauseBtn.style.display = 'block';
-        if (compactPlayer) compactPlayer.style.display = 'flex';
-        if (totalTime) totalTime.textContent = formatTime(state.currentSound.duration);
-        
-        var footerTotalTime = document.getElementById('footerTotalTime');
-        var footerPlayBtnPlayState = document.getElementById('footerPlayBtn');
-        var footerPauseBtnPlayState = document.getElementById('footerPauseBtn');
-        
-        if (footerTotalTime) footerTotalTime.textContent = formatTime(state.currentSound.duration);
-        if (footerPlayBtnPlayState) footerPlayBtnPlayState.style.display = 'none';
-        if (footerPauseBtnPlayState) footerPauseBtnPlayState.style.display = 'block';
-        
-        addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
+      var footerPlayBtn = document.getElementById('footer-play-btn');
+      var footerPauseBtn = document.getElementById('footer-pause-btn');
+      var footerTotalTime = document.getElementById('footer-total-time');
+      
+      if (footerPlayBtn) footerPlayBtn.style.display = 'none';
+      if (footerPauseBtn) footerPauseBtn.style.display = 'block';
+      if (footerTotalTime) footerTotalTime.textContent = formatTime(state.currentSound.duration);
+      
+      addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
     }
 
-      function pauseCurrent() {
-        if (state.audioContext.state === 'running') {
-          state.audioContext.suspend();
-          state.isPlaying = false;
-          
-          // Update button states (with null checks for commented-out elements)
-          var pauseBtnMini = document.getElementById('pauseBtnMini');
-          var playBtnMini = document.getElementById('playBtnMini');
-          var compactPauseBtn = document.getElementById('compactPauseBtn');
-          var compactPlayBtn = document.getElementById('compactPlayBtn');
-          var footerPauseBtn = document.getElementById('footerPauseBtn');
-          var footerPlayBtn = document.getElementById('footerPlayBtn');
-          
-          if (pauseBtnMini) pauseBtnMini.style.display = 'none';
-          if (playBtnMini) playBtnMini.style.display = 'block';
-          if (compactPauseBtn) compactPauseBtn.style.display = 'none';
-          if (compactPlayBtn) compactPlayBtn.style.display = 'block';
-          if (footerPauseBtn) footerPauseBtn.style.display = 'none';
-          if (footerPlayBtn) footerPlayBtn.style.display = 'block';
-          
-          addStatus('⏸️ Paused', 'success');
-        }
+    function pauseCurrent() {
+      if (state.audioContext.state === 'running') {
+        state.audioContext.suspend();
+        state.isPlaying = false;
+        
+        var footerPauseBtn = document.getElementById('footer-pause-btn');
+        var footerPlayBtn = document.getElementById('footer-play-btn');
+        
+        if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+        if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+        
+        addStatus('⏸️ Paused', 'success');
       }
+    }
 
-     function stopCurrent() {
-       if (state.currentSource) {
-         try {
-           state.currentSource.stop(0);
-         } catch(e) {}
-       }
-       state.isPlaying = false;
-       
-       // Update button states (with null checks for commented-out elements)
-       var playBtnMini = document.getElementById('playBtnMini');
-       var pauseBtnMini = document.getElementById('pauseBtnMini');
-       var compactPlayer = document.getElementById('compactPlayer');
-       var compactPlayBtn = document.getElementById('compactPlayBtn');
-       var compactPauseBtn = document.getElementById('compactPauseBtn');
-       var progressFill = document.getElementById('progressFill');
-       var currentTime = document.getElementById('currentTime');
-       var nowPlayingCompact = document.getElementById('nowPlayingCompact');
-       
-       if (playBtnMini) playBtnMini.style.display = 'block';
-       if (pauseBtnMini) pauseBtnMini.style.display = 'none';
-       if (compactPlayer) compactPlayer.style.display = 'none';
-       if (compactPlayBtn) compactPlayBtn.style.display = 'block';
-       if (compactPauseBtn) compactPauseBtn.style.display = 'none';
-       if (progressFill) progressFill.style.width = '0%';
-       if (currentTime) currentTime.textContent = '0:00';
-        if (nowPlayingCompact) nowPlayingCompact.textContent = '— No sound selected —';
-        
-        // Update footer (with null checks)
-        var footerPlayBtnStop = document.getElementById('footerPlayBtn');
-        var footerPauseBtnStop = document.getElementById('footerPauseBtn');
-        var footerProgressFill = document.getElementById('footerProgressFill');
-        var footerCurrentTime = document.getElementById('footerCurrentTime');
-        
-        if (footerPlayBtnStop) footerPlayBtnStop.style.display = 'block';
-        if (footerPauseBtnStop) footerPauseBtnStop.style.display = 'none';
-        if (footerProgressFill) footerProgressFill.style.width = '0%';
-        if (footerCurrentTime) footerCurrentTime.textContent = '0:00';
-        addStatus('⏹️ Stopped', 'success');
-     }
+    function stopCurrent() {
+      if (state.currentSource) {
+        try {
+          state.currentSource.stop(0);
+        } catch(e) {}
+      }
+      state.isPlaying = false;
+      
+      var footerPlayBtn = document.getElementById('footer-play-btn');
+      var footerPauseBtn = document.getElementById('footer-pause-btn');
+      var footerProgressFill = document.getElementById('footer-progress-fill');
+      var footerCurrentTime = document.getElementById('footer-current-time');
+      
+      if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+      if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+      if (footerProgressFill) footerProgressFill.style.width = '0%';
+      if (footerCurrentTime) footerCurrentTime.textContent = '0:00';
+      
+      addStatus('⏹️ Stopped', 'success');
+    }
 
-     function updateStats() {
-       document.getElementById('statsFound').textContent = state.sounds.length;
-       document.getElementById('statsDownloaded').textContent = state.sounds.length;
-       
-       var totalDuration = state.sounds.reduce(function(sum, sound) {
-         return sum + (sound.duration || 0);
-       }, 0);
-       
-       var avgDuration = state.sounds.length > 0 ? totalDuration / state.sounds.length : 0;
-       
-       document.getElementById('statsDuration').textContent = totalDuration.toFixed(1) + 's';
-       document.getElementById('statsAvgDuration').textContent = avgDuration.toFixed(1) + 's';
-     }
+    function updateStats() {
+      document.getElementById('stat-results').textContent = state.sounds.length;
+      document.getElementById('stat-played').textContent = state.sounds.length;
+    }
 
-     function formatTime(seconds) {
+    function formatTime(seconds) {
       var mins = Math.floor(seconds / 60);
       var secs = Math.floor(seconds % 60);
       return mins + ':' + (secs < 10 ? '0' : '') + secs;
     }
 
-     function drawWaveform() {
-       if (!waveformCtx || !waveformCanvas) return;
-       
-       var bufferLength = state.analyser.frequencyBinCount;
-       var dataArray = new Uint8Array(bufferLength);
-       state.analyser.getByteFrequencyData(dataArray);
+    function drawWaveform() {
+      if (!waveformCtx || !waveformCanvas) return;
+      
+      var bufferLength = state.analyser.frequencyBinCount;
+      var dataArray = new Uint8Array(bufferLength);
+      state.analyser.getByteFrequencyData(dataArray);
 
-       waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-       waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+      waveformCtx.fillStyle = '#0a0e1b';
+      waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
 
-       waveformCtx.lineWidth = 2;
-       var gradient = waveformCtx.createLinearGradient(0, 0, waveformCanvas.width, 0);
-       gradient.addColorStop(0, '#a78bfa');
-       gradient.addColorStop(0.5, '#f472b6');
-       gradient.addColorStop(1, '#f87171');
-       waveformCtx.strokeStyle = gradient;
-       waveformCtx.beginPath();
+      waveformCtx.lineWidth = 2;
+      var gradient = waveformCtx.createLinearGradient(0, 0, waveformCanvas.width, 0);
+      gradient.addColorStop(0, '#4f9eff');
+      gradient.addColorStop(1, '#4f9eff');
+      waveformCtx.strokeStyle = gradient;
+      waveformCtx.beginPath();
 
       var sliceWidth = waveformCanvas.width / bufferLength;
       var x = 0;
@@ -1873,14 +1532,14 @@
     }
 
     function drawFrequency() {
-       if (!frequencyCtx || !frequencyCanvas) return;
-       
-       var bufferLength = state.analyserFreq.frequencyBinCount;
-       var dataArray = new Uint8Array(bufferLength);
-       state.analyserFreq.getByteFrequencyData(dataArray);
+      if (!frequencyCtx || !frequencyCanvas) return;
+      
+      var bufferLength = state.analyserFreq.frequencyBinCount;
+      var dataArray = new Uint8Array(bufferLength);
+      state.analyserFreq.getByteFrequencyData(dataArray);
 
-       frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-       frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+      frequencyCtx.fillStyle = '#0a0e1b';
+      frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
 
       var barWidth = (frequencyCanvas.width / bufferLength) * 2.5;
       var x = 0;
@@ -1896,48 +1555,43 @@
       }
     }
 
-      function updatePlayback() {
-        if (!state.isPlaying || !state.currentSound) return;
+    function updatePlayback() {
+      if (!state.isPlaying || !state.currentSound) return;
 
-        var elapsed = state.audioContext.currentTime - state.playbackStartTime;
-        var duration = state.currentSound.duration;
-        var progress = (elapsed / duration) * 100;
+      var elapsed = state.audioContext.currentTime - state.playbackStartTime;
+      var duration = state.currentSound.duration;
+      var progress = (elapsed / duration) * 100;
 
-        // Update progress fill (with null checks for commented-out elements)
-        var progressFill = document.getElementById('progressFill');
-        var currentTime = document.getElementById('currentTime');
-        var footerProgressFill = document.getElementById('footerProgressFill');
-        var footerCurrentTime = document.getElementById('footerCurrentTime');
-        
-        if (progressFill) progressFill.style.width = Math.min(progress, 100) + '%';
-        if (currentTime) currentTime.textContent = formatTime(elapsed);
-        if (footerProgressFill) footerProgressFill.style.width = Math.min(progress, 100) + '%';
-        if (footerCurrentTime) footerCurrentTime.textContent = formatTime(elapsed);
+      var footerProgressFill = document.getElementById('footer-progress-fill');
+      var footerCurrentTime = document.getElementById('footer-current-time');
+      
+      if (footerProgressFill) footerProgressFill.style.width = Math.min(progress, 100) + '%';
+      if (footerCurrentTime) footerCurrentTime.textContent = formatTime(elapsed);
+    }
+
+    function animate() {
+      if (state.isPlaying) {
+        drawWaveform();
+        drawFrequency();
+        updatePlayback();
+      } else {
+        if (waveformCtx && waveformCanvas) {
+          waveformCtx.fillStyle = '#0a0e1b';
+          waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+        }
+        if (frequencyCtx && frequencyCanvas) {
+          frequencyCtx.fillStyle = '#0a0e1b';
+          frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
+        }
       }
 
-     function animate() {
-       if (state.isPlaying) {
-         drawWaveform();
-         drawFrequency();
-         updatePlayback();
-       } else {
-         if (waveformCtx && waveformCanvas) {
-           waveformCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-           waveformCtx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
-         }
-         if (frequencyCtx && frequencyCanvas) {
-           frequencyCtx.fillStyle = 'rgba(10, 14, 39, 0.5)';
-           frequencyCtx.fillRect(0, 0, frequencyCanvas.width, frequencyCanvas.height);
-         }
-       }
+      state.animationId = requestAnimationFrame(animate);
+    }
 
-       state.animationId = requestAnimationFrame(animate);
-     }
-
-    // Progress bar click handler (if element exists)
-    var progressBar = document.getElementById('progressBar');
-    if (progressBar) {
-      progressBar.addEventListener('click', function(e) {
+    // Progress bar click handler
+    var footerProgressBar = document.getElementById('footer-progress-bar');
+    if (footerProgressBar) {
+      footerProgressBar.addEventListener('click', function(e) {
         if (!state.isPlaying || !state.currentSound) return;
         
         var rect = this.getBoundingClientRect();
@@ -1949,21 +1603,20 @@
         playCurrent();
       });
     }
-    
-    // Footer progress bar click handler
-    document.getElementById('footerProgressBar').addEventListener('click', function(e) {
-      if (!state.isPlaying || !state.currentSound) return;
-      
-      var rect = this.getBoundingClientRect();
-      var percent = (e.clientX - rect.left) / rect.width;
-      var newTime = percent * state.currentSound.duration;
-      
-      stopCurrent();
-      state.playbackStartTime = state.audioContext.currentTime - newTime;
-      playCurrent();
-    });
 
-    // Initialize
+    // Add search button click handler
+    var searchBtn = document.getElementById('search-btn');
+    if (searchBtn) {
+      searchBtn.addEventListener('click', performSearch);
+    }
+
+    // Add download button click handler
+    var downloadBtn = document.getElementById('download-hq-btn');
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', downloadCurrentSound);
+    }
+
+    // Initialize on load
     init();
   </script>
 </body>
