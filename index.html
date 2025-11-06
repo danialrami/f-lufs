@@ -803,15 +803,24 @@
       flex-wrap: wrap;
     }
     
+    @keyframes buttonFloat {
+      0%, 100% { 
+        transform: translateY(0px); 
+      }
+      50% { 
+        transform: translateY(-3px); 
+      }
+    }
+    
     .button-link {
       display: inline-block;
       text-decoration: none;
-      transition: transform 0.2s, filter 0.2s;
+      animation: buttonFloat 2s ease-in-out infinite;
+      transition: filter 0.2s;
     }
     
     .button-link:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
+      filter: brightness(0.9);
     }
     
     .button-link svg {
@@ -1048,9 +1057,8 @@
            <h2>About</h2>
            <div class="about-content">
              <p class="about-description">
-               F.LUFS is an audio discovery and playback interface powered by Freesound.org. 
-               Search, preview, and download high-quality sound samples with an intuitive, 
-               Spotify-like interface built with vanilla JavaScript and the Web Audio API.
+               F.LUFS is an audio discovery and playback interface powered by Freesound and the simple-freesound library. 
+               Search, preview, and download high-quality free audio.
              </p>
              <div class="about-links">
                <a href="https://lufs.audio" target="_blank" title="LUFS Audio" class="button-link">

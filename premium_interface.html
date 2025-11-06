@@ -803,15 +803,24 @@
       flex-wrap: wrap;
     }
     
+    @keyframes buttonFloat {
+      0%, 100% { 
+        transform: translateY(0px); 
+      }
+      50% { 
+        transform: translateY(-3px); 
+      }
+    }
+    
     .button-link {
       display: inline-block;
       text-decoration: none;
-      transition: transform 0.2s, filter 0.2s;
+      animation: buttonFloat 2s ease-in-out infinite;
+      transition: filter 0.2s;
     }
     
     .button-link:hover {
-      transform: scale(1.05);
-      filter: brightness(1.1);
+      filter: brightness(0.9);
     }
     
     .button-link svg {
