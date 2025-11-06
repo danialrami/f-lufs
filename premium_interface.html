@@ -1064,11 +1064,13 @@
       sounds: [],
       statuses: [],
       isPlaying: false,
+      isPaused: false,
       startTime: 0,
       analyser: null,
       analyserFreq: null,
       animationId: null,
-      playbackStartTime: null
+      playbackStartTime: null,
+      pausedTime: 0
     };
 
     // Canvas setup for visualizers
@@ -1407,13 +1409,21 @@
         return;
       }
 
-      if (state.isPlaying) return;
+      // Always stop any existing playback to prevent layering
+      if (state.currentSource) {
+        try {
+          state.currentSource.stop(0);
+        } catch(e) {}
+      }
 
       if (state.audioContext.state === 'suspended') {
         state.audioContext.resume();
       }
 
-      state.playbackStartTime = state.audioContext.currentTime;
+      // If resuming from pause, use the paused time; otherwise start from beginning
+      var startOffset = state.isPaused ? state.pausedTime : 0;
+      state.playbackStartTime = state.audioContext.currentTime - startOffset;
+      state.isPaused = false;
      
       var src = state.audioContext.createBufferSource();
       src.buffer = state.currentSound.buffer;
@@ -1427,6 +1437,8 @@
       
       src.onended = function() {
         state.isPlaying = false;
+        state.isPaused = false;
+        state.pausedTime = 0;
         var footerPlayBtn = document.getElementById('footer-play-btn');
         var footerPauseBtn = document.getElementById('footer-pause-btn');
         
@@ -1434,7 +1446,7 @@
         if (footerPauseBtn) footerPauseBtn.style.display = 'none';
       };
      
-      src.start(0);
+      src.start(0, startOffset);
       state.currentSource = src;
       state.isPlaying = true;
       
@@ -1446,22 +1458,35 @@
       if (footerPauseBtn) footerPauseBtn.style.display = 'block';
       if (footerTotalTime) footerTotalTime.textContent = formatTime(state.currentSound.duration);
       
-      addStatus('▶️ Playing: ' + state.currentSound.name, 'success');
+      addStatus(state.isPaused ? '▶️ Resumed' : '▶️ Playing: ' + state.currentSound.name, 'success');
     }
 
     function pauseCurrent() {
-      if (state.audioContext.state === 'running') {
-        state.audioContext.suspend();
-        state.isPlaying = false;
-        
-        var footerPauseBtn = document.getElementById('footer-pause-btn');
-        var footerPlayBtn = document.getElementById('footer-play-btn');
-        
-        if (footerPauseBtn) footerPauseBtn.style.display = 'none';
-        if (footerPlayBtn) footerPlayBtn.style.display = 'block';
-        
-        addStatus('⏸️ Paused', 'success');
+      if (!state.isPlaying) {
+        addStatus('❌ No sound playing', 'error');
+        return;
       }
+
+      // Save the current playback position
+      state.pausedTime = state.audioContext.currentTime - state.playbackStartTime;
+      
+      // Stop the current source
+      if (state.currentSource) {
+        try {
+          state.currentSource.stop(0);
+        } catch(e) {}
+      }
+      
+      state.isPlaying = false;
+      state.isPaused = true;
+      
+      var footerPauseBtn = document.getElementById('footer-pause-btn');
+      var footerPlayBtn = document.getElementById('footer-play-btn');
+      
+      if (footerPauseBtn) footerPauseBtn.style.display = 'none';
+      if (footerPlayBtn) footerPlayBtn.style.display = 'block';
+      
+      addStatus('⏸️ Paused at ' + formatTime(state.pausedTime), 'success');
     }
 
     function stopCurrent() {
@@ -1471,6 +1496,8 @@
         } catch(e) {}
       }
       state.isPlaying = false;
+      state.isPaused = false;
+      state.pausedTime = 0;
       
       var footerPlayBtn = document.getElementById('footer-play-btn');
       var footerPauseBtn = document.getElementById('footer-pause-btn');
