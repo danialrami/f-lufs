@@ -1005,7 +1005,7 @@
           
            <h3>Download</h3>
             <div class="download-section">
-              <button id="download-btn" onclick="downloadCurrentSound()" disabled>Download</button>
+              <button id="download-btn" disabled>Download</button>
             </div>
         </div>
         
@@ -1080,7 +1080,12 @@
 
     // Download current sound
     var isDownloading = false;
-    function downloadCurrentSound() {
+    function downloadCurrentSound(e) {
+      // Prevent double firing from both onclick and addEventListener
+      if (e && e.type === 'click' && isDownloading) {
+        return;
+      }
+
       if (!state.currentSound || !state.currentSound.buffer) {
         addStatus('❌ No sound selected or buffer unavailable', 'error');
         return;
@@ -1101,19 +1106,25 @@
         var blob = new Blob([wav], { type: 'audio/wav' });
         var url = URL.createObjectURL(blob);
         
+        // Clean up filename - remove existing extensions before adding .wav
+        var filename = (state.currentSound.name || 'sound').replace(/\.(wav|mp3|ogg|flac)$/i, '');
+        
         var link = document.createElement('a');
         link.href = url;
-        link.download = (state.currentSound.name || 'sound') + '.wav';
+        link.download = filename + '.wav';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        addStatus('✅ Downloaded: ' + state.currentSound.name, 'success');
+        addStatus('✅ Downloaded: ' + filename + '.wav', 'success');
       } catch (error) {
         addStatus('❌ Download failed: ' + error.message, 'error');
       } finally {
-        isDownloading = false;
+        // Add a small delay before resetting flag to prevent rapid successive calls
+        setTimeout(function() {
+          isDownloading = false;
+        }, 500);
       }
     }
 
