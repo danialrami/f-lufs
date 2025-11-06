@@ -1038,7 +1038,7 @@
     <div class="player-footer-controls">
       <button id="footer-play-btn" onclick="playCurrent()">Play</button>
       <button id="footer-pause-btn" onclick="pauseCurrent()" style="display: none;">Pause</button>
-      <button id="footer-stop-btn" class="btn-secondary" onclick="stopCurrent()">Stop</button>
+      <button id="footer-stop-btn" class="btn-secondary" onclick="stopCurrent(true)">Stop</button>
     </div>
     
     <div class="player-footer-progress">
@@ -1512,16 +1512,20 @@
       addStatus('⏸️ Paused at ' + formatTime(state.pausedTime), 'success');
     }
 
-    function stopCurrent() {
-      console.log('[stopCurrent] resetting pausedTime from:', state.pausedTime, 'isPaused:', state.isPaused);
+    function stopCurrent(fullStop) {
+      console.log('[stopCurrent] resetting pausedTime from:', state.pausedTime, 'isPaused:', state.isPaused, 'fullStop:', fullStop);
       if (state.currentSource) {
         try {
           state.currentSource.stop(0);
         } catch(e) {}
       }
       state.isPlaying = false;
-      state.isPaused = false;
-      state.pausedTime = 0;
+      
+      // Only reset pause state on a full stop (explicit user stop), not on internal stops
+      if (fullStop) {
+        state.isPaused = false;
+        state.pausedTime = 0;
+      }
       
       var footerPlayBtn = document.getElementById('footer-play-btn');
       var footerPauseBtn = document.getElementById('footer-pause-btn');
