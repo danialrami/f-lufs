@@ -1421,6 +1421,7 @@
 
       // Check if this is a resume from pause BEFORE we modify any state
       var isResume = state.isPaused;
+      console.log('[playCurrent] isResume:', isResume, 'pausedTime:', state.pausedTime, 'isPlaying:', state.isPlaying);
       
       // Always stop any existing playback to prevent layering
       if (state.currentSource) {
@@ -1435,7 +1436,9 @@
 
       // If resuming from pause, use the paused time; otherwise start from beginning
       var startOffset = isResume ? state.pausedTime : 0;
+      console.log('[playCurrent] startOffset:', startOffset, 'audioContext.currentTime:', state.audioContext.currentTime);
       state.playbackStartTime = state.audioContext.currentTime - startOffset;
+      console.log('[playCurrent] playbackStartTime set to:', state.playbackStartTime);
       state.isPaused = false;
      
       var src = state.audioContext.createBufferSource();
@@ -1459,6 +1462,7 @@
         if (footerPauseBtn) footerPauseBtn.style.display = 'none';
       };
      
+      console.log('[playCurrent] calling src.start(0, ' + startOffset + ')');
       src.start(0, startOffset);
       state.currentSource = src;
       state.isPlaying = true;
@@ -1483,6 +1487,7 @@
 
       // Save the current playback position
       state.pausedTime = state.audioContext.currentTime - state.playbackStartTime;
+      console.log('[pauseCurrent] audioContext.currentTime:', state.audioContext.currentTime, 'playbackStartTime:', state.playbackStartTime, 'pausedTime:', state.pausedTime);
       
       // Stop the current source
       if (state.currentSource) {
@@ -1504,6 +1509,7 @@
     }
 
     function stopCurrent() {
+      console.log('[stopCurrent] resetting pausedTime from:', state.pausedTime, 'isPaused:', state.isPaused);
       if (state.currentSource) {
         try {
           state.currentSource.stop(0);
