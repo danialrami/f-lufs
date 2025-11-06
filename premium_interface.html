@@ -1234,19 +1234,20 @@
     }
 
     function addStatus(message, type) {
-      state.statuses.push({ message: message, type: type, time: new Date() });
-      if (state.statuses.length > 10) state.statuses.shift();
+      // Only keep the current status, replace previous ones
+      state.statuses = [{ message: message, type: type, time: new Date() }];
       renderStatuses();
       console.log('[' + type + '] ' + message);
     }
 
     function renderStatuses() {
       var html = '';
-      state.statuses.forEach(function(status) {
+      if (state.statuses.length > 0) {
+        var status = state.statuses[0];
         var emoji = status.type === 'loading' ? '<span class="spinner">⟳</span>' : 
                     status.type === 'success' ? '✅' : '❌';
-        html += '<div class="status-item ' + status.type + '">' + emoji + ' ' + status.message + '</div>';
-      });
+        html = '<div class="status-item ' + status.type + '">' + emoji + ' ' + status.message + '</div>';
+      }
       document.getElementById('status-container').innerHTML = html;
     }
 
