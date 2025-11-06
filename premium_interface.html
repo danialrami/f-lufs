@@ -1219,9 +1219,20 @@
         state.analyserFreq = state.audioContext.createAnalyser();
         state.analyserFreq.fftSize = 256;
         
-        var apiKey = '4YST5apu7d956qSx6Zdf7NmZV7yrP9b5XMelqMdd';
-        state.sf = new simpleFreesound.SimpleFreesound(apiKey, true);
-        addStatus('✅ Initialized', 'success');
+        // Check backend health
+        fetch('/api/health')
+          .then(function(response) { return response.json(); })
+          .then(function(data) {
+            if (data.apiKeyLoaded) {
+              addStatus('✅ Initialized (backend ready)', 'success');
+            } else {
+              addStatus('⚠️ Backend missing API key', 'error');
+            }
+          })
+          .catch(function(error) {
+            addStatus('⚠️ Backend unavailable - running in offline mode', 'error');
+            console.warn('Backend not available:', error);
+          });
         
         setupRangeSliders();
         setupSearchEnter();
@@ -1250,11 +1261,6 @@
     }
 
     function performSearch() {
-      if (!state.sf) {
-        addStatus('❌ Not initialized', 'error');
-        return;
-      }
-
       stopCurrent();
 
       var searchTerms = document.getElementById('query').value.trim().split(',').map(function(s) { return s.trim(); });
@@ -1267,21 +1273,32 @@
 
       addStatus('🔍 Searching for: ' + searchTerms.join(', '), 'loading');
 
-      state.sf.query({
-        search: searchTerms,
-        duration: [0, duration]
+      // Call backend search API
+      fetch('/api/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          search: searchTerms,
+          duration: [0, duration]
+        })
       })
-      .then(function() {
-        var count = Object.keys(state.sf.currentSoundsInfo).length;
-        addStatus('📥 Downloading ' + count + ' sounds...', 'loading');
-        return state.sf.download();
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Search request failed: ' + response.statusText);
+        }
+        return response.json();
       })
-      .then(function() {
-        state.sounds = Object.keys(state.sf.currentSoundsInfo).map(function(id) {
-          return state.sf.currentSoundsInfo[id];
-        });
+      .then(function(data) {
+        state.sounds = data.results || [];
         
-        addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+        if (state.sounds.length === 0) {
+          addStatus('❌ No sounds found. Try different search terms.', 'error');
+        } else {
+          addStatus('✅ Found ' + state.sounds.length + ' sounds!', 'success');
+        }
+        
         renderSounds();
         updateStats();
       })
@@ -1407,10 +1424,42 @@
       
       addStatus('🎵 Selected: ' + state.currentSound.name, 'success');
       
-      // Auto-play
-      setTimeout(function() {
-        playCurrent();
-      }, 100);
+      // Load audio from preview URL
+      loadAudioPreview();
+    }
+    
+    function loadAudioPreview() {
+      if (!state.currentSound || !state.currentSound.previews) {
+        addStatus('❌ No audio preview available', 'error');
+        return;
+      }
+
+      // Use the mp3 preview from Freesound API
+      var previewUrl = state.currentSound.previews['preview-hq-mp3'];
+      
+      if (!previewUrl) {
+        addStatus('❌ No audio preview available', 'error');
+        return;
+      }
+
+      addStatus('📥 Loading audio...', 'loading');
+
+      var loader = new loaders.AudioBufferLoader();
+      loader.load(previewUrl, {
+        audioContext: state.audioContext,
+        onprogress: function(progress) {
+          console.log('Loading progress:', (progress * 100).toFixed(1) + '%');
+        },
+        onsuccess: function(buffer) {
+          state.currentSound.buffer = buffer;
+          addStatus('✅ Audio ready', 'success');
+          playCurrent();
+        },
+        onerror: function(error) {
+          addStatus('❌ Audio load failed: ' + error, 'error');
+          console.error('Audio loading error:', error);
+        }
+      });
     }
 
     function playCurrent() {

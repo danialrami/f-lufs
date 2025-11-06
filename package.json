@@ -12,7 +12,9 @@
     "prewatch": "npm run transpile",
     "transpile": "node ./bin/runner --transpile",
     "test": "babel-tape-runner test/*_tests.js | tap-spec",
-    "watch": "node ./bin/runner --watch"
+    "watch": "node ./bin/runner --watch",
+    "dev": "node backend/server.js",
+    "start": "node backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +22,10 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.11",
     "waves-loaders": "^0.1.2",
     "xmlhttprequest": "1.8.0"
   },
